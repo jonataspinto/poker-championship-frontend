@@ -1,16 +1,20 @@
-import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import React from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Layout } from "./components/modules";
+
 import {
-    /* PLOP_ROUTE_IMPORT */
-  Home
-} from './containers';
+  Home,
+  Login,
+} from "./containers";
 
 export default function Routes() {
   return (
     <BrowserRouter>
       <Switch>
-          /* PLOP_INJECT_ROUTE */
-        <Route exact path="/" component={Home} />
+        <Layout>
+          <Route exact path="/" component={Home} />
+          <Route path="/login" component={Login} />
+        </Layout>
       </Switch>
     </BrowserRouter>
   );

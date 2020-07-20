@@ -1,3 +1,3 @@
-export const LANG ={
-    
-}
+export const LANG = {
+
+};

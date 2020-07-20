@@ -1,7 +1,2 @@
-/* PLOP_INJECT_IMPORT */
-import {Home} from './Home'
-
-export {
-    /* PLOP_INJECT_EXPORT */
-    Home
-  }
+export { Home } from "./Home";
+export { Login } from "./Login";

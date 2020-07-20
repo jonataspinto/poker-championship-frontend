@@ -1,0 +1,60 @@
+export default {
+  players: [
+    {
+      podiums: {
+        first: 0,
+        second: 0,
+        third: 0,
+      },
+      _id: "5f0f83e686d8b55145081c6c",
+      name: "joao pedro",
+      dateBirth: "23-09-2003",
+      photoUrl: "",
+      serie: "A",
+      points: 0,
+      __v: 0,
+    },
+    {
+      podiums: {
+        first: 0,
+        second: 0,
+        third: 0,
+      },
+      _id: "5f0f84e3c2b3ef52077b80ba",
+      name: "jackson",
+      dateBirth: "07-08-1998",
+      photoUrl: "",
+      serie: "A",
+      points: 0,
+      __v: 0,
+    },
+    {
+      podiums: {
+        first: 0,
+        second: 0,
+        third: 0,
+      },
+      _id: "5f0f853b7f2c525267dab61e",
+      name: "andre junior",
+      dateBirth: "07-08-1996",
+      photoUrl: "",
+      serie: "A",
+      points: 0,
+      __v: 0,
+    },
+    {
+      podiums: {
+        first: 0,
+        second: 0,
+        third: 0,
+      },
+      _id: "5f0fd4ea6d47071e80d6fb1a",
+      name: "tiririca",
+      dateBirth: "07-08-1996",
+      photoUrl: "",
+      points: 0,
+      serie: "A",
+      __v: 0,
+    },
+  ],
+};
