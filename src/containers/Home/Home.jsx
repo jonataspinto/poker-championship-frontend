@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 import { UserTie } from "styled-icons/fa-solid";
 import { uuid } from "uuidv4";
-import { playersActions } from "../../store/duks";
+import { playersActions, userActions } from "../../store/duks";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -50,6 +50,10 @@ const Home = () => {
     setPlayers(playersReducer.data.players);
   }, [playersReducer]);
 
+  useEffect(() => {
+    dispatch(userActions.get());
+  }, []);
+
   return (
     <>
       <TableContainer component={Paper}>
@@ -68,7 +72,7 @@ const Home = () => {
             {players && players.map((player, index) => (
               <TableRow key={player._id}>
                 <TableCell component="th" scope="row">
-                  {`${index} º`}
+                  {`${index + 1} º`}
                 </TableCell>
                 <TableCell component="th" scope="row" className={classes.wrapperAvatar}>
                   <Avatar

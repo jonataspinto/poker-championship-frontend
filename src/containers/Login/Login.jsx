@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import {
   makeStyles,
   Grid,
@@ -17,7 +18,7 @@ import {
 import { Google } from "styled-icons/boxicons-logos";
 import { UserTie } from "styled-icons/fa-solid";
 
-import { LoginGoogle } from "../../config/firebase/auth";
+import { userActions } from "../../store/duks";
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -46,6 +47,25 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = () => {
   const classes = useStyles();
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  const {
+    user,
+    isAuthenticated,
+  } = useSelector((state) => state.userReducer);
+
+  useEffect(() => {
+    dispatch(userActions.get());
+  }, []);
+
+  useEffect(() => {
+    if (user && isAuthenticated) {
+      const redirectPath = "/";
+
+      history.push(redirectPath);
+    }
+  }, [user, isAuthenticated]);
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -110,7 +130,7 @@ const Login = () => {
             color="secondary"
             margin="normal"
             fullWidth
-            onClick={() => LoginGoogle()}
+            onClick={() => dispatch(userActions.authGoogle())}
             className={classes.google}
           >
             <Google style={{ width: "24px", marginRight: "10px" }} />
