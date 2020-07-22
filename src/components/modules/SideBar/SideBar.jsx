@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Drawer,
@@ -8,9 +9,10 @@ import {
   ListItem,
   ListItemText,
 } from "@material-ui/core";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+import { ExitToApp, LockOpen } from "@material-ui/icons";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
+import { useDispatch, useSelector } from "react-redux";
+import { userActions } from "../../../store/duks";
 
 const useStyles = makeStyles({
   list: {
@@ -23,6 +25,12 @@ const useStyles = makeStyles({
 
 const SideBar = ({ anchor, setAnchor }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const {
+    user,
+    isAuthenticated,
+  } = useSelector((state) => state.userReducer);
 
   const list = () => (
     <div
@@ -32,28 +40,25 @@ const SideBar = ({ anchor, setAnchor }) => {
       onKeyDown={setAnchor()}
     >
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => {
-          const Ukey = index;
-          return (
-            <ListItem button key={Ukey}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
+        {(user && isAuthenticated)
+          ? (
+            <ListItem button onClick={() => dispatch(userActions.logoutGoogle())}>
+              <ListItemIcon>
+                <ExitToApp />
+              </ListItemIcon>
+              <ListItemText primary="Sair" />
             </ListItem>
-          );
-        })}
+          )
+          : (
+            <ListItem button onClick={() => history.push("/login")}>
+              <ListItemIcon>
+                <LockOpen />
+              </ListItemIcon>
+              <ListItemText primary="Fazer Login" />
+            </ListItem>
+          )}
       </List>
       <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => {
-          const Ukey = index;
-          return (
-            <ListItem button key={Ukey}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          );
-        })}
-      </List>
     </div>
   );
 
