@@ -8,7 +8,6 @@ const TYPES = {
 
 const INITIAL_STATE = {
   data: {
-    category: "",
     players: [],
   },
   loading: false,

@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
@@ -9,15 +10,29 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Avatar,
 } from "@material-ui/core";
+import { UserTie } from "styled-icons/fa-solid";
 import { uuid } from "uuidv4";
 import { playersActions } from "../../store/duks";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
   },
-});
+  wrapperAvatar: {
+    display: "flex",
+    alignItems: "center",
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    padding: theme.spacing(1),
+  },
+  photo: {
+    margin: theme.spacing(1),
+    padding: "2px",
+  },
+}));
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -51,12 +66,24 @@ const Home = () => {
           </TableHead>
           <TableBody>
             {players && players.map((player, index) => (
-              <TableRow key={player.name}>
+              <TableRow key={player._id}>
                 <TableCell component="th" scope="row">
                   {`${index} º`}
                 </TableCell>
-                <TableCell component="th" scope="row">
-                  {player.name}
+                <TableCell component="th" scope="row" className={classes.wrapperAvatar}>
+                  <Avatar
+                    className={player.photoURL ? classes.photo : classes.avatar}
+                    src={player.photoURL && player.photoURL}
+                    alt={`imagem de ${player.displayName}`}
+                    imgProps={{
+                      style: {
+                        borderRadius: "50%",
+                      },
+                    }}
+                  >
+                    {!player.photoURL && <UserTie style={{ width: "100%" }} />}
+                  </Avatar>
+                  {player.displayName}
                 </TableCell>
                 <TableCell align="left">{player.points}</TableCell>
                 { player
