@@ -4,10 +4,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,11 +20,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = ({ setSideBar }) => {
+const Header = ({ setSideBar, ...rest }) => {
   const classes = useStyles();
 
+  const { pathname } = useLocation();
+
   return (
-    <AppBar position="sticky">
+    <AppBar position="sticky" {...rest}>
       <Toolbar>
         <IconButton
           edge="start"
@@ -37,11 +38,8 @@ const Header = ({ setSideBar }) => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" className={classes.title}>
-          Home
+          {(pathname === "/") ? "Home" : pathname.replace("/", "").toUpperCase()}
         </Typography>
-        <Link to="/login">
-          <Button color="inherit">Login</Button>
-        </Link>
       </Toolbar>
     </AppBar>
   );
