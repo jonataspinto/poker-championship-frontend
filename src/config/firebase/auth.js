@@ -1,4 +1,5 @@
 import firebase from "./config";
+import { authentication } from "../../services";
 
 export const Authenticated = () => {
   firebase.auth().onAuthStateChanged((user) => user || null);
@@ -21,19 +22,22 @@ export const LoginGoogle = async () => {
     displayName,
     photoURL,
     email,
+    uid,
   } = result.user;
 
-  localStorage.setItem("user", JSON.stringify({
+  const validUser = await authentication({
     displayName,
     photoURL,
     email,
-  }));
+    uid,
+  });
 
-  return {
-    displayName,
-    photoURL,
-    email,
-  };
+  // console.log("dados google", result);
+  // console.log("dados da api", validUser);
+
+  localStorage.setItem("user", JSON.stringify(validUser));
+
+  return validUser;
 };
 
 export const LogOutGoogle = () => {

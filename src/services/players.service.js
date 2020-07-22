@@ -1,12 +1,12 @@
-// import { api } from "./api";
-import dataMock from "./_mock";
+import { api } from "./api";
+// import dataMock from "./_mock";
 
-// export const fetch = async () => {
-//   const res = await api.get("/players");
-//   return {
-//     players: res.data.data,
-//   };
-// };
+export const fetch = async () => {
+  const res = await api.get("/players");
+  return {
+    players: res.data.data,
+  };
+};
 
-/* develop */
-export const fetch = async () => dataMock;
+// /* develop */
+// export const fetch = async () => dataMock;

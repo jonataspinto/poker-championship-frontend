@@ -1,13 +1,14 @@
-import * as Service from "../../services/players.service";
+import { LoginGoogle, LogOutGoogle } from "../../config/firebase/auth";
 
 const TYPES = {
   SET_USER: "SET_USER",
   SET_USER_SUCCESS: "SET_USER_SUCCESS",
+  LOGOUT_USER: "LOGOUT_USER",
 };
 
 const INITIAL_STATE = {
   user: {},
-  eroor: {},
+  isAuthenticated: false,
 };
 
 export const userReducer = (
@@ -16,20 +17,37 @@ export const userReducer = (
 ) => {
   switch (action.type) {
     case TYPES.SET_USER:
-      return { ...state, user: action.payload };
+      return { ...state, user: action.payload, isAuthenticated: true };
+    case TYPES.LOGOUT_USER:
+      return { ...INITIAL_STATE };
     default:
       return state;
   }
 };
 
-// export const userActions = {
-//   fetch: () => async (dispatch) => {
-//     try {
-//       const data = await Service.fetch();
-//       dispatch({ type: TYPES.SET_PLAYERS, payload: data });
-//     } catch (error) {
-//       dispatch({ type: TYPES.SET_ERROR, payload: error });
-//     }
-//     dispatch({ type: TYPES.SET_LOADING, payload: false });
-//   },
-// };
+export const userActions = {
+  get: () => async (dispatch) => {
+    try {
+      const data = await localStorage.getItem("user");
+      if (data) dispatch({ type: TYPES.SET_USER, payload: data });
+    } catch (error) {
+      console.log("userReducer", error);
+    }
+  },
+  authGoogle: () => async (dispatch) => {
+    try {
+      const validUser = await LoginGoogle();
+      dispatch({ type: TYPES.SET_USER, payload: validUser });
+    } catch (error) {
+      console.log("userReducer", error);
+    }
+  },
+  logoutGoogle: () => async (dispatch) => {
+    try {
+      LogOutGoogle();
+      dispatch({ type: TYPES.LOGOUT_USER });
+    } catch (error) {
+      console.log("userReducer", error);
+    }
+  },
+};

@@ -8,10 +8,11 @@ import { persistStore, persistReducer } from "redux-persist";
 import thunk from "redux-thunk";
 import storage from "redux-persist/lib/storage";
 
-import { playersReducer } from "./duks";
+import { playersReducer, userReducer } from "./duks";
 
 const rootReducer = combineReducers({
   playersReducer,
+  userReducer,
 });
 
 const persistConfig = {
