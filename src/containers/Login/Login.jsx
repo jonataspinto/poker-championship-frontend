@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import React, { /* useState, */ useEffect } from "react";
+import { /* Link, */ useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   makeStyles,
-  Grid,
-  TextField,
+  // Grid,
+  // TextField,
   Button,
-  InputAdornment,
-  IconButton,
+  // InputAdornment,
+  // IconButton,
   Avatar,
   Typography,
 } from "@material-ui/core";
-import {
-  Visibility,
-  VisibilityOff,
-} from "@material-ui/icons";
+// import {
+//   Visibility,
+//   VisibilityOff,
+// } from "@material-ui/icons";
 import { Google } from "styled-icons/boxicons-logos";
 import { UserTie } from "styled-icons/fa-solid";
 
@@ -71,7 +71,7 @@ const Login = () => {
     history
   ]);
 
-  const [showPassword, setShowPassword] = useState(false);
+  // const [showPassword, setShowPassword] = useState(false);
 
   return (
     <>
@@ -83,7 +83,7 @@ const Login = () => {
           Faça login na sua conta
         </Typography>
         <form className={classes.form} noValidate>
-          <TextField
+          {/* <TextField
             variant="outlined"
             margin="normal"
             required
@@ -127,7 +127,7 @@ const Login = () => {
             className={classes.submit}
           >
             fazer login
-          </Button>
+          </Button> */}
           <Button
             variant="contained"
             size="medium"
@@ -140,7 +140,7 @@ const Login = () => {
             <Google style={{ width: "24px", marginRight: "10px" }} />
             login com google
           </Button>
-          <Grid container>
+          {/* <Grid container>
             <Grid item xs>
               <Link to="/">
                 Esqueceu sua conta?
@@ -151,7 +151,7 @@ const Login = () => {
                 Criar conta
               </Link>
             </Grid>
-          </Grid>
+          </Grid> */}
         </form>
       </div>
     </>
