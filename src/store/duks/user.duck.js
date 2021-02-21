@@ -29,7 +29,7 @@ export const userActions = {
   get: () => async (dispatch) => {
     try {
       const data = await localStorage.getItem("user");
-      if (data) dispatch({ type: TYPES.SET_USER, payload: data });
+      if (data) dispatch({ type: TYPES.SET_USER, payload: JSON.parse(data) });
     } catch (error) {
       console.log("userReducer", error);
     }

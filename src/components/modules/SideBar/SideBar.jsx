@@ -1,32 +1,46 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useHistory } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 import {
   Drawer,
   List,
   Divider,
   ListItem,
   ListItemText,
+  ListItemIcon,
+  Avatar,
+  makeStyles,
 } from "@material-ui/core";
-import { ExitToApp, LockOpen } from "@material-ui/icons";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import { useDispatch, useSelector } from "react-redux";
+import {
+  ExitToApp,
+  LockOpen,
+  HomeOutlined,
+  StyleOutlined,
+  VerifiedUser,
+} from "@material-ui/icons";
+import {
+  useDispatch,
+  useSelector,
+} from "react-redux";
 import { userActions } from "../../../store/duks";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(() => ({
   list: {
     width: 250,
+  },
+  link: {
+    display: "flex",
   },
   fullList: {
     width: "auto",
   },
-});
+}));
 
 const SideBar = ({ anchor, setAnchor }) => {
   const classes = useStyles();
+
   const dispatch = useDispatch();
-  const history = useHistory();
+
   const {
     user,
     isAuthenticated,
@@ -40,6 +54,47 @@ const SideBar = ({ anchor, setAnchor }) => {
       onKeyDown={setAnchor()}
     >
       <List>
+        <ListItem button>
+          <Link to="/" className={classes.link}>
+            <ListItemIcon>
+              <HomeOutlined />
+            </ListItemIcon>
+            <ListItemText primary="Home" />
+          </Link>
+        </ListItem>
+
+        {user.displayName && (
+          <ListItem button>
+            <Link to="/profile" className={classes.link}>
+              <ListItemIcon>
+                <Avatar
+                  src={user.photoURL && user.photoURL}
+                  alt={`imagem de ${user.displayName}`}
+                  imgProps={{
+                    style: {
+                      borderRadius: "50%",
+                    },
+                  }}
+                >
+                  {!user.photoURL && <VerifiedUser style={{ width: "100%" }} />}
+                </Avatar>
+              </ListItemIcon>
+              <ListItemText primary={user.displayName} />
+            </Link>
+          </ListItem>
+        )}
+
+        <ListItem button>
+          <Link to="/jornadas" className={classes.link}>
+            <ListItemIcon>
+              <StyleOutlined />
+            </ListItemIcon>
+            <ListItemText primary="Jornadas" />
+          </Link>
+        </ListItem>
+
+        <Divider />
+
         {(user && isAuthenticated)
           ? (
             <ListItem button onClick={() => dispatch(userActions.logoutGoogle())}>
@@ -50,15 +105,16 @@ const SideBar = ({ anchor, setAnchor }) => {
             </ListItem>
           )
           : (
-            <ListItem button onClick={() => history.push("/login")}>
-              <ListItemIcon>
-                <LockOpen />
-              </ListItemIcon>
-              <ListItemText primary="Fazer Login" />
+            <ListItem button>
+              <Link to="/login" className={classes.link}>
+                <ListItemIcon>
+                  <LockOpen />
+                </ListItemIcon>
+                <ListItemText primary="Fazer Login" />
+              </Link>
             </ListItem>
           )}
       </List>
-      <Divider />
     </div>
   );
 
