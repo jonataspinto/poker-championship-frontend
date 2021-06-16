@@ -11,7 +11,7 @@ import { Login } from "./Login";
 import { Journey } from "./Journey";
 import { Profile } from "./Profile";
 
-export default function Routes() {
+export function Routes() {
   return (
     <BrowserRouter>
       <Switch>
