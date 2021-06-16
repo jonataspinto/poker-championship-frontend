@@ -22,3 +22,4 @@ This will create a project with the following libs:
 * [styled-components](https://www.styled-components.com/)
 * [plop](https://www.npmjs.com/package/plop)
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/040f10fc-1bb0-420e-b569-ee25974d5931/deploy-status)](https://app.netlify.com/sites/poker-championship/deploys)
