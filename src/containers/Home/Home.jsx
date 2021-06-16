@@ -44,15 +44,15 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(playersActions.fetch());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
-    setPlayers(playersReducer.data.players);
-  }, [playersReducer]);
+    setPlayers(playersReducer.players);
+  }, [playersReducer.players]);
 
   useEffect(() => {
     dispatch(userActions.get());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
@@ -70,7 +70,7 @@ const Home = () => {
           </TableHead>
           <TableBody>
             {players && players.map((player, index) => (
-              <TableRow key={player._id}>
+              <TableRow key={player.id}>
                 <TableCell component="th" scope="row">
                   {`${index + 1} º`}
                 </TableCell>
@@ -89,9 +89,9 @@ const Home = () => {
                   </Avatar>
                   {player.displayName}
                 </TableCell>
-                <TableCell align="left">{player.points}</TableCell>
-                { player
-                  && Object.values(player.podiums).map((podium) => (
+                <TableCell align="left">{player?.points}</TableCell>
+                { player?.podiums
+                  && Object.values(player?.podiums).map((podium) => (
                     <TableCell key={uuid()} align="left">{podium}</TableCell>
                   ))}
               </TableRow>

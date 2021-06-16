@@ -1,4 +1,4 @@
-import * as Service from "../../services/players.service";
+import * as Service from "../../services/players";
 
 const TYPES = {
   SET_PLAYERS: "SET_PLAYERS",
@@ -7,9 +7,7 @@ const TYPES = {
 };
 
 const INITIAL_STATE = {
-  data: {
-    players: [],
-  },
+  players: [],
   loading: false,
   error: null,
 };
@@ -20,7 +18,7 @@ export const playersReducer = (
 ) => {
   switch (action.type) {
     case TYPES.SET_PLAYERS:
-      return { ...state, data: action.payload };
+      return { ...state, players: action.payload };
     case TYPES.SET_LOADING:
       return { ...state, loading: action.payload };
     case TYPES.SET_ERROR:
@@ -34,7 +32,7 @@ export const playersActions = {
   fetch: () => async (dispatch) => {
     dispatch({ type: TYPES.SET_LOADING, payload: true });
     try {
-      const data = await Service.fetch();
+      const data = await Service.getAllPlayers();
       dispatch({ type: TYPES.SET_PLAYERS, payload: data });
     } catch (error) {
       dispatch({ type: TYPES.SET_ERROR, payload: error });

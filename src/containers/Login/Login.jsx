@@ -57,7 +57,7 @@ const Login = () => {
 
   useEffect(() => {
     dispatch(userActions.get());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (user && isAuthenticated) {
@@ -65,7 +65,11 @@ const Login = () => {
 
       history.push(redirectPath);
     }
-  }, [user, isAuthenticated]);
+  }, [
+    user,
+    isAuthenticated,
+    history
+  ]);
 
   const [showPassword, setShowPassword] = useState(false);
 
