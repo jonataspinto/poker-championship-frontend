@@ -1,1 +1,1 @@
-export { default as Journey } from "./Journey";
+export { Journey } from "./Journey";

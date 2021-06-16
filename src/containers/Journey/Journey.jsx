@@ -24,10 +24,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Journey = () => {
+export const Journey = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const { user, isAuthenticated } = useSelector((state) => state.userReducer);
+
+  console.log({ user, isAuthenticated });
 
   useEffect(() => {
     dispatch(journeyActions.get());
@@ -69,5 +71,3 @@ const Journey = () => {
     </Paper>
   );
 };
-
-export default Journey;
