@@ -5,7 +5,7 @@ export const createNewJourney = async (journeyData) => {
   const user = await GetStorageUser();
 
   const response = await api.post(
-    "/journey",
+    "/journeys",
     {...journeyData},
     {
       headers: {
