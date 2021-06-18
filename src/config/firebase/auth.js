@@ -1,15 +1,16 @@
 import firebase from "./config";
 import { register, authenticate } from "../../services";
 
-export const Authenticated = () => {
-  firebase.auth().onAuthStateChanged((user) => user || null);
+export const RefreshIdToken = (userId) => {
+
 };
 
 export const GetStorageUser = () => {
-  const user = localStorage.getItem("user");
+  const user = JSON.parse(localStorage.getItem("user"));
   const accessToken = localStorage.getItem("accessToken");
+  const idToken = localStorage.getItem("idToken").replaceAll('"', "");
   if (user) {
-    return {...user, accessToken};
+    return {...user, accessToken, idToken};
   }
   return null;
 };
@@ -17,8 +18,7 @@ export const GetStorageUser = () => {
 export const LoginGoogle = async () => {
   let validUser;
   const provider = new firebase.auth.GoogleAuthProvider();
-  const result = await firebase.auth()
-    .signInWithPopup(provider);
+  const result = await firebase.auth().signInWithPopup(provider);
 
   const {
     user: {
@@ -50,8 +50,11 @@ export const LoginGoogle = async () => {
     })
   }
 
+  const idToken = await firebase.auth().currentUser.getIdToken();
+
   localStorage.setItem("user", JSON.stringify(validUser));
   localStorage.setItem("accessToken", JSON.stringify(accessToken));
+  localStorage.setItem("idToken", JSON.stringify(idToken));
 
   return validUser;
 };
@@ -60,6 +63,7 @@ export const LogOutGoogle = () => {
   firebase.auth().signOut().then(() => {
     localStorage.removeItem("user");
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("idToken");
     document.location.reload(true);
   }).catch((error) => {
     console.log(error);

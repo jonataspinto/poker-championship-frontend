@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { journeyActions } from "../../store/duks";
-import * as Service from "../../services/journey.service";
+import * as Service from "../../services/journey";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,7 +45,7 @@ export const Journey = () => {
         >
           <Typography className={classes.heading}>Criar Jornada</Typography>
           <Button
-            onClick={() => Service.create()}
+            onClick={() => Service.createNewJourney()}
           >
             criar!
           </Button>

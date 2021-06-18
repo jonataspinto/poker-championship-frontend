@@ -1,4 +1,5 @@
-import * as Service from "../../services/journey.service";
+import * as Service from "../../services/journey";
+import { userActions } from "./user.duck";
 
 const TYPES = {
   GET_JOURNEY_STARTED: "GET_JOURNEY_STARTED",
@@ -38,12 +39,15 @@ export const journeyActions = {
       type: TYPES.GET_JOURNEY_STARTED,
     });
     try {
-      const data = await Service.fetch();
+      const data = await Service.getAllJourneys();
       dispatch({
         type: TYPES.GET_JOURNEY_SUCCESS,
         payload: data,
       });
     } catch (error) {
+      if (error?.response?.data?.code === "auth/id-token-expired") {
+        dispatch(userActions.logoutGoogle())
+      }
       console.log("userReducer", error);
     }
   },

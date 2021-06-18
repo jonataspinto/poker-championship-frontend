@@ -1,1 +1,1 @@
-export { LoginGoogle, LogOutGoogle } from "./auth";
+export { RefreshIdToken, LoginGoogle, LogOutGoogle, GetStorageUser } from "./auth";
