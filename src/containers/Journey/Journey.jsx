@@ -45,7 +45,22 @@ export const Journey = () => {
         >
           <Typography className={classes.heading}>Criar Jornada</Typography>
           <Button
-            onClick={() => Service.createNewJourney()}
+            onClick={() => Service.createNewJourney({
+                // players: [
+                //   "EgYq7Lw1nBNTm7pfmHpRWeXcytE3",
+                //   "y1hDyMJJbfdBz1o76czI4mHidss1",
+                //   "VSkdeH6PxrgFS1L4e0YcashyWfz2"
+                // ],
+                // tag: 1,
+                // podium: {
+                //   "first": null,
+                //   "second": null,
+                //   "third": null,
+                //   "fourth": null,
+                //   "fifth": null
+                // }
+              })
+            }
           >
             criar!
           </Button>
