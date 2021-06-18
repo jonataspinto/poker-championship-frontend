@@ -66,6 +66,8 @@ const Home = () => {
               <TableCell align="left">x 1º</TableCell>
               <TableCell align="left">x 2º</TableCell>
               <TableCell align="left">x 3º</TableCell>
+              <TableCell align="left">x 4º</TableCell>
+              <TableCell align="left">x 5º</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
