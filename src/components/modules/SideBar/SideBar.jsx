@@ -54,22 +54,13 @@ const SideBar = ({ anchor, setAnchor }) => {
       onKeyDown={setAnchor()}
     >
       <List>
-        <ListItem button>
-          <Link to="/" className={classes.link}>
-            <ListItemIcon>
-              <HomeOutlined />
-            </ListItemIcon>
-            <ListItemText primary="Home" />
-          </Link>
-        </ListItem>
-
-        {user.displayName && (
+        {user.name && (
           <ListItem button>
             <Link to="/profile" className={classes.link}>
               <ListItemIcon>
                 <Avatar
                   src={user.photoURL && user.photoURL}
-                  alt={`imagem de ${user.displayName}`}
+                  alt={`imagem de ${user.name}`}
                   imgProps={{
                     style: {
                       borderRadius: "50%",
@@ -79,10 +70,19 @@ const SideBar = ({ anchor, setAnchor }) => {
                   {!user.photoURL && <VerifiedUser style={{ width: "100%" }} />}
                 </Avatar>
               </ListItemIcon>
-              <ListItemText primary={user.displayName} />
+              <ListItemText primary={user.name} />
             </Link>
           </ListItem>
         )}
+
+        <ListItem button>
+          <Link to="/" className={classes.link}>
+            <ListItemIcon>
+              <HomeOutlined />
+            </ListItemIcon>
+            <ListItemText primary="Home" />
+          </Link>
+        </ListItem>
 
         <ListItem button>
           <Link to="/jornadas" className={classes.link}>
