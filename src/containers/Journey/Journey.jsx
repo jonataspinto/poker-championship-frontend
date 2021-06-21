@@ -1,88 +1,38 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  Paper,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Typography,
-  makeStyles,
-  TextField,
-  Button,
+  Paper
 } from "@material-ui/core";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { journeyActions } from "../../store/duks";
-import * as Service from "../../services/journey";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightRegular,
-  },
-}));
+import { journeyActions, /* playersActions */ } from "../../store/duks";
+import { JourneyList } from "./Sections/JourneyList";
+import { CreateJourney } from "./Sections/CreateJourney";
 
 export const Journey = () => {
   const dispatch = useDispatch();
-  const classes = useStyles();
-  const { user, isAuthenticated } = useSelector((state) => state.userReducer);
 
-  console.log({ user, isAuthenticated });
+  const { user, isAuthenticated, players, journeys} = useSelector((state) => ({
+    user: state.userReducer.user,
+    isAuthenticated: state.userReducer.isAuthenticated,
+    players: state.playersReducer.players,
+    journeys: state.journeyReducer.journeys
+  }));
+
+  console.log({ user, isAuthenticated, players, journeys });
 
   useEffect(() => {
     dispatch(journeyActions.get());
-  });
+  }, [dispatch]);
 
   return (
-    <Paper variant="outlined">
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography className={classes.heading}>Criar Jornada</Typography>
-          <Button
-            onClick={() => Service.createNewJourney({
-                // players: [
-                //   "EgYq7Lw1nBNTm7pfmHpRWeXcytE3",
-                //   "y1hDyMJJbfdBz1o76czI4mHidss1",
-                //   "VSkdeH6PxrgFS1L4e0YcashyWfz2"
-                // ],
-                // tag: 1,
-                // podium: {
-                //   "first": null,
-                //   "second": null,
-                //   "third": null,
-                //   "fourth": null,
-                //   "fifth": null
-                // }
-              })
-            }
-          >
-            criar!
-          </Button>
-        </AccordionSummary>
-        <AccordionDetails>
-          <form>
-
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="E-mail"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-          </form>
-        </AccordionDetails>
-      </Accordion>
-      Journey
+    <Paper >
+      <CreateJourney
+        journeys={journeys}
+        players={players}
+      />
+      <JourneyList
+        journeys={journeys}
+        players={players}
+      />
     </Paper>
   );
 };
