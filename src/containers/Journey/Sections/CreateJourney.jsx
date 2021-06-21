@@ -11,7 +11,6 @@ import {
   Button
 } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
-import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import * as Service from "../../../services/journey";
