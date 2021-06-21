@@ -19,7 +19,7 @@ export const JourneyList = ({
 
   return (
     <>
-      {journeys.length > 0 && journeys.map(journey => {
+      {journeys && journeys.length > 0 && journeys.map(journey => {
         const closedBy = players.find(player => (
           player.uuid === journey.closedBy
         ));
