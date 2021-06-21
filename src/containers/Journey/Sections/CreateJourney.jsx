@@ -23,7 +23,6 @@ export const CreateJourney = ({
     players: []
   });
 
-  const dispatch = useDispatch();
   const history = useHistory();
 
   const addOrRemovePlayerfromJourney = useCallback((uuid) => {
