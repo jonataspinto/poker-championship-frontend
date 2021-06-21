@@ -8,7 +8,7 @@ const TYPES = {
 };
 
 const INITIAL_STATE = {
-  journeys: null,
+  journeys: [],
   loading: false,
 };
 
