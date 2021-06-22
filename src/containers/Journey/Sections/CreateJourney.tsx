@@ -18,9 +18,7 @@ interface CreateJourneyProps {
   players: IPlayer[],
 }
 
-export const CreateJourney = ({
-  players
-}: CreateJourneyProps) => {
+export const CreateJourney = ({ players }: CreateJourneyProps) => {
   const { showModal, isOpen } = useModal();
   const [newJourney, setNewJourney] = useState<{ players: string[] }>({
     players: [],
@@ -111,7 +109,7 @@ export const CreateJourney = ({
     </>
   )
 
-  useEffect(() => {
+  const handleShowModal = useCallback(() => {
     if(isOpen) {
       showModal(
         ModalCreateJourney,
@@ -119,7 +117,17 @@ export const CreateJourney = ({
       )
     }
   }, [
-    newJourney.players.length
+    ActionsModalCreateJourney,
+    ModalCreateJourney,
+    isOpen,
+    showModal
+  ])
+
+  useEffect(() => {
+    handleShowModal()
+  }, [
+    newJourney.players.length,
+    handleShowModal
   ])
 
   return (
