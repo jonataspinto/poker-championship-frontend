@@ -20,6 +20,14 @@ const rootReducer = combineReducers({
   journeyReducer,
 });
 
+export type RootState = ReturnType<typeof rootReducer>
+
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
+
 const persistConfig = {
   storage,
   key: "root",
@@ -28,7 +36,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const middleware = [thunk];
-const composeEnhancers = global.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
   persistedReducer,
@@ -36,5 +44,7 @@ const store = createStore(
 );
 
 const persistor = persistStore(store);
+
+
 
 export { store, persistor };
