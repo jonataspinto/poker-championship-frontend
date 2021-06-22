@@ -109,25 +109,22 @@ export const CreateJourney = ({ players }: CreateJourneyProps) => {
     </>
   )
 
-  const handleShowModal = useCallback(() => {
+  // eslint-disable-next-line
+  const handleShowModal = () => {
     if(isOpen) {
       showModal(
         ModalCreateJourney,
         ActionsModalCreateJourney
-      )
+        )
+      }
     }
-  }, [
-    ActionsModalCreateJourney,
-    ModalCreateJourney,
-    isOpen,
-    showModal
-  ])
 
-  useEffect(() => {
-    handleShowModal()
+    useEffect(() => {
+      handleShowModal()
+      // eslint-disable-next-line
   }, [
     newJourney.players.length,
-    handleShowModal
+    // handleShowModal
   ])
 
   return (

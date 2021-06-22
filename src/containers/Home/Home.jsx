@@ -13,7 +13,7 @@ import {
   Avatar,
 } from "@material-ui/core";
 import { UserTie } from "styled-icons/fa-solid";
-import { uuid } from "uuidv4";
+import { v4 as uuid } from "uuid";
 import { playersActions, userActions } from "../../store/duks";
 
 const useStyles = makeStyles((theme) => ({
