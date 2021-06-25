@@ -6,6 +6,7 @@
     "@material-ui/core": "^4.8.1",
     "@material-ui/icons": "^4.9.1",
     "axios": "^0.21.1",
+    "date-fns": "^2.22.1",
     "firebase": "^7.16.1",
     "formik": "^2.0.6",
     "polished": "^3.4.2",
