@@ -13,13 +13,12 @@ import {
   MenuItem
 } from "@material-ui/core";
 
-
 import { makeStyles } from '@material-ui/core/styles';
-
-import * as Service from "../../../services/journey";
 import { IJourney, IPlayer } from "../../../shared/interfaces";
 import { useModal } from "../../../contexts";
 import { JourneyIsComplete } from "../../../shared/validators/JourneyIsComplete";
+import { useDispatch } from "react-redux";
+import { journeyActions } from "../../../store/duks";
 
 interface CloseOrUpdateJourneyProps {
   players: IPlayer[],
@@ -52,11 +51,13 @@ export const CloseOrUpdateJourney = ({ players, journey }: CloseOrUpdateJourneyP
 
   const classes = useStyles();
 
+  const dispatch = useDispatch();
+
   const handleSubmit = () => {
     if(shouldCloseJourney) {
-      Service.closeJourney(journeyData.id)
+      dispatch(journeyActions.close(journeyData.id));
     } else {
-      Service.updateJourney(journeyData)
+      dispatch(journeyActions.update(journeyData));
     }
   }
 
@@ -267,8 +268,6 @@ export const CloseOrUpdateJourney = ({ players, journey }: CloseOrUpdateJourneyP
   }, [
     journeyData
   ])
-
-  console.log("journeyData", journeyData);
 
   return (
     <Box

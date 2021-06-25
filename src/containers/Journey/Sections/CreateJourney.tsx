@@ -9,9 +9,10 @@ import {
   DialogTitle
 } from "@material-ui/core";
 
-import * as Service from "../../../services/journey";
 import { IPlayer } from "../../../shared/interfaces";
 import { useModal } from "../../../contexts";
+import { journeyActions } from "../../../store/duks";
+import { useDispatch } from "react-redux";
 
 interface CreateJourneyProps {
   players: IPlayer[],
@@ -22,6 +23,8 @@ export const CreateJourney = ({ players }: CreateJourneyProps) => {
   const [newJourney, setNewJourney] = useState<{ players: string[] }>({
     players: [],
   });
+
+  const dispatch = useDispatch();
 
   const addOrRemovePlayerfromJourney = useCallback((uuid) => {
     setNewJourney((prevState) => {
@@ -54,8 +57,7 @@ export const CreateJourney = ({ players }: CreateJourneyProps) => {
 
   const ActionsModalCreateJourney = {
     agree: () => {
-      console.warn("criando newJourney",newJourney);
-      Service.createNewJourney(newJourney)
+      dispatch(journeyActions.create(newJourney));
     },
     disAgree: () => {
 
