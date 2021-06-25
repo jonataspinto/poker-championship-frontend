@@ -41,12 +41,14 @@ export const journeyReducer = (
     case TYPES.GET_JOURNEY_SUCCESS:
       return {
         ...state,
-        journeys: action.payload,
+        ...action.payload,
         loading: false,
-        notify: {
-          message: "Lista carregada com sucesso",
-          type: "success",
-        },
+      };
+    case TYPES.GET_JOURNEY_ERROR:
+      return {
+        ...state,
+        ...action.payload,
+        loading: false,
       };
 
     //
@@ -59,14 +61,17 @@ export const journeyReducer = (
       return {
         ...state,
         journeys: [
-          action.payload,
+          action.payload.journey,
           ...state.journeys,
         ],
+        notify: action.payload.notify,
         loading: false,
-        notify: {
-          message: "Rodada criada com sucesso!",
-          type: "success",
-        },
+      };
+    case TYPES.CREATE_JOURNEY_ERROR:
+      return {
+        ...state,
+        ...action.payload,
+        loading: false,
       };
 
     //
@@ -78,7 +83,20 @@ export const journeyReducer = (
     case TYPES.UPDATE_JOURNEY_SUCCESS:
       return {
         ...state,
-        // journeys: action.payload,
+        journeys: state.journeys.splice(
+          state.journeys.findIndex((journey) => (
+            journey.uuid === action.payload.journey.uuid
+          )),
+          1,
+          action.payload.journey,
+        ),
+        notify: action.payload.notify,
+        loading: false,
+      };
+    case TYPES.UPDATE_JOURNEY_ERROR:
+      return {
+        ...state,
+        ...action.payload,
         loading: false,
       };
 
@@ -94,6 +112,12 @@ export const journeyReducer = (
         journeys: action.payload,
         loading: false,
       };
+    case TYPES.CLOSE_JOURNEY_ERROR:
+      return {
+        ...state,
+        ...action.payload,
+        loading: false,
+      };
     default:
       return state;
   }
@@ -107,11 +131,26 @@ const get = () => async (dispatch) => {
     const data = await Service.getAllJourneys();
     dispatch({
       type: TYPES.GET_JOURNEY_SUCCESS,
-      payload: data,
+      payload: {
+        journeys: data,
+        notify: {
+          message: "Lista carregada com sucesso",
+          type: "success",
+        },
+      },
     });
   } catch (error) {
     if (error?.response?.data?.code === "auth/id-token-expired") {
       dispatch(userActions.logoutGoogle());
+      dispatch({
+        type: TYPES.GET_JOURNEY_SUCCESS,
+        payload: {
+          notify: {
+            message: "Por Favor, faça login novamente.",
+            type: "error",
+          },
+        },
+      });
     }
     console.log("userReducer", error);
   }
@@ -125,11 +164,26 @@ const create = (journeyData) => async (dispatch) => {
     const data = await Service.createNewJourney(journeyData);
     dispatch({
       type: TYPES.CREATE_JOURNEY_SUCCESS,
-      payload: data,
+      payload: {
+        journey: data,
+        notify: {
+          message: "Rodada criada com sucesso!",
+          type: "success",
+        },
+      },
     });
   } catch (error) {
     if (error?.response?.data?.code === "auth/id-token-expired") {
       dispatch(userActions.logoutGoogle());
+      dispatch({
+        type: TYPES.CREATE_JOURNEY_ERROR,
+        payload: {
+          notify: {
+            message: "Por Favor, faça login novamente.",
+            type: "error",
+          },
+        },
+      });
     }
     console.log("userReducer", error);
   }
@@ -141,14 +195,28 @@ const update = (journeyData) => async (dispatch) => {
   });
   try {
     const data = await Service.updateJourney(journeyData);
-    if (data) dispatch(get());
     dispatch({
       type: TYPES.UPDATE_JOURNEY_SUCCESS,
-      // payload: data,
+      payload: {
+        journey: data,
+        notify: {
+          message: "Rodada atualizada!",
+          type: "success",
+        },
+      },
     });
   } catch (error) {
     if (error?.response?.data?.code === "auth/id-token-expired") {
       dispatch(userActions.logoutGoogle());
+      dispatch({
+        type: TYPES.UPDATE_JOURNEY_ERROR,
+        payload: {
+          notify: {
+            message: "Por Favor, faça login novamente.",
+            type: "error",
+          },
+        },
+      });
     }
     console.log("userReducer", error);
   }
@@ -163,11 +231,25 @@ const close = (journeyId) => async (dispatch) => {
     dispatch(get());
     dispatch({
       type: TYPES.CLOSE_JOURNEY_SUCCESS,
-      // payload: data,
+      payload: {
+        notify: {
+          message: "Rodada encerrada.",
+          type: "success",
+        },
+      },
     });
   } catch (error) {
     if (error?.response?.data?.code === "auth/id-token-expired") {
       dispatch(userActions.logoutGoogle());
+      dispatch({
+        type: TYPES.CLOSE_JOURNEY_ERROR,
+        payload: {
+          notify: {
+            message: "Por Favor, faça login novamente.",
+            type: "error",
+          },
+        },
+      });
     }
     console.log("userReducer", error);
   }
