@@ -7,10 +7,11 @@ import {
   Typography,
   Chip,
   Divider,
-  Box,
+  Box
 } from "@material-ui/core";
 import { ExpandMore, Block } from "@material-ui/icons";
 import { BoxPodiumPlayer } from "./BoxPodiumPlayer";
+import { CloseOrUpdateJourney } from "./CloseOrUpdateJourney";
 import { IJourney, IPlayer } from "../../../shared/interfaces"
 
 interface JourneyListProps {
@@ -95,34 +96,42 @@ export const JourneyList = ({
               flexDirection="column"
               gridGap={16}
               width="100%"
-            >
-              <Chip
-                variant="outlined"
-                size="small"
-                label={`Encerrada por: ${closedBy?.name}`}
-                avatar={(
-                  <Avatar
-                    src={closedBy?.photoURL}
+            >{
+              journey.hasClosed ? (
+              <>
+                <Chip
+                  variant="outlined"
+                  size="small"
+                  label={`Encerrada por: ${closedBy?.name}`}
+                  avatar={(
+                    <Avatar
+                      src={closedBy?.photoURL}
+                    />
+                  )}
+                  style={{ marginLeft: "4px" }}
+                />
+                <Divider />
+                {podiums.map((podium) => (
+                  <BoxPodiumPlayer
+                    key={podium.label}
+                    player={podium.player as IPlayer }
+                    label={`${podium.label} lugar: `}
                   />
-                )}
-                style={{ marginLeft: "4px" }}
-              />
-              <Divider />
-              {podiums.map((podium) => (
-                <BoxPodiumPlayer
-                  key={podium.label}
-                  player={podium.player as IPlayer }
-                  label={`${podium.label} lugar: `}
+                ))}
+                <Divider />
+                {otherScorers.map((podium) => (
+                  <BoxPodiumPlayer
+                    key={podium.label}
+                    player={podium.player as IPlayer }
+                    label={podium.label}
+                  />
+                ))}
+              </> ) : (
+                <CloseOrUpdateJourney
+                  players={players}
+                  journey={journey}
                 />
-              ))}
-              <Divider />
-              {otherScorers.map((podium) => (
-                <BoxPodiumPlayer
-                  key={podium.label}
-                  player={podium.player as IPlayer }
-                  label={podium.label}
-                />
-              ))}
+              )}
             </Box>
           </AccordionDetails>
         </Accordion>
