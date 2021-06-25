@@ -13,6 +13,7 @@ import { IPlayer } from "../../../shared/interfaces";
 import { useModal } from "../../../contexts";
 import { journeyActions } from "../../../store/duks";
 import { useDispatch } from "react-redux";
+import { formatDateToIso } from "../../../utils/formatters/formatDate";
 
 interface CreateJourneyProps {
   players: IPlayer[],
@@ -20,8 +21,9 @@ interface CreateJourneyProps {
 
 export const CreateJourney = ({ players }: CreateJourneyProps) => {
   const { showModal, isOpen } = useModal();
-  const [newJourney, setNewJourney] = useState<{ players: string[] }>({
+  const [newJourney, setNewJourney] = useState<{ players: string[], createdAt: string }>({
     players: [],
+    createdAt: formatDateToIso(new Date())
   });
 
   const dispatch = useDispatch();
