@@ -10,4 +10,5 @@ export interface IJourney {
   closedBy: string,
   podium: IPodium;
   tag: number;
+  createdAt: string;
 }
