@@ -77,7 +77,7 @@ const ModalProvider: React.FC = ({ children }) => {
             }}
             color="primary"
           >
-            Disagree
+            Cancelar
           </Button>
           <Button
             onClick={() => {
@@ -85,9 +85,10 @@ const ModalProvider: React.FC = ({ children }) => {
               closeModal();
             }}
             color="primary"
+            variant="contained"
             autoFocus
           >
-            Agree
+            Ok
           </Button>
         </DialogActions>
       </Dialog>
