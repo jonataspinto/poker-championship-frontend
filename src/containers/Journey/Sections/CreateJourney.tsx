@@ -8,7 +8,6 @@ import {
   DialogContent,
   DialogTitle
 } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
 
 import * as Service from "../../../services/journey";
 import { IPlayer } from "../../../shared/interfaces";
@@ -23,8 +22,6 @@ export const CreateJourney = ({ players }: CreateJourneyProps) => {
   const [newJourney, setNewJourney] = useState<{ players: string[] }>({
     players: [],
   });
-
-  const history = useHistory();
 
   const addOrRemovePlayerfromJourney = useCallback((uuid) => {
     setNewJourney((prevState) => {
@@ -61,7 +58,7 @@ export const CreateJourney = ({ players }: CreateJourneyProps) => {
       Service.createNewJourney(newJourney)
     },
     disAgree: () => {
-      history.push("/");
+
     }
   }
 
@@ -117,14 +114,13 @@ export const CreateJourney = ({ players }: CreateJourneyProps) => {
         ActionsModalCreateJourney
         )
       }
-    }
+  }
 
-    useEffect(() => {
-      handleShowModal()
-      // eslint-disable-next-line
+  useEffect(() => {
+    handleShowModal()
+    // eslint-disable-next-line
   }, [
-    newJourney.players.length,
-    // handleShowModal
+    newJourney.players.length
   ])
 
   return (

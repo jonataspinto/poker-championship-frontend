@@ -10,7 +10,7 @@ export const Journey = () => {
   const dispatch = useDispatch();
 
   const {
-    user, isAuthenticated, players, journeys,
+    /* user, isAuthenticated, */ players, journeys,
   } = useSelector((state: RootState) => ({
     user: state.userReducer.user,
     isAuthenticated: state.userReducer.isAuthenticated,
@@ -18,9 +18,9 @@ export const Journey = () => {
     journeys: state.journeyReducer.journeys,
   }));
 
-  console.log({
-    user, isAuthenticated, players, journeys,
-  });
+  // console.log({
+  //   user, isAuthenticated, players, journeys,
+  // });
 
   useEffect(() => {
     dispatch(journeyActions.get());
