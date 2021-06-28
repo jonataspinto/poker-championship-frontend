@@ -53,17 +53,17 @@ export const CloseOrUpdateJourney = ({ players, journey }: CloseOrUpdateJourneyP
 
   const dispatch = useDispatch();
 
-  const handleSubmit = () => {
-    if(shouldCloseJourney) {
-      dispatch(journeyActions.close(journeyData.id));
-    } else {
-      dispatch(journeyActions.update(journeyData));
-    }
+  const handleUpdateJourney = () => {
+    dispatch(journeyActions.update(journeyData));
+  }
+
+  const handleCLoseJourney = () => {
+    dispatch(journeyActions.close(journeyData.id));
   }
 
   const ActionsModalCloseJourney = {
     agree: () => {
-      handleSubmit()
+      handleUpdateJourney()
     },
     disAgree: () => {
 
@@ -279,7 +279,7 @@ export const CloseOrUpdateJourney = ({ players, journey }: CloseOrUpdateJourneyP
         disabled={!shouldCloseJourney}
         variant="outlined"
         color="secondary"
-        onClick={handleSubmit}
+        onClick={handleCLoseJourney}
       >
         Fechar Rodada
       </Button>
