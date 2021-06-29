@@ -1,4 +1,4 @@
-import { GetStorageUser } from "../config/firebase";
+import { GetStorageUser } from ".";
 import { api } from "./api";
 
 export const createNewJourney = async (journeyData) => {

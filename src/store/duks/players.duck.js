@@ -37,7 +37,7 @@ export const playersActions = {
       dispatch({ type: TYPES.SET_PLAYERS, payload: data });
     } catch (error) {
       if (error?.response?.data?.code === "auth/id-token-expired") {
-        dispatch(userActions.logoutGoogle())
+        dispatch(userActions.logoutGoogle());
       }
       dispatch({ type: TYPES.SET_ERROR, payload: error });
     }

@@ -1,4 +1,4 @@
-import { LoginGoogle, LogOutGoogle } from "../../config/firebase/auth";
+import { LoginGoogle, LogOutGoogle } from "../../services";
 
 const TYPES = {
   SET_USER: "SET_USER",
