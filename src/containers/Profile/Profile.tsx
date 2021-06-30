@@ -1,21 +1,18 @@
 import React from "react";
 import * as S from "./ProfileStyled";
 import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 export const Profile = () => {
   const {
     user,
-    // isAuthenticated,
-  } = useSelector((state) => state.userReducer);
+  } = useSelector((state: RootState) => state.userReducer);
 
   const {
-    // uuid,
     points,
     email,
     name,
     photoURL,
-    // dateBirth,
-    // id
    } = user;
 
   return (
@@ -39,20 +36,6 @@ export const Profile = () => {
           <S.Text>{points}</S.Text>
         </div>
       </S.Row>
-      {/* <S.Row>
-        <S.PhoneOutlined />
-        <div>
-          <S.Label>WHATSAPP</S.Label>
-          <S.Text>{whatsapp}</S.Text>
-        </div>
-      </S.Row> */}
-      {/* <S.Row>
-        <S.UpdateOutlined />
-        <div>
-          <S.Label>Última atualização</S.Label>
-          <S.Text>{updated_at && formatDate(updatedAt, "EEEE, dd 'de' MMMM 'de' yyyy")}</S.Text>
-        </div>
-      </S.Row> */}
     </S.ProfileContainer>
   );
 };

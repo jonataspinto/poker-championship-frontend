@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
@@ -15,6 +14,8 @@ import {
 import { UserTie } from "styled-icons/fa-solid";
 import { v4 as uuid } from "uuid";
 import { playersActions, userActions } from "../../store/duks";
+import { RootState } from "../../store";
+import { IPlayer } from "../../shared/interfaces";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -34,13 +35,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Home = () => {
+export const Home = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const { playersReducer } = useSelector((state) => state);
+  const { playersReducer } = useSelector((state: RootState) => state);
 
-  const [players, setPlayers] = useState([]);
+  const [players, setPlayers] = useState<IPlayer[]>([]);
 
   useEffect(() => {
     dispatch(playersActions.fetch());
@@ -104,5 +105,3 @@ const Home = () => {
     </>
   );
 };
-
-export default Home;

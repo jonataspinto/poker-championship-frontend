@@ -68,7 +68,7 @@ const Login = () => {
   }, [
     user,
     isAuthenticated,
-    history
+    history,
   ]);
 
   // const [showPassword, setShowPassword] = useState(false);

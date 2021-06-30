@@ -1,6 +1,5 @@
 import React, { useEffect, useState, SyntheticEvent, ReactNode } from "react";
-import PropTypes from "prop-types";
-import { Container, Snackbar/* , Slide */ } from "@material-ui/core";
+import { Container, Snackbar } from "@material-ui/core";
 import { useLocation } from "react-router-dom";
 import Header from "../Header";
 import { Toast } from "../../elements/Toast/Toast";
@@ -12,7 +11,7 @@ interface LayoutProps {
   children: ReactNode
 }
 
-function Layout({ children }: LayoutProps) {
+export const Layout = ({ children }: LayoutProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [openToast, setOpenToast] = useState(false);
 
@@ -44,10 +43,6 @@ function Layout({ children }: LayoutProps) {
     }
   }, [notify])
 
-  // const Transition = (props: any) => (
-  //   <Slide {...props} />
-  // )
-
   return (
     <>
       <Header setSideBar={toggleDrawer} style={{ display: (pathname === "/login") && "none" }} />
@@ -77,9 +72,3 @@ function Layout({ children }: LayoutProps) {
     </>
   );
 }
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
-export default Layout;
