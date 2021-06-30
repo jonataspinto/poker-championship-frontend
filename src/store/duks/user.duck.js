@@ -11,8 +11,6 @@ const TYPES = {
 const INITIAL_STATE = {
   user: {},
   isAuthenticated: false,
-  refreshAttempts: 0,
-  maxRefreshAttempts: 1,
 };
 
 export const userReducer = (
@@ -37,7 +35,12 @@ export const userReducer = (
 const get = () => async (dispatch) => {
   try {
     const data = await localStorage.getItem("user");
-    if (data) dispatch({ type: TYPES.SET_USER, payload: JSON.parse(data) });
+    if (data) {
+      dispatch({
+        type: TYPES.SET_USER,
+        payload: JSON.parse(data),
+      });
+    }
   } catch (error) {
     console.log("userReducer", error);
   }
@@ -46,7 +49,10 @@ const get = () => async (dispatch) => {
 const authGoogle = () => async (dispatch) => {
   try {
     const validUser = await LoginGoogle();
-    dispatch({ type: TYPES.SET_USER, payload: validUser });
+    dispatch({
+      type: TYPES.SET_USER,
+      payload: validUser,
+    });
   } catch (error) {
     console.log("userReducer", error);
   }

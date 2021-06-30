@@ -92,6 +92,7 @@ export const LogOutGoogle = async () => {
     localStorage.removeItem("user");
     localStorage.removeItem("accessToken");
     localStorage.removeItem("idToken");
+    localStorage.removeItem("persist:root");
     document.location.reload(true);
   }).catch((error) => {
     console.log(error);
