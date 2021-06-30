@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Paper } from "@material-ui/core";
+import { Helmet } from "react-helmet";
 import { journeyActions } from "../../store/duks";
 import { JourneyList } from "./Sections/JourneyList";
 import { CreateJourney } from "./Sections/CreateJourney";
@@ -25,6 +26,9 @@ export const Journey = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{`Poker | Rodadas`}</title>
+      </Helmet>
       <CreateJourney
         players={players}
       />

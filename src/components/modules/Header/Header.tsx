@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -18,15 +17,23 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  displayNoneHeader: {
+    display: "none"
+  }
 }));
 
-const Header = ({ setSideBar, ...rest }) => {
+interface HeaderProps {
+  setSideBar: Function,
+  hiden: boolean
+}
+
+export const Header = ({ setSideBar, hiden, ...rest }: HeaderProps) => {
   const classes = useStyles();
 
   const { pathname } = useLocation();
 
   return (
-    <AppBar position="sticky" {...rest}>
+    <AppBar position="sticky" {...rest} className={hiden ? classes.displayNoneHeader : ""}>
       <Toolbar>
         <IconButton
           edge="start"
@@ -38,15 +45,9 @@ const Header = ({ setSideBar, ...rest }) => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" className={classes.title}>
-          {(pathname === "/") ? "Home" : pathname.replace("/", "").toUpperCase()}
+          {(pathname === "/") ? "Classificação Geral" : pathname.replace("/", "").toUpperCase().replace("-", " ")}
         </Typography>
       </Toolbar>
     </AppBar>
   );
 };
-
-Header.propTypes = {
-  setSideBar: PropTypes.func,
-};
-
-export default Header;

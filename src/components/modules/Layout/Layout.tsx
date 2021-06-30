@@ -1,7 +1,7 @@
 import React, { useEffect, useState, SyntheticEvent, ReactNode } from "react";
 import { Container, Snackbar } from "@material-ui/core";
 import { useLocation } from "react-router-dom";
-import Header from "../Header";
+import { Header } from "../Header";
 import { Toast } from "../../elements/Toast/Toast";
 import { SideBar } from "..";
 import { useSelector } from "react-redux";
@@ -45,7 +45,7 @@ export const Layout = ({ children }: LayoutProps) => {
 
   return (
     <>
-      <Header setSideBar={toggleDrawer} style={{ display: (pathname === "/login") && "none" }} />
+      <Header setSideBar={toggleDrawer} hiden={(pathname === "/login")}/>
       <Container
         component="main"
         maxWidth={(pathname === "/login") ? "xs" : "lg"}

@@ -13,6 +13,8 @@ import {
 } from "@material-ui/core";
 import { UserTie } from "styled-icons/fa-solid";
 import { v4 as uuid } from "uuid";
+import { Helmet } from "react-helmet";
+
 import { playersActions, userActions } from "../../store/duks";
 import { RootState } from "../../store";
 import { IPlayer } from "../../shared/interfaces";
@@ -57,6 +59,9 @@ export const Home = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{`Poker | Classificação Geral`}</title>
+      </Helmet>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>

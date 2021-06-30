@@ -3,6 +3,7 @@ import {
   BrowserRouter,
   Switch,
   Route,
+  Redirect
 } from "react-router-dom";
 
 import { Home } from "./Home";
@@ -13,13 +14,14 @@ import { Layout } from "../components/modules";
 
 export const Routes = () => (
   <BrowserRouter>
-    <Switch>
-      <Layout>
+    <Layout>
+      <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
-        <Route path="/jornadas" component={Journey} />
-        <Route path="/profile" component={Profile} />
-      </Layout>
-    </Switch>
+        <Route path="/rodadas" component={Journey} />
+        <Route path="/meu-perfil" component={Profile} />
+        <Redirect to="/" />
+      </Switch>
+    </Layout>
   </BrowserRouter>
 );

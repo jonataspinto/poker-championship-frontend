@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   Drawer,
   List,
@@ -41,10 +41,16 @@ const SideBar = ({ anchor, setAnchor }) => {
 
   const dispatch = useDispatch();
 
+  const history = useHistory();
+
   const {
     user,
     isAuthenticated,
   } = useSelector((state) => state.userReducer);
+
+  if (!user) {
+    history.push("/login");
+  }
 
   const list = () => (
     <div
@@ -56,7 +62,7 @@ const SideBar = ({ anchor, setAnchor }) => {
       <List>
         {user.name && (
           <ListItem button>
-            <Link to="/profile" className={classes.link}>
+            <Link to="/meu-perfil" className={classes.link}>
               <ListItemIcon>
                 <Avatar
                   src={user.photoURL && user.photoURL}
@@ -80,16 +86,16 @@ const SideBar = ({ anchor, setAnchor }) => {
             <ListItemIcon>
               <HomeOutlined />
             </ListItemIcon>
-            <ListItemText primary="Home" />
+            <ListItemText primary="Classificação" />
           </Link>
         </ListItem>
 
         <ListItem button>
-          <Link to="/jornadas" className={classes.link}>
+          <Link to="/rodadas" className={classes.link}>
             <ListItemIcon>
               <StyleOutlined />
             </ListItemIcon>
-            <ListItemText primary="Jornadas" />
+            <ListItemText primary="Rodadas" />
           </Link>
         </ListItem>
 

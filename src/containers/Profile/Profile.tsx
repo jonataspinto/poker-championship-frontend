@@ -1,8 +1,8 @@
 import React from "react";
 import * as S from "./ProfileStyled";
 import { useSelector } from "react-redux";
+import { Helmet } from "react-helmet";
 import { RootState } from "../../store";
-
 export const Profile = () => {
   const {
     user,
@@ -17,9 +17,9 @@ export const Profile = () => {
 
   return (
     <S.ProfileContainer>
-      {/* <Head>
-        <title>Profile</title>
-      </Head> */}
+      <Helmet>
+        <title>{`Poker | ${user?.name}`}</title>
+      </Helmet>
       <S.ProfileImage src={photoURL} alt="Imagem do usuário" />
       <S.ProfileName>{name}</S.ProfileName>
       <S.Row>

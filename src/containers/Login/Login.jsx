@@ -18,6 +18,8 @@ import {
 import { Google } from "styled-icons/boxicons-logos";
 import { UserTie } from "styled-icons/fa-solid";
 
+import { Helmet } from "react-helmet";
+
 import { userActions } from "../../store/duks";
 
 const useStyles = makeStyles((theme) => ({
@@ -75,6 +77,9 @@ const Login = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Poker | Login</title>
+      </Helmet>
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <UserTie style={{ width: "100%" }} />
