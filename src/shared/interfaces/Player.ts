@@ -1,4 +1,5 @@
 import { IAddress } from "./Address";
+import { IPlayerPodium } from "./Podium";
 
 export interface IPlayer {
   id?: string;
@@ -10,5 +11,6 @@ export interface IPlayer {
   photoURL?: string;
   address?: IAddress;
   points: number;
-  isAdmin: boolean
+  isAdmin: boolean;
+  podiums?: IPlayerPodium
 }
