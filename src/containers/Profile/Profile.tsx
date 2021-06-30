@@ -16,16 +16,12 @@ export const Profile = () => {
     photoURL,
    } = user;
 
-  const handleEditProfile = (profile: IPlayer) => {
-    console.log(profile)
-  } 
-
   return (
     <S.ProfileContainer>
       <Helmet>
         <title>{`Poker | ${user?.name}`}</title>
       </Helmet>
-      <S.ProfileImage onClick={() => handleEditProfile(user)} src={photoURL} alt="Imagem do usuário" />
+      <S.ProfileImage src={photoURL} alt="Imagem do usuário" />
       <S.ProfileName>{name}</S.ProfileName>
       <S.Row>
         <S.EmailOutlined />
