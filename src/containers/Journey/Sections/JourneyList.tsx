@@ -130,7 +130,10 @@ export const JourneyList = ({
                   />
                 </> ) : (
                   <CloseOrUpdateJourney
-                    players={players}
+                    players={journey.players.map(playerIdInJourney => (
+                        players.find(player => player.uuid === playerIdInJourney)
+                      )) as IPlayer[]
+                    }
                     journey={journey}
                   />
                 )}
