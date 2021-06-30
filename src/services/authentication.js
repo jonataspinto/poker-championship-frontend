@@ -19,9 +19,20 @@ export const authenticate = async (data) => {
   return response.data;
 };
 
-// export const RefreshIdToken = (userId) => {
+export const RefreshIdToken = async (callback) => {
+  const response = {
+    status: "failed",
+  };
 
-// };
+  const idToken = await firebaseAuthGoogle.currentUser?.getIdToken(true);
+
+  if (idToken) {
+    localStorage.setItem("idToken", JSON.stringify(idToken));
+    response.status = "success";
+  }
+
+  callback(response);
+};
 
 export const GetStorageUser = () => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -76,8 +87,8 @@ export const LoginGoogle = async () => {
   return validUser;
 };
 
-export const LogOutGoogle = () => {
-  firebaseAuthGoogle.signOut().then(() => {
+export const LogOutGoogle = async () => {
+  await firebaseAuthGoogle.signOut().then(() => {
     localStorage.removeItem("user");
     localStorage.removeItem("accessToken");
     localStorage.removeItem("idToken");

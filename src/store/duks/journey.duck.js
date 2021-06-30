@@ -1,4 +1,4 @@
-import * as Service from "../../services/journey";
+import { JourneyServices, RefreshIdToken } from "../../services";
 import { userActions } from "./user.duck";
 
 const TYPES = {
@@ -80,19 +80,24 @@ export const journeyReducer = (
         ...state,
         loading: true,
       };
-    case TYPES.UPDATE_JOURNEY_SUCCESS:
+    case TYPES.UPDATE_JOURNEY_SUCCESS: {
+      const draftStateJourneys = state.journeys;
+
+      draftStateJourneys.splice(
+        state.journeys.findIndex((journey) => (
+          journey.uuid === action.payload.journey.uuid
+        )),
+        1,
+        action.payload.journey,
+      );
+
       return {
         ...state,
-        journeys: state.journeys.splice(
-          state.journeys.findIndex((journey) => (
-            journey.uuid === action.payload.journey.uuid
-          )),
-          1,
-          action.payload.journey,
-        ),
+        journeys: draftStateJourneys,
         notify: action.payload.notify,
         loading: false,
       };
+    }
     case TYPES.UPDATE_JOURNEY_ERROR:
       return {
         ...state,
@@ -128,7 +133,7 @@ const get = () => async (dispatch) => {
     type: TYPES.GET_JOURNEY_STARTED,
   });
   try {
-    const data = await Service.getAllJourneys();
+    const data = await JourneyServices.getAllJourneys();
     dispatch({
       type: TYPES.GET_JOURNEY_SUCCESS,
       payload: {
@@ -141,18 +146,22 @@ const get = () => async (dispatch) => {
     });
   } catch (error) {
     if (error?.response?.data?.code === "auth/id-token-expired") {
-      dispatch(userActions.logoutGoogle());
-      dispatch({
-        type: TYPES.GET_JOURNEY_SUCCESS,
-        payload: {
-          notify: {
-            message: "Por Favor, faça login novamente.",
-            type: "error",
+      await RefreshIdToken(({ status }) => {
+        if (status === "success") {
+          return dispatch(get());
+        }
+        dispatch(userActions.logoutGoogle());
+        return dispatch({
+          type: TYPES.GET_JOURNEY_SUCCESS,
+          payload: {
+            notify: {
+              message: "Por Favor, faça login novamente.",
+              type: "error",
+            },
           },
-        },
+        });
       });
     }
-    console.log("userReducer", error);
   }
 };
 
@@ -161,7 +170,7 @@ const create = (journeyData) => async (dispatch) => {
     type: TYPES.CREATE_JOURNEY_STARTED,
   });
   try {
-    const data = await Service.createNewJourney(journeyData);
+    const data = await JourneyServices.createNewJourney(journeyData);
     dispatch({
       type: TYPES.CREATE_JOURNEY_SUCCESS,
       payload: {
@@ -174,18 +183,22 @@ const create = (journeyData) => async (dispatch) => {
     });
   } catch (error) {
     if (error?.response?.data?.code === "auth/id-token-expired") {
-      dispatch(userActions.logoutGoogle());
-      dispatch({
-        type: TYPES.CREATE_JOURNEY_ERROR,
-        payload: {
-          notify: {
-            message: "Por Favor, faça login novamente.",
-            type: "error",
+      await RefreshIdToken(({ status }) => {
+        if (status === "success") {
+          return dispatch(create(journeyData));
+        }
+        dispatch(userActions.logoutGoogle());
+        return dispatch({
+          type: TYPES.CREATE_JOURNEY_ERROR,
+          payload: {
+            notify: {
+              message: "Por Favor, faça login novamente.",
+              type: "error",
+            },
           },
-        },
+        });
       });
     }
-    console.log("userReducer", error);
   }
 };
 
@@ -194,7 +207,7 @@ const update = (journeyData) => async (dispatch) => {
     type: TYPES.UPDATE_JOURNEY_STARTED,
   });
   try {
-    const data = await Service.updateJourney(journeyData);
+    const data = await JourneyServices.updateJourney(journeyData);
     dispatch({
       type: TYPES.UPDATE_JOURNEY_SUCCESS,
       payload: {
@@ -207,18 +220,22 @@ const update = (journeyData) => async (dispatch) => {
     });
   } catch (error) {
     if (error?.response?.data?.code === "auth/id-token-expired") {
-      dispatch(userActions.logoutGoogle());
-      dispatch({
-        type: TYPES.UPDATE_JOURNEY_ERROR,
-        payload: {
-          notify: {
-            message: "Por Favor, faça login novamente.",
-            type: "error",
+      await RefreshIdToken(({ status }) => {
+        if (status === "success") {
+          return dispatch(update(journeyData));
+        }
+        dispatch(userActions.logoutGoogle());
+        return dispatch({
+          type: TYPES.UPDATE_JOURNEY_ERROR,
+          payload: {
+            notify: {
+              message: "Por Favor, faça login novamente.",
+              type: "error",
+            },
           },
-        },
+        });
       });
     }
-    console.log("userReducer", error);
   }
 };
 
@@ -227,7 +244,7 @@ const close = (journeyId) => async (dispatch) => {
     type: TYPES.CLOSE_JOURNEY_STARTED,
   });
   try {
-    await Service.closeJourney(journeyId);
+    await JourneyServices.closeJourney(journeyId);
     dispatch(get());
     dispatch({
       type: TYPES.CLOSE_JOURNEY_SUCCESS,
@@ -240,18 +257,22 @@ const close = (journeyId) => async (dispatch) => {
     });
   } catch (error) {
     if (error?.response?.data?.code === "auth/id-token-expired") {
-      dispatch(userActions.logoutGoogle());
-      dispatch({
-        type: TYPES.CLOSE_JOURNEY_ERROR,
-        payload: {
-          notify: {
-            message: "Por Favor, faça login novamente.",
-            type: "error",
+      await RefreshIdToken(({ status }) => {
+        if (status === "success") {
+          return dispatch(close(journeyId));
+        }
+        dispatch(userActions.logoutGoogle());
+        return dispatch({
+          type: TYPES.CLOSE_JOURNEY_ERROR,
+          payload: {
+            notify: {
+              message: "Por Favor, faça login novamente.",
+              type: "error",
+            },
           },
-        },
+        });
       });
     }
-    console.log("userReducer", error);
   }
 };
 
