@@ -13,7 +13,7 @@ import { IPlayer } from "../../../shared/interfaces";
 import { useModal } from "../../../contexts";
 import { journeyActions } from "../../../store/duks";
 import { useDispatch } from "react-redux";
-import { formatDateToIso } from "../../../utils/formatters/formatDate";
+import { formatDateToIso } from "../../../utils";
 
 interface CreateJourneyProps {
   players: IPlayer[],
