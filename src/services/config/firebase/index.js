@@ -1,1 +1,5 @@
-export { firebaseAuthGoogle, googleProvider } from "./config";
+export {
+  firebaseAuthGoogle,
+  googleProvider,
+  firebaseStorage,
+} from "./config";
