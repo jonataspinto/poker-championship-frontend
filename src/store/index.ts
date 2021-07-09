@@ -10,13 +10,11 @@ import storage from "redux-persist/lib/storage";
 
 import {
   playersReducer,
-  userReducer,
   journeyReducer,
 } from "./duks";
 
 const rootReducer = combineReducers({
   playersReducer,
-  userReducer,
   journeyReducer,
 });
 
