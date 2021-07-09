@@ -10,6 +10,8 @@ export {
   authenticate,
 } from "./authentication";
 
+export { uploadFile } from "./uploadFile";
+
 export {
   JourneyServices,
   PlayerServices,
