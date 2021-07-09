@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }: IAuthContextProvider) => {
       console.log("Auth", error);
       setLoadingAuth(false);
     }
-  }, [])
+  }, [redirectTo])
 
   const logoutGoogle = useCallback(async () => {
     setLoadingAuth(true);
