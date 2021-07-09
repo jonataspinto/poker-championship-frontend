@@ -1,4 +1,5 @@
 import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import { LoginGoogle, LogOutGoogle, PlayerServices } from "../../services";
 import { IPlayer } from "../../shared/interfaces";
@@ -22,7 +23,7 @@ export const AuthProvider = ({ children }: IAuthContextProvider) => {
   const [user, setUser] = useState<IPlayer>({} as IPlayer)
   const history = useHistory();
 
-  const loginGoogle = async () => {
+  const loginGoogle = useCallback(async () => {
     try {
       const response = await LoginGoogle();
       setUser(response);
@@ -30,9 +31,9 @@ export const AuthProvider = ({ children }: IAuthContextProvider) => {
     } catch (error) {
       console.log("Auth", error);
     }
-  }
+  }, [])
 
-  const logoutGoogle = async () => {
+  const logoutGoogle = useCallback(async () => {
     try {
       await LogOutGoogle();
       setUser({} as IPlayer)
@@ -40,7 +41,11 @@ export const AuthProvider = ({ children }: IAuthContextProvider) => {
     } catch (error) {
       console.log("Auth", error);
     }
-  }
+  }, [])
+
+  const redirectTo = useCallback((path: string) => {
+    history.push(path)
+  }, [history])
 
   const handleUpdateProfile = async (userData: IPlayer) => {
     try {
@@ -59,9 +64,9 @@ export const AuthProvider = ({ children }: IAuthContextProvider) => {
     } else {
       const redirectPath = "/login";
 
-      history.push(redirectPath);
+      redirectTo(redirectPath);
     }
-  }, [])
+  }, [redirectTo])
 
   return (
     <AuthContext.Provider
