@@ -20,9 +20,13 @@ interface IModalContext {
   isOpen: boolean
 }
 
+interface IModalContextProvider {
+  children: ReactNode;
+}
+
 const ModalContext = createContext<IModalContext>({} as IModalContext);
 
-const ModalProvider: React.FC = ({ children }) => {
+const ModalProvider = ({ children }: IModalContextProvider) => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalContent, setModalContent] = useState<ReactNode>(<> </>);
   const [dialogActions, setDialogAction] = useState<{
