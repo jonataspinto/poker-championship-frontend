@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Drawer,
   List,
@@ -18,11 +18,7 @@ import {
   StyleOutlined,
   VerifiedUser,
 } from "@material-ui/icons";
-import {
-  useDispatch,
-  useSelector,
-} from "react-redux";
-import { userActions } from "../../../store/duks";
+import { useAuth } from "../../../contexts";
 
 const useStyles = makeStyles(() => ({
   list: {
@@ -39,18 +35,11 @@ const useStyles = makeStyles(() => ({
 const SideBar = ({ anchor, setAnchor }) => {
   const classes = useStyles();
 
-  const dispatch = useDispatch();
-
-  const history = useHistory();
-
   const {
     user,
     isAuthenticated,
-  } = useSelector((state) => state.userReducer);
-
-  if (!user) {
-    history.push("/login");
-  }
+    logoutGoogle,
+  } = useAuth();
 
   const list = () => (
     <div
@@ -60,23 +49,23 @@ const SideBar = ({ anchor, setAnchor }) => {
       onKeyDown={setAnchor()}
     >
       <List>
-        {user.name && (
+        {user?.name && (
           <ListItem button>
             <Link to="/meu-perfil" className={classes.link}>
               <ListItemIcon>
                 <Avatar
-                  src={user.photoURL && user.photoURL}
-                  alt={`imagem de ${user.name}`}
+                  src={user?.photoURL && user?.photoURL}
+                  alt={`imagem de ${user?.name}`}
                   imgProps={{
                     style: {
                       borderRadius: "50%",
                     },
                   }}
                 >
-                  {!user.photoURL && <VerifiedUser style={{ width: "100%" }} />}
+                  {!user?.photoURL && <VerifiedUser style={{ width: "100%" }} />}
                 </Avatar>
               </ListItemIcon>
-              <ListItemText primary={user.name} />
+              <ListItemText primary={user?.name} />
             </Link>
           </ListItem>
         )}
@@ -103,7 +92,7 @@ const SideBar = ({ anchor, setAnchor }) => {
 
         {(user && isAuthenticated)
           ? (
-            <ListItem button onClick={() => dispatch(userActions.logoutGoogle())}>
+            <ListItem button onClick={() => logoutGoogle()}>
               <ListItemIcon>
                 <ExitToApp />
               </ListItemIcon>

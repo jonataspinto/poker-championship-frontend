@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Helmet } from "react-helmet";
 
-import { playersActions, userActions } from "../../store/duks";
+import { playersActions } from "../../store/duks";
 import { RootState } from "../../store";
 import { IPlayer } from "../../shared/interfaces";
 import { TablePlayers } from "./Sections";
@@ -21,10 +21,6 @@ export const Home = () => {
   useEffect(() => {
     setPlayers(playersReducer.players);
   }, [playersReducer.players]);
-
-  useEffect(() => {
-    dispatch(userActions.get());
-  }, [dispatch]);
 
   return (
     <>

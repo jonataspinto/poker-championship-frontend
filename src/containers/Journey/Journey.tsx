@@ -14,8 +14,6 @@ export const Journey = () => {
     players,
     journeys
   } = useSelector((state: RootState) => ({
-    user: state.userReducer.user,
-    isAuthenticated: state.userReducer.isAuthenticated,
     players: state.playersReducer.players,
     journeys: state.journeyReducer.journeys,
   }));
