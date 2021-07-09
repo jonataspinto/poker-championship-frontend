@@ -10,6 +10,7 @@ interface IAuthContext {
   handleUpdateProfile: (userData: IPlayer) => Promise<void>;
   isAuthenticated: boolean;
   user: IPlayer;
+  loadingAuth: boolean;
 }
 
 interface IAuthContextProvider {
@@ -20,51 +21,64 @@ const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 
 export const AuthProvider = ({ children }: IAuthContextProvider) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [loadingAuth, setLoadingAuth] = useState<boolean>(false);
   const [user, setUser] = useState<IPlayer>({} as IPlayer)
   const history = useHistory();
-
-  const loginGoogle = useCallback(async () => {
-    try {
-      const response = await LoginGoogle();
-      setUser(response);
-      setIsAuthenticated(true);
-    } catch (error) {
-      console.log("Auth", error);
-    }
-  }, [])
-
-  const logoutGoogle = useCallback(async () => {
-    try {
-      await LogOutGoogle();
-      setUser({} as IPlayer)
-      setIsAuthenticated(false);
-    } catch (error) {
-      console.log("Auth", error);
-    }
-  }, [])
 
   const redirectTo = useCallback((path: string) => {
     history.push(path)
   }, [history])
 
+  const loginGoogle = useCallback(async () => {
+    setLoadingAuth(true);
+    try {
+      const response = await LoginGoogle();
+      setUser(response);
+      setIsAuthenticated(true);
+      redirectTo("/")
+      setLoadingAuth(false);
+    } catch (error) {
+      console.log("Auth", error);
+      setLoadingAuth(false);
+    }
+  }, [])
+
+  const logoutGoogle = useCallback(async () => {
+    setLoadingAuth(true);
+    try {
+      await LogOutGoogle();
+      setUser({} as IPlayer)
+      setIsAuthenticated(false);
+      setLoadingAuth(false);
+    } catch (error) {
+      console.log("Auth", error);
+      setLoadingAuth(false);
+    }
+  }, [])
+
   const handleUpdateProfile = async (userData: IPlayer) => {
+    setLoadingAuth(true);
     try {
       const response: IPlayer = await PlayerServices.updatePlayerProfile(userData);
       setUser(response);
+      setLoadingAuth(false);
     } catch (error) {
       console.log(error)
+      setLoadingAuth(false);
     }
   }
 
   useEffect(() => {
+    setLoadingAuth(true);
     const data = localStorage.getItem("user");
     if (data) {
       setUser(JSON.parse(data));
       setIsAuthenticated(true);
+      redirectTo("/");
+      setLoadingAuth(false);
     } else {
-      const redirectPath = "/login";
-
-      redirectTo(redirectPath);
+      redirectTo("/login");
+      setLoadingAuth(false);
     }
   }, [redirectTo])
 
@@ -76,6 +90,7 @@ export const AuthProvider = ({ children }: IAuthContextProvider) => {
         handleUpdateProfile,
         isAuthenticated,
         user,
+        loadingAuth
       }}
     >
       { children }
