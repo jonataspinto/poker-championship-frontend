@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import React from "react";
 import {
   makeStyles,
   Button,
   Avatar,
   Typography,
+  CircularProgress,
 } from "@material-ui/core";
 import { Google } from "styled-icons/boxicons-logos";
 import { UserTie } from "styled-icons/fa-solid";
@@ -35,27 +35,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = () => {
+export const Login = () => {
   const classes = useStyles();
-  const history = useHistory();
 
   const {
-    user,
-    isAuthenticated,
     loginGoogle,
+    loadingAuth,
   } = useAuth();
-
-  useEffect(() => {
-    if (user && isAuthenticated) {
-      const redirectPath = "/";
-
-      history.push(redirectPath);
-    }
-  }, [
-    user,
-    isAuthenticated,
-    history,
-  ]);
 
   return (
     <>
@@ -74,18 +60,24 @@ const Login = () => {
             variant="contained"
             size="medium"
             color="secondary"
-            margin="normal"
             fullWidth
             onClick={() => loginGoogle()}
             className={classes.google}
+            disabled={loadingAuth}
           >
-            <Google style={{ width: "24px", marginRight: "10px" }} />
-            login com google
+            {
+            loadingAuth
+              ? <CircularProgress color="secondary" />
+              : (
+                <>
+                  <Google style={{ width: "24px", marginRight: "10px" }} />
+                  Login com google
+                </>
+              )
+            }
           </Button>
         </form>
       </div>
     </>
   );
 };
-
-export default Login;
