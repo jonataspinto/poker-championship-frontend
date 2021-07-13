@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   makeStyles,
   Button,
@@ -12,6 +12,7 @@ import { UserTie } from "styled-icons/fa-solid";
 import { Helmet } from "react-helmet";
 
 import { useAuth } from "../../contexts";
+import { useLocation } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -41,7 +42,23 @@ export const Login = () => {
   const {
     loginGoogle,
     loadingAuth,
+    user,
+    isAuthenticated,
+    redirectTo
   } = useAuth();
+
+  const { state } = useLocation<{ from: { pathname: string }}>();
+
+  useEffect(() => {
+    if(user && isAuthenticated) {
+      redirectTo(state.from.pathname, state);
+    }
+  }, [
+    user,
+    isAuthenticated,
+    state,
+    redirectTo
+  ])
 
   return (
     <>

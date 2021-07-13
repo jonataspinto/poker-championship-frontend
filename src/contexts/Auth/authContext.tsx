@@ -1,6 +1,6 @@
 import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { useCallback } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { LoginGoogle, LogOutGoogle, PlayerServices } from "../../services";
 import { IPlayer } from "../../shared/interfaces";
 
@@ -11,6 +11,7 @@ interface IAuthContext {
   isAuthenticated: boolean;
   user: IPlayer;
   loadingAuth: boolean;
+  redirectTo: (path: string, state: {}) => void
 }
 
 interface IAuthContextProvider {
@@ -24,9 +25,10 @@ export const AuthProvider = ({ children }: IAuthContextProvider) => {
   const [loadingAuth, setLoadingAuth] = useState<boolean>(false);
   const [user, setUser] = useState<IPlayer>({} as IPlayer)
   const history = useHistory();
+  const location = useLocation();
 
-  const redirectTo = useCallback((path: string) => {
-    history.push(path)
+  const redirectTo = useCallback((path: string, state: any = { from: { pathname: "/" }}) => {
+    history.push(path, state)
   }, [history])
 
   const loginGoogle = useCallback(async () => {
@@ -35,13 +37,12 @@ export const AuthProvider = ({ children }: IAuthContextProvider) => {
       const response = await LoginGoogle();
       setUser(response);
       setIsAuthenticated(true);
-      redirectTo("/")
       setLoadingAuth(false);
     } catch (error) {
       console.log("Auth", error);
       setLoadingAuth(false);
     }
-  }, [redirectTo])
+  }, [])
 
   const logoutGoogle = useCallback(async () => {
     setLoadingAuth(true);
@@ -74,10 +75,9 @@ export const AuthProvider = ({ children }: IAuthContextProvider) => {
     if (data) {
       setUser(JSON.parse(data));
       setIsAuthenticated(true);
-      redirectTo("/");
       setLoadingAuth(false);
     } else {
-      redirectTo("/login");
+      redirectTo("/login", { from: { pathname: location.pathname }});
       setLoadingAuth(false);
     }
   }, [redirectTo])
@@ -90,7 +90,8 @@ export const AuthProvider = ({ children }: IAuthContextProvider) => {
         handleUpdateProfile,
         isAuthenticated,
         user,
-        loadingAuth
+        loadingAuth,
+        redirectTo
       }}
     >
       { children }
