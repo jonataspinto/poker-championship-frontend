@@ -1,26 +1,26 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Paper } from "@material-ui/core";
 import { Helmet } from "react-helmet";
-import { journeyActions } from "../../store/duks";
 import { JourneyList } from "./Sections/JourneyList";
 import { CreateJourney } from "./Sections/CreateJourney";
 import { RootState } from "../../store";
+import { useJourney } from "../../contexts/Journey";
 
 export const Journey = () => {
-  const dispatch = useDispatch();
-
   const {
     players,
-    journeys
   } = useSelector((state: RootState) => ({
     players: state.playersReducer.players,
-    journeys: state.journeyReducer.journeys,
   }));
 
+  const { journeys , fetchJourneys } = useJourney();
+
   useEffect(() => {
-    dispatch(journeyActions.get());
-  }, [dispatch]);
+    fetchJourneys()
+  }, [
+    fetchJourneys
+  ]);
 
   return (
     <>

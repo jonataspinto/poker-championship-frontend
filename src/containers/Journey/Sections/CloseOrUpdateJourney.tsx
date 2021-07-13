@@ -17,8 +17,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { IJourney, IPlayer } from "../../../shared/interfaces";
 import { useModal } from "../../../contexts";
 import { JourneyIsComplete } from "../../../shared/validators/JourneyIsComplete";
-import { useDispatch } from "react-redux";
-import { journeyActions } from "../../../store/duks";
+import { useJourney } from "../../../contexts/Journey";
 
 interface CloseOrUpdateJourneyProps {
   players: IPlayer[],
@@ -51,14 +50,14 @@ export const CloseOrUpdateJourney = ({ players, journey }: CloseOrUpdateJourneyP
 
   const classes = useStyles();
 
-  const dispatch = useDispatch();
+  const { updateJourney, closeJourney } = useJourney();
 
   const handleUpdateJourney = () => {
-    dispatch(journeyActions.update(journeyData));
+    updateJourney(journeyData);
   }
 
   const handleCLoseJourney = () => {
-    dispatch(journeyActions.close(journeyData.id));
+    closeJourney(journeyData.id as string);
   }
 
   const ActionsModalCloseJourney = {
@@ -92,12 +91,12 @@ export const CloseOrUpdateJourney = ({ players, journey }: CloseOrUpdateJourneyP
 
   const RenderItem = (player: IPlayer) => (
     <MenuItem
-      key={player.uuid}
-      value={player.uuid}
+      key={player?.uuid}
+      value={player?.uuid}
     >
       <Chip
         size="medium"
-        label={player.name}
+        label={player?.name}
         avatar={(
           <Avatar
             src={player?.photoURL}
