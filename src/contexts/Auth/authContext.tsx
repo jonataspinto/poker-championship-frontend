@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import React, { createContext, ReactNode, useEffect, useState } from "react";
 import { useCallback } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { LoginGoogle, LogOutGoogle, PlayerServices } from "../../services";
@@ -18,7 +18,7 @@ interface IAuthContextProvider {
   children: ReactNode;
 }
 
-const AuthContext = createContext<IAuthContext>({} as IAuthContext);
+export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 
 export const AuthProvider = ({ children }: IAuthContextProvider) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -116,14 +116,4 @@ export const AuthProvider = ({ children }: IAuthContextProvider) => {
       { children }
     </AuthContext.Provider>
   );
-}
-
-export const useAuth = (): IAuthContext => {
-  const context = useContext(AuthContext);
-
-  if(!context) {
-    throw new Error("Ops... não foi possivel conectar-se ao provider.")
-  }
-
-  return context
 }

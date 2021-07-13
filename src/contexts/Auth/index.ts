@@ -1,4 +1,2 @@
-export {
-  AuthProvider,
-  useAuth
-} from "./authContext"
+export { AuthProvider } from "./authContext"
+export { useAuth } from "./hooks"
