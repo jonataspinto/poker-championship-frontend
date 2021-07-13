@@ -4,8 +4,6 @@ import { useLocation } from "react-router-dom";
 import { Header } from "../Header";
 import { Toast } from "../../elements/Toast/Toast";
 import { SideBar } from "..";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store";
 
 interface LayoutProps {
   children: ReactNode
@@ -14,10 +12,10 @@ interface LayoutProps {
 export const Layout = ({ children }: LayoutProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [openToast, setOpenToast] = useState(false);
-
-  const {
-    notify
-  } = useSelector((state: RootState) => state.journeyReducer);
+  const notify = {
+    message: "",
+    type: "success"
+  }
 
   const { pathname } = useLocation();
 
