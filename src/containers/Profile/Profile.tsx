@@ -1,26 +1,49 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import * as S from "./ProfileStyled";
-import { useSelector } from "react-redux";
 import { Helmet } from "react-helmet";
-import { RootState } from "../../store";
+import { IPlayer } from "../../shared/interfaces";
+import { useAuth, useModal } from "../../contexts";
+import { EditProfileModal } from "./Sections/EditProfileModal";
+import { updatePlayerProfile } from "../../services/players";
+
 export const Profile = () => {
-  const {
-    user,
-  } = useSelector((state: RootState) => state.userReducer);
+  const [currentUserProfile, setCurrentUserProfile] = useState<IPlayer>({} as IPlayer)
+  const { user } = useAuth();
+  const { showModal } = useModal()
 
   const {
     points,
     email,
     name,
     photoURL,
-   } = user;
+  } = currentUserProfile;
+
+  useEffect(() => {
+    setCurrentUserProfile(user)
+  }, [user])
+
+  const actionsEditProfileModal = {
+    agree: () => {updatePlayerProfile(currentUserProfile)},
+    disAgree: () => setCurrentUserProfile(currentUserProfile)
+  };
 
   return (
     <S.ProfileContainer>
       <Helmet>
-        <title>{`Poker | ${user?.name}`}</title>
+        <title>{`Poker | ${name}`}</title>
       </Helmet>
-      <S.ProfileImage src={photoURL} alt="Imagem do usuário" />
+      <S.ProfileImage
+        src={photoURL}
+        alt="Imagem do usuário"
+        onClick={() => showModal(
+          <EditProfileModal
+            currentUserProfile={currentUserProfile}
+            setCurrentUserProfile={setCurrentUserProfile}
+          />
+          ,
+          actionsEditProfileModal
+        )}
+      />
       <S.ProfileName>{name}</S.ProfileName>
       <S.Row>
         <S.EmailOutlined />
