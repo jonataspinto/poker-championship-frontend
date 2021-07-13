@@ -12,3 +12,8 @@ export interface IJourney {
   tag: number;
   createdAt: string;
 }
+
+export interface INewJourney {
+  players: string[],
+  createdAt: string,
+}
