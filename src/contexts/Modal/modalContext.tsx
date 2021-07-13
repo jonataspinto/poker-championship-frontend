@@ -2,7 +2,6 @@ import React, {
   createContext,
   useCallback,
   useState,
-  useContext,
   useEffect,
   ReactNode
 } from "react";
@@ -24,9 +23,9 @@ interface IModalContextProvider {
   children: ReactNode;
 }
 
-const ModalContext = createContext<IModalContext>({} as IModalContext);
+export const ModalContext = createContext<IModalContext>({} as IModalContext);
 
-const ModalProvider = ({ children }: IModalContextProvider) => {
+export const ModalProvider = ({ children }: IModalContextProvider) => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalContent, setModalContent] = useState<ReactNode>(<> </>);
   const [dialogActions, setDialogAction] = useState<{
@@ -99,15 +98,3 @@ const ModalProvider = ({ children }: IModalContextProvider) => {
     </ModalContext.Provider>
   );
 };
-
-function useModal(): IModalContext {
-  const context = useContext(ModalContext);
-
-  if (!context) {
-    throw new Error("useModal must be used within an ModalProvider");
-  }
-
-  return context;
-}
-
-export { ModalProvider, useModal };
