@@ -28,8 +28,23 @@ export const AuthProvider = ({ children }: IAuthContextProvider) => {
   const location = useLocation();
 
   const redirectTo = useCallback((path: string, state: any = { from: { pathname: "/" }}) => {
-    history.push(path, state)
-  }, [history])
+    if(location.pathname !== path) history.push(path, state)
+  }, [
+    history,
+    location.pathname
+  ]);
+
+  const mountState = useCallback(() => {
+    const state = {
+      from: {
+        pathname: location.pathname
+      }
+    };
+
+    return state;
+  },[
+    location.pathname
+  ]);
 
   const loginGoogle = useCallback(async () => {
     setLoadingAuth(true);
@@ -77,10 +92,14 @@ export const AuthProvider = ({ children }: IAuthContextProvider) => {
       setIsAuthenticated(true);
       setLoadingAuth(false);
     } else {
-      redirectTo("/login", { from: { pathname: location.pathname }});
+      const state = mountState();
+      redirectTo("/login", state );
       setLoadingAuth(false);
     }
-  }, [redirectTo])
+  }, [
+    redirectTo,
+    mountState
+  ])
 
   return (
     <AuthContext.Provider

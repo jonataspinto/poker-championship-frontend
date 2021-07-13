@@ -51,7 +51,7 @@ export const Login = () => {
 
   useEffect(() => {
     if(user && isAuthenticated) {
-      redirectTo(state.from.pathname, state);
+      redirectTo(state?.from?.pathname, state);
     }
   }, [
     user,
