@@ -1,25 +1,18 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { Paper } from "@material-ui/core";
 import { Helmet } from "react-helmet";
 import { JourneyList } from "./Sections/JourneyList";
 import { CreateJourney } from "./Sections/CreateJourney";
-import { RootState } from "../../store";
-import { useJourney } from "../../contexts/Journey";
+import { useJourney, usePlayersData } from "../../contexts";
 
 export const Journey = () => {
-  const {
-    players,
-  } = useSelector((state: RootState) => ({
-    players: state.playersReducer.players,
-  }));
-
   const { journeys , fetchJourneys } = useJourney();
+  const { players } = usePlayersData();
 
   useEffect(() => {
-    fetchJourneys()
+    fetchJourneys();
   }, [
-    fetchJourneys
+    fetchJourneys,
   ]);
 
   return (
@@ -30,11 +23,13 @@ export const Journey = () => {
       <CreateJourney
         players={players}
       />
-      <Paper>
-        <JourneyList
-          journeys={journeys}
-          players={players}
-        />
+      <Paper>{
+        players.length > 0 && journeys.length > 0 && (
+          <JourneyList
+            journeys={journeys}
+            players={players}
+          />
+        )}
       </Paper>
     </>
   );

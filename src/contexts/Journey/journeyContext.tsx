@@ -9,7 +9,7 @@ interface IJourneyContextProvider {
   children: ReactNode;
 }
 
-interface JourneyContext {
+interface IJourneyContext {
   journeys: Array<IJourney>;
   fetchJourneys: () => Promise<void>;
   createJourney: (journeyData: INewJourney) => Promise<void>;
@@ -17,7 +17,7 @@ interface JourneyContext {
   closeJourney: (journeyId: string) => Promise<void>;
 }
 
-export const JourneyContext = createContext<JourneyContext>({} as JourneyContext)
+export const JourneyContext = createContext<IJourneyContext>({} as IJourneyContext)
 
 export const JourneyProvider = ({ children }: IJourneyContextProvider) => {
   const [journeys, setJourneys] = useState<Array<IJourney>>([]);
