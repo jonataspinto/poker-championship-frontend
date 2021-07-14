@@ -68,7 +68,8 @@ export const AuthProvider = ({ children }: IAuthContextProvider) => {
   }, [
     redirectTo,
     mountRedirectState,
-    state.isAuthenticated
+    getStorageData,
+    state.isAuthenticated,
   ])
 
   return (

@@ -73,7 +73,8 @@ export const useLoginGoogle = () => {
       })
     }
   }, [
-    dispatch
+    dispatch,
+    removeSorageData
   ])
 
   return {
