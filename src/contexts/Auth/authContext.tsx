@@ -1,31 +1,31 @@
-import React, { createContext, ReactNode, useEffect, useState } from "react";
-import { useCallback } from "react";
+import React, {
+  createContext,
+  useEffect,
+  useCallback,
+  useReducer,
+  Reducer,
+} from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { LoginGoogle, LogOutGoogle, PlayerServices } from "../../services";
+import { AuthReducer } from "./authReducer";
+import { AuthAction, AuthActionsType } from "./authActionsTypes";
+import { IAuthContext, IAuthContextProvider, IAuthState } from "./interfaces";
 import { IPlayer } from "../../shared/interfaces";
+import { useStorage } from "../../utils";
 
-interface IAuthContext {
-  loginGoogle: () => Promise<void>;
-  logoutGoogle: () => Promise<void>;
-  handleUpdateProfile: (userData: IPlayer) => Promise<void>;
-  isAuthenticated: boolean;
-  user: IPlayer;
-  loadingAuth: boolean;
-  redirectTo: (path: string, state: {}) => void
-}
-
-interface IAuthContextProvider {
-  children: ReactNode;
+export const initialAuthState = {
+  isAuthenticated: false,
+  loadingAuth: false,
+  user: {} as IPlayer
 }
 
 export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 
 export const AuthProvider = ({ children }: IAuthContextProvider) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [loadingAuth, setLoadingAuth] = useState<boolean>(false);
-  const [user, setUser] = useState<IPlayer>({} as IPlayer)
   const history = useHistory();
   const location = useLocation();
+  const [state, dispatch] = useReducer<Reducer<IAuthState, AuthAction> >(AuthReducer, initialAuthState)
+
+  const { getStorageData } = useStorage();
 
   const redirectTo = useCallback((path: string, state: any = { from: { pathname: "/" }}) => {
     if(location.pathname !== path) history.push(path, state)
@@ -34,83 +34,49 @@ export const AuthProvider = ({ children }: IAuthContextProvider) => {
     location.pathname
   ]);
 
-  const mountState = useCallback(() => {
-    const state = {
+  const mountRedirectState = useCallback(() => {
+    return {
       from: {
         pathname: location.pathname
       }
     };
-
-    return state;
   },[
     location.pathname
   ]);
 
-  const loginGoogle = useCallback(async () => {
-    setLoadingAuth(true);
-    try {
-      const response = await LoginGoogle();
-      setUser(response);
-      setIsAuthenticated(true);
-      setLoadingAuth(false);
-    } catch (error) {
-      console.log("Auth", error);
-      setLoadingAuth(false);
-    }
-  }, [])
-
-  const logoutGoogle = useCallback(async () => {
-    setLoadingAuth(true);
-    try {
-      await LogOutGoogle();
-      setUser({} as IPlayer)
-      setIsAuthenticated(false);
-      setLoadingAuth(false);
-    } catch (error) {
-      console.log("Auth", error);
-      setLoadingAuth(false);
-    }
-  }, [])
-
-  const handleUpdateProfile = async (userData: IPlayer) => {
-    setLoadingAuth(true);
-    try {
-      const response: IPlayer = await PlayerServices.updatePlayerProfile(userData);
-      setUser(response);
-      setLoadingAuth(false);
-    } catch (error) {
-      console.log(error)
-      setLoadingAuth(false);
-    }
-  }
-
   useEffect(() => {
-    setLoadingAuth(true);
-    const data = localStorage.getItem("user");
-    if (data) {
-      setUser(JSON.parse(data));
-      setIsAuthenticated(true);
-      setLoadingAuth(false);
+    dispatch({
+      type: AuthActionsType.LOAD_STORAGE_DATA,
+    })
+
+    const { user } = getStorageData<IPlayer>(["user"])
+
+    if (user) {
+      dispatch({
+        type: AuthActionsType.LOAD_STORAGE_DATA_SUCCESS,
+        payload: {
+          user
+        }
+      })
     } else {
-      const state = mountState();
-      redirectTo("/login", state );
-      setLoadingAuth(false);
+      const stateToRedirect = mountRedirectState();
+      redirectTo("/login", stateToRedirect );
+      dispatch({
+        type: AuthActionsType.LOAD_STORAGE_DATA_ERROR,
+      })
     }
   }, [
     redirectTo,
-    mountState
+    mountRedirectState,
+    state.isAuthenticated
   ])
 
   return (
     <AuthContext.Provider
       value={{
-        loginGoogle,
-        logoutGoogle,
-        handleUpdateProfile,
-        isAuthenticated,
-        user,
-        loadingAuth,
-        redirectTo
+        redirectTo,
+        state,
+        dispatch,
       }}
     >
       { children }
