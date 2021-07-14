@@ -9,7 +9,7 @@ import { updatePlayerProfile } from "../../services/players";
 export const Profile = () => {
   const [currentUserProfile, setCurrentUserProfile] = useState<IPlayer>({} as IPlayer)
   const { user } = useAuth();
-  const { showModal } = useModal()
+  const { showModal, isOpen } = useModal()
 
   const {
     points,
@@ -26,6 +26,22 @@ export const Profile = () => {
     agree: () => {updatePlayerProfile(currentUserProfile)},
     disAgree: () => setCurrentUserProfile(currentUserProfile)
   };
+
+  useEffect(() => {
+    if(isOpen) {
+      showModal(
+        <EditProfileModal
+          currentUserProfile={currentUserProfile}
+          setCurrentUserProfile={setCurrentUserProfile}
+        />
+        ,
+        actionsEditProfileModal
+      )
+    }
+    // eslint-disable-next-line
+  }, [
+    currentUserProfile
+  ])
 
   return (
     <S.ProfileContainer>

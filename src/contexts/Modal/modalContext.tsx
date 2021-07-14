@@ -3,10 +3,12 @@ import React, {
   useCallback,
   useState,
   useEffect,
-  ReactNode
+  ReactNode,
+  SetStateAction
 } from "react";
 import Button from '@material-ui/core/Button';
 import { Dialog, DialogActions } from '@material-ui/core';
+import { Dispatch } from "react";
 
 interface IDialogActions {
   agree: () => void,
@@ -17,6 +19,7 @@ interface IModalContext {
   showModal: (content: ReactNode, actions: IDialogActions) => void;
   closeModal: () => void;
   isOpen: boolean
+  setIsOpen: Dispatch<SetStateAction<boolean>>
 }
 
 interface IModalContextProvider {
@@ -61,7 +64,8 @@ export const ModalProvider = ({ children }: IModalContextProvider) => {
       value={{
         showModal,
         closeModal,
-        isOpen
+        isOpen,
+        setIsOpen
       }}
     >
       {children}

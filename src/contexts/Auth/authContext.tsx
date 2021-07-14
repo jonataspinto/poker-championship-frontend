@@ -44,12 +44,12 @@ export const AuthProvider = ({ children }: IAuthContextProvider) => {
     location.pathname
   ]);
 
+  const { user } = getStorageData<IPlayer>(["user"]);
+
   useEffect(() => {
     dispatch({
       type: AuthActionsType.LOAD_STORAGE_DATA,
     })
-
-    const { user } = getStorageData<IPlayer>(["user"])
 
     if (user) {
       dispatch({
@@ -65,11 +65,10 @@ export const AuthProvider = ({ children }: IAuthContextProvider) => {
         type: AuthActionsType.LOAD_STORAGE_DATA_ERROR,
       })
     }
+    // eslint-disable-next-line
   }, [
     redirectTo,
     mountRedirectState,
-    getStorageData,
-    state.isAuthenticated,
   ])
 
   return (
