@@ -1,3 +1,5 @@
+export { api } from "./api";
+
 export {
   firebaseAuthGoogle,
   googleProvider,

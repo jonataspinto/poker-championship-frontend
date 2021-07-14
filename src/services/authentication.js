@@ -16,16 +16,6 @@ export const RefreshIdToken = async (callback) => {
   callback(response);
 };
 
-export const GetStorageUser = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const accessToken = localStorage.getItem("accessToken");
-  const idToken = localStorage.getItem("idToken")?.replaceAll("\"", "");
-  if (user) {
-    return { ...user, accessToken, idToken };
-  }
-  return null;
-};
-
 export const LoginGoogle = async () => {
   let user;
   const result = await firebaseAuthGoogle.signInWithPopup(googleProvider);

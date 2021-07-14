@@ -2,7 +2,6 @@ import * as JourneyServices from "./journey";
 import * as PlayerServices from "./players";
 
 export {
-  GetStorageUser,
   LoginGoogle,
   LogOutGoogle,
   RefreshIdToken,
