@@ -6,7 +6,7 @@ import { CreateJourney } from "./Sections/CreateJourney";
 import { useJourney, usePlayersData } from "../../contexts";
 
 export const Journey = () => {
-  const { journeys , fetchJourneys } = useJourney();
+  const { state, fetchJourneys } = useJourney();
   const { players } = usePlayersData();
 
   useEffect(() => {
@@ -24,10 +24,11 @@ export const Journey = () => {
         players={players}
       />
       <Paper>{
-        players.length > 0 && journeys.length > 0 && (
+        players.length > 0 && state.journeys.length > 0 && (
           <JourneyList
-            journeys={journeys}
+            journeys={state.journeys}
             players={players}
+            status={state.status}
           />
         )}
       </Paper>

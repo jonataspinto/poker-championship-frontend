@@ -50,7 +50,7 @@ export const CloseOrUpdateJourney = ({ players, journey }: CloseOrUpdateJourneyP
 
   const classes = useStyles();
 
-  const { updateJourney, closeJourney } = useJourney();
+  const { updateJourney, closeJourney,  } = useJourney();
 
   const handleUpdateJourney = () => {
     updateJourney(journeyData);

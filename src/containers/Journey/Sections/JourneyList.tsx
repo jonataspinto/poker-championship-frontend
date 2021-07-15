@@ -12,19 +12,25 @@ import {
 import { ExpandMore, Block } from "@material-ui/icons";
 import { BoxPodiumPlayer } from "./BoxPodiumPlayer";
 import { CloseOrUpdateJourney } from "./CloseOrUpdateJourney";
-import { IJourney, IPlayer } from "../../../interfaces"
+import { IJourney, IPlayer, Status } from "../../../interfaces"
 import { formatDate } from "../../../utils";
 
 interface JourneyListProps {
   journeys: IJourney[],
-  players: IPlayer[]
+  players: IPlayer[],
+  status?: Status
 }
 
 export const JourneyList = ({
   journeys = [],
   players = [],
+  status
 }: JourneyListProps) => {
-  return (
+  const Sckeleton = (
+    <div>{status}</div>
+  )
+
+  return (status === Status.LOADING ? Sckeleton :
     <>
       {journeys && journeys.length > 0 && journeys.map((journey) => {
         const closedBy = players.find((player) => (
