@@ -1,7 +1,7 @@
 import React from "react";
 import { Avatar, Chip, Divider } from "@material-ui/core";
-import { IPlayer } from "@/interfaces";
 import { BoxPodiumPlayer } from "./BoxPodiumPlayer";
+import { IPlayer } from "interfaces";
 
 type PodiumUI = {
   label?: string | number,
@@ -28,7 +28,7 @@ export const BoxPodium = ({ podiums, otherScorers, closedBy }: IBoxPodiumProps) 
       {otherScorers?.map((podium) => (
         <BoxPodiumPlayer
           key={podium.label}
-          player={podium.player as IPlayer }
+          player={podium.player as IPlayer}
           label={podium.label}
         />
       ))}

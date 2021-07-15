@@ -1,4 +1,4 @@
-import { IJourney, IPlayer } from "@/interfaces";
+import { IJourney, IPlayer } from "interfaces";
 
 export const MapPodiumJourney = (journey: IJourney, players: Array<IPlayer>) => {
   const closedBy = players.find((player) => (
