@@ -1,6 +1,7 @@
 import { useCallback, useContext } from "react";
-import { AuthContext, initialAuthState } from "../authContext";
+import { AuthContext } from "../authContext";
 import { AuthActionsType } from "../interfaces";
+import { initialStateAuthReducer } from "../reducer";
 import { LoginGoogle, LogOutGoogle } from "../../../services";
 import { useStorage } from "../../../utils/useStorage";
 
@@ -51,7 +52,7 @@ export const useLoginGoogle = () => {
       await LogOutGoogle();
       dispatch({
         type: AuthActionsType.LOGOUT_GOOGLE_SUCCESS,
-        payload: initialAuthState
+        payload: initialStateAuthReducer
       })
 
       removeSorageData([

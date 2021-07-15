@@ -6,23 +6,22 @@ import React, {
   Reducer,
 } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { AuthReducer } from "./reducer";
+import { AuthReducer, initialStateAuthReducer } from "./reducer";
 import { IAuthContext, IAuthContextProvider, IAuthState, AuthActionsType } from "./interfaces";
 import { IActionReducer, IPlayer } from "../../interfaces";
 import { useStorage } from "../../utils";
-
-export const initialAuthState = {
-  isAuthenticated: false,
-  loadingAuth: false,
-  user: {} as IPlayer
-}
 
 export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 
 export const AuthProvider = ({ children }: IAuthContextProvider) => {
   const history = useHistory();
   const location = useLocation();
-  const [state, dispatch] = useReducer<Reducer<IAuthState, IActionReducer<AuthActionsType, IAuthState>>>(AuthReducer, initialAuthState)
+  const [state, dispatch] = useReducer<
+    Reducer<
+      IAuthState,
+      IActionReducer<AuthActionsType, IAuthState>
+    >
+  >(AuthReducer, initialStateAuthReducer)
 
   const { getStorageData } = useStorage();
 
