@@ -9,12 +9,12 @@ import {
 
 import { IPlayer } from "../../../interfaces"
 
-interface IBoxPodiumProps {
+interface IBoxPodiumPlayerProps {
   player: IPlayer;
   label: React.ReactNode
 }
 
-export const BoxPodiumPlayer = ({ player, label }: IBoxPodiumProps) => (
+export const BoxPodiumPlayer = ({ player, label }: IBoxPodiumPlayerProps) => (
   <Box display="flex" flexDirection="row">
     <Typography
       variant="subtitle2"

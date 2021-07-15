@@ -3,17 +3,15 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  Avatar,
   Typography,
   Chip,
-  Divider,
   Box
 } from "@material-ui/core";
 import { ExpandMore, Block } from "@material-ui/icons";
-import { BoxPodiumPlayer } from "./BoxPodiumPlayer";
 import { CloseOrUpdateJourney } from "./CloseOrUpdateJourney";
 import { IJourney, IPlayer, Status } from "../../../interfaces"
-import { formatDate } from "../../../utils";
+import { formatDate, MapPodiumJourney } from "../../../utils";
+import { BoxPodium } from "./BoxPodium";
 
 interface JourneyListProps {
   journeys: IJourney[],
@@ -33,42 +31,7 @@ export const JourneyList = ({
   return (status === Status.LOADING ? Sckeleton :
     <>
       {journeys && journeys.length > 0 && journeys.map((journey) => {
-        const closedBy = players.find((player) => (
-          player.uuid === journey.closedBy
-        ));
-
-        const podiums = Object.entries({
-          primeiro: players.find((player) => (
-            player.uuid === journey.podium.first
-          )),
-          segundo: players.find((player) => (
-            player.uuid === journey.podium.second
-          )),
-          terceiro: players.find((player) => (
-            player.uuid === journey.podium.third
-          )),
-          quarto: players.find((player) => (
-            player.uuid === journey.podium.fourth
-          )),
-          quinto: players.find((player) => (
-            player.uuid === journey.podium.fifth
-          )),
-        }).map((position) => ({
-          label: position[0],
-          player: { ...position[1] },
-        }));
-
-        const otherScorers = Object.entries({
-          "melhor mão": players.find((player) => (
-            player.uuid === journey.bestHand
-          )),
-          "maior eliminador": players.find((player) => (
-            player.uuid === journey.biggestEliminator
-          )),
-        }).map((position) => ({
-          label: position[0],
-          player: { ...position[1]},
-        }));
+        const { closedBy, podiums, otherScorers } = MapPodiumJourney(journey, players);
 
         return (
           <Accordion key={journey.id}>
@@ -106,35 +69,12 @@ export const JourneyList = ({
                 width="100%"
               >{
                 journey.hasClosed ? (
-                <>
-                  {podiums.map((podium) => (
-                    <BoxPodiumPlayer
-                      key={podium.label}
-                      player={podium.player as IPlayer }
-                      label={`${podium.label} lugar: `}
-                    />
-                  ))}
-                  <Divider />
-                  {otherScorers.map((podium) => (
-                    <BoxPodiumPlayer
-                      key={podium.label}
-                      player={podium.player as IPlayer }
-                      label={podium.label}
-                    />
-                  ))}
-                  <Divider />
-                  <Chip
-                    variant="outlined"
-                    size="small"
-                    label={`Encerrada por: ${closedBy?.name}`}
-                    avatar={(
-                      <Avatar
-                        src={closedBy?.photoURL}
-                      />
-                    )}
-                    style={{ marginLeft: "4px" }}
+                  <BoxPodium
+                    podiums={podiums}
+                    otherScorers={otherScorers}
+                    closedBy={closedBy}
                   />
-                </> ) : (
+                ) : (
                   <CloseOrUpdateJourney
                     players={journey.players.map(playerIdInJourney => (
                         players.find(player => player.uuid === playerIdInJourney)
