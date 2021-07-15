@@ -1,6 +1,6 @@
 import { useCallback, useContext } from "react";
 import { AuthContext, initialAuthState } from "../authContext";
-import { AuthActionsType } from "../authActionsTypes";
+import { AuthActionsType } from "../interfaces";
 import { LoginGoogle, LogOutGoogle } from "../../../services";
 import { useStorage } from "../../../utils/useStorage";
 
@@ -36,9 +36,6 @@ export const useLoginGoogle = () => {
     } catch (error) {
       dispatch({
         type: AuthActionsType.LOGIN_GOOGLE_ERROR,
-        payload: {
-          error
-        }
       })
     }
   }, [
@@ -67,9 +64,6 @@ export const useLoginGoogle = () => {
       console.log(error)
       dispatch({
         type: AuthActionsType.LOGOUT_GOOGLE_ERROR,
-        payload: {
-          error
-        }
       })
     }
     // eslint-disable-next-line

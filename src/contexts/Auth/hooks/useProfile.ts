@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { AuthActionsType } from "../authActionsTypes";
 import { AuthContext } from "../authContext";
 import { PlayerServices } from "../../../services";
 import { IPlayer } from "../../../shared/interfaces";
+import { AuthActionsType } from "../interfaces";
 
 export const useProfile = () => {
   const context = useContext(AuthContext);
@@ -29,9 +29,6 @@ export const useProfile = () => {
     } catch (error) {
       dispatch({
         type: AuthActionsType.SET_USER_ERROR,
-        payload: {
-          error
-        }
       })
     }
   }

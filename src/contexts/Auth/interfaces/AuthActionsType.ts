@@ -15,8 +15,3 @@ export enum AuthActionsType {
   LOAD_STORAGE_DATA_SUCCESS = "LOAD_STORAGE_DATA_SUCCESS",
   LOAD_STORAGE_DATA_ERROR = "LOAD_STORAGE_DATA_ERROR",
 }
-
-export interface AuthAction {
-  type: AuthActionsType,
-  payload?: any
-}

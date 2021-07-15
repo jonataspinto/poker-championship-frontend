@@ -6,10 +6,9 @@ import React, {
   Reducer,
 } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { AuthReducer } from "./authReducer";
-import { AuthAction, AuthActionsType } from "./authActionsTypes";
-import { IAuthContext, IAuthContextProvider, IAuthState } from "./interfaces";
-import { IPlayer } from "../../shared/interfaces";
+import { AuthReducer } from "./reducer";
+import { IAuthContext, IAuthContextProvider, IAuthState, AuthActionsType } from "./interfaces";
+import { IActionReducer, IPlayer } from "../../shared/interfaces";
 import { useStorage } from "../../utils";
 
 export const initialAuthState = {
@@ -23,7 +22,7 @@ export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 export const AuthProvider = ({ children }: IAuthContextProvider) => {
   const history = useHistory();
   const location = useLocation();
-  const [state, dispatch] = useReducer<Reducer<IAuthState, AuthAction> >(AuthReducer, initialAuthState)
+  const [state, dispatch] = useReducer<Reducer<IAuthState, IActionReducer<AuthActionsType, IAuthState>>>(AuthReducer, initialAuthState)
 
   const { getStorageData } = useStorage();
 
@@ -55,7 +54,7 @@ export const AuthProvider = ({ children }: IAuthContextProvider) => {
       dispatch({
         type: AuthActionsType.LOAD_STORAGE_DATA_SUCCESS,
         payload: {
-          user
+          user: user as IPlayer
         }
       })
     } else {
