@@ -1,5 +1,5 @@
 import { IAuthState, AuthActionsType } from "../interfaces";
-import { IActionReducer, IObjectLiteral } from "../../../shared/interfaces"
+import { IActionReducer, IObjectLiteral } from "../../../interfaces"
 
 export const AuthLoginGoogleReducer = (state: IAuthState, action: IActionReducer<AuthActionsType, IAuthState>) => {
   const REDUCERS: IObjectLiteral<IAuthState> = {

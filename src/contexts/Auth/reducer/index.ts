@@ -1,5 +1,5 @@
 import { IAuthState, AuthActionsType } from "../interfaces";
-import { IActionReducer, IObjectLiteral } from "../../../shared/interfaces"
+import { IActionReducer, IObjectLiteral } from "../../../interfaces"
 import { AuthLoadStorageReducer } from "./authLoadStorage";
 import { AuthLoginGoogleReducer } from "./authLoginGoogle";
 import { AuthSetUserReducer } from "./authSetUser";

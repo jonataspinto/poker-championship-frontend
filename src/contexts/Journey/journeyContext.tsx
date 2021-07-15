@@ -2,7 +2,7 @@ import React, { createContext, ReactNode } from "react";
 import { useCallback } from "react";
 import { useState } from "react";
 import { JourneyServices, RefreshIdToken } from "../../services";
-import { IJourney, INewJourney } from "../../shared/interfaces";
+import { IJourney, INewJourney } from "../../interfaces";
 import { useAuth } from "../Auth";
 
 interface IJourneyContextProvider {

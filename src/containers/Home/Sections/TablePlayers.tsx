@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import { UserTie } from "styled-icons/fa-solid";
 
-import { IPlayer } from "../../../shared/interfaces";
+import { IPlayer } from "../../../interfaces";
 import { formatStringToCapitalize } from "../../../utils";
 
 const useStyles = makeStyles((theme) => ({

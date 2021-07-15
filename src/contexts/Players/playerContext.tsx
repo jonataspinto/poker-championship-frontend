@@ -1,7 +1,7 @@
 import React, { createContext, ReactNode, useCallback, useState } from "react";
 import { useEffect } from "react";
 import { PlayerServices, RefreshIdToken } from "../../services";
-import { IPlayer } from "../../shared/interfaces";
+import { IPlayer } from "../../interfaces";
 import { useAuth } from "../Auth";
 
 interface IPlayerContextProvider {

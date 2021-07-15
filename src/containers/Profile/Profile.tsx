@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as S from "./ProfileStyled";
 import { Helmet } from "react-helmet";
-import { IPlayer } from "../../shared/interfaces";
+import { IPlayer } from "../../interfaces";
 import { useAuth, useModal } from "../../contexts";
 import { EditProfileModal } from "./Sections/EditProfileModal";
 import { updatePlayerProfile } from "../../services/players";

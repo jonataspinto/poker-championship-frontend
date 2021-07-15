@@ -8,7 +8,7 @@ import React, {
 import { useHistory, useLocation } from "react-router-dom";
 import { AuthReducer } from "./reducer";
 import { IAuthContext, IAuthContextProvider, IAuthState, AuthActionsType } from "./interfaces";
-import { IActionReducer, IPlayer } from "../../shared/interfaces";
+import { IActionReducer, IPlayer } from "../../interfaces";
 import { useStorage } from "../../utils";
 
 export const initialAuthState = {

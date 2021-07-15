@@ -14,9 +14,9 @@ import {
 } from "@material-ui/core";
 
 import { makeStyles } from '@material-ui/core/styles';
-import { IJourney, IPlayer } from "../../../shared/interfaces";
+import { IJourney, IPlayer } from "../../../interfaces";
 import { useModal } from "../../../contexts";
-import { JourneyIsComplete } from "../../../shared/validators/JourneyIsComplete";
+import { JourneyIsComplete } from "../../../utils";
 import { useJourney } from "../../../contexts/Journey";
 
 interface CloseOrUpdateJourneyProps {

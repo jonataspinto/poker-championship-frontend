@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, useState } from "react"
 import { DialogTitle, DialogContent, Divider, Box } from "@material-ui/core"
-import { IPlayer } from "../../../../shared/interfaces"
+import { IPlayer } from "../../../../interfaces"
 import { uploadFile } from "../../../../services"
 
 interface EditProfileModalProps {

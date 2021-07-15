@@ -1,4 +1,4 @@
-import { IPlayer } from "../../../shared/interfaces";
+import { IPlayer } from "../../../interfaces";
 
 export interface IAuthState {
   isAuthenticated?: boolean;

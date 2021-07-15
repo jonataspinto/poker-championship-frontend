@@ -9,7 +9,7 @@ import {
   DialogTitle
 } from "@material-ui/core";
 
-import { IPlayer, INewJourney } from "../../../shared/interfaces";
+import { IPlayer, INewJourney } from "../../../interfaces";
 import { useModal } from "../../../contexts";
 import { formatDateToIso } from "../../../utils";
 import { useJourney } from "../../../contexts/Journey";

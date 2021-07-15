@@ -1,4 +1,4 @@
-import { IJourney } from "../interfaces";
+import { IJourney } from "../../interfaces";
 
 export const JourneyIsComplete = (journey: IJourney) => {
   let isValid = false;

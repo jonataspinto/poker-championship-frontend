@@ -12,7 +12,7 @@ import {
 import { ExpandMore, Block } from "@material-ui/icons";
 import { BoxPodiumPlayer } from "./BoxPodiumPlayer";
 import { CloseOrUpdateJourney } from "./CloseOrUpdateJourney";
-import { IJourney, IPlayer } from "../../../shared/interfaces"
+import { IJourney, IPlayer } from "../../../interfaces"
 import { formatDate } from "../../../utils";
 
 interface JourneyListProps {

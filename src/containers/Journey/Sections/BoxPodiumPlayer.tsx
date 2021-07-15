@@ -7,7 +7,7 @@ import {
   Box,
 } from "@material-ui/core";
 
-import { IPlayer } from "../../../shared/interfaces"
+import { IPlayer } from "../../../interfaces"
 
 interface IBoxPodiumProps {
   player: IPlayer;

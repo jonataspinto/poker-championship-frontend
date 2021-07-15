@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../authContext";
 import { PlayerServices } from "../../../services";
-import { IPlayer } from "../../../shared/interfaces";
+import { IPlayer } from "../../../interfaces";
 import { AuthActionsType } from "../interfaces";
 
 export const useProfile = () => {

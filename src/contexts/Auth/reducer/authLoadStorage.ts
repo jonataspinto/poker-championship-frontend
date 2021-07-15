@@ -1,5 +1,5 @@
 import { IAuthState, AuthActionsType } from "../interfaces";
-import { IActionReducer, IObjectLiteral } from "../../../shared/interfaces"
+import { IActionReducer, IObjectLiteral } from "../../../interfaces"
 
 export const AuthLoadStorageReducer = (state: IAuthState, action: IActionReducer<AuthActionsType, IAuthState>) => {
   const TYPES: IObjectLiteral<IAuthState> = {
