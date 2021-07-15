@@ -1,8 +1,7 @@
 import React, { createContext, ReactNode, useCallback, useState } from "react";
 import { useEffect } from "react";
-import { PlayerServices, RefreshIdToken } from "../../services";
+import { PlayerServices } from "../../services";
 import { IPlayer } from "../../interfaces";
-import { useAuth } from "../Auth";
 
 interface IPlayerContextProvider {
   children: ReactNode
@@ -17,25 +16,15 @@ export const PlayerContext = createContext<IPlayerContext>({} as IPlayerContext)
 
 export const PlayerProvider = ({ children }: IPlayerContextProvider) => {
   const [players, setPlayers] = useState<Array<IPlayer>>([]);
-  const { logoutGoogle } = useAuth();
 
   const fetchPlayers = useCallback(async () => {
     try {
       const data = await PlayerServices.getAllPlayers();
       setPlayers(data);
     } catch (error) {
-      if (error?.response?.data?.code === "auth/id-token-expired") {
-        await RefreshIdToken(({ status }: { status: string }) => {
-          if (status === "success") {
-            return fetchPlayers();
-          }
-          logoutGoogle();
-        });
-      }
+      console.error(error?.response)
     }
-  }, [
-    logoutGoogle
-  ]);
+  }, []);
 
   useEffect(() => {
     fetchPlayers();

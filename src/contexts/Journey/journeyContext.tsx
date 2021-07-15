@@ -1,9 +1,8 @@
 import React, { createContext, ReactNode } from "react";
 import { useCallback } from "react";
 import { useState } from "react";
-import { JourneyServices, RefreshIdToken } from "../../services";
+import { JourneyServices } from "../../services";
 import { IJourney, INewJourney } from "../../interfaces";
-import { useAuth } from "../Auth";
 
 interface IJourneyContextProvider {
   children: ReactNode;
@@ -21,24 +20,16 @@ export const JourneyContext = createContext<IJourneyContext>({} as IJourneyConte
 
 export const JourneyProvider = ({ children }: IJourneyContextProvider) => {
   const [journeys, setJourneys] = useState<Array<IJourney>>([]);
-  const { logoutGoogle } = useAuth();
 
   const fetchJourneys = useCallback(async () => {
     try {
       const data = await JourneyServices.getAllJourneys();
       setJourneys(data);
     } catch (error) {
-      if (error?.response?.data?.code === "auth/id-token-expired") {
-        await RefreshIdToken(({ status }: { status: string }) => {
-          if (status === "success") {
-            return fetchJourneys();
-          }
-          logoutGoogle();
-        });
-      }
+      console.error(error?.response)
     }
   }, [
-    logoutGoogle
+
   ])
 
   const createJourney = useCallback(async (journeyData: INewJourney) => {
@@ -49,17 +40,10 @@ export const JourneyProvider = ({ children }: IJourneyContextProvider) => {
         ...prevState
       ]));
     } catch (error) {
-      if (error?.response?.data?.code === "auth/id-token-expired") {
-        await RefreshIdToken(({ status }: { status: string }) => {
-          if (status === "success") {
-            return createJourney(journeyData);
-          }
-          logoutGoogle();
-        });
-      }
+      console.error(error?.response)
     }
   }, [
-    logoutGoogle
+
   ])
 
   const updateJourney = useCallback(async (journeyData: IJourney) => {
@@ -80,17 +64,10 @@ export const JourneyProvider = ({ children }: IJourneyContextProvider) => {
         return draftStateJourneys;
       });
     } catch (error) {
-      if (error?.response?.data?.code === "auth/id-token-expired") {
-        await RefreshIdToken(({ status }: { status: string }) => {
-          if (status === "success") {
-            return updateJourney(journeyData);
-          }
-          logoutGoogle();
-        });
-      }
+      console.error(error?.response)
     }
   }, [
-    logoutGoogle
+
   ])
 
   const closeJourney = useCallback(async (journeyId: string) => {
@@ -110,18 +87,9 @@ export const JourneyProvider = ({ children }: IJourneyContextProvider) => {
         return draftStateJourneys;
       });
     } catch (error) {
-      if (error?.response?.data?.code === "auth/id-token-expired") {
-        await RefreshIdToken(({ status }: { status: string }) => {
-          if (status === "success") {
-            return closeJourney(journeyId);
-          }
-          logoutGoogle();
-        });
-      }
+      console.error(error?.response)
     }
-  }, [
-    logoutGoogle
-  ])
+  }, [])
 
   return (
     <JourneyContext.Provider
