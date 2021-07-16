@@ -13,7 +13,7 @@ export const localStorageMock = (() => {
     setItem: function(key: string, value: any) {
       store[key] = value.toString();
     },
-    clear: function() {
+    removeItem: function() {
       store = {};
     }
   };
