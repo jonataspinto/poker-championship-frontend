@@ -1,3 +1,3 @@
 export type { IAuthState } from "./AuthState"
-export type { IAuthContext, IAuthContextProvider } from "./AuthContext"
+export type { IAuthContext } from "./AuthContext"
 export { AuthActionsType } from "./AuthActionsType"

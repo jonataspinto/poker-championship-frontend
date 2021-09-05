@@ -1,5 +1,6 @@
 import { IAuthState, AuthActionsType } from "../interfaces";
 import { IActionReducer, IObjectLiteral } from "../../../interfaces"
+import { initialStateAuthReducer } from ".";
 
 export const AuthSetUserReducer = (state: IAuthState, action: IActionReducer<AuthActionsType, IAuthState>) => {
   const REDUCERS: IObjectLiteral<IAuthState> = {
@@ -13,8 +14,7 @@ export const AuthSetUserReducer = (state: IAuthState, action: IActionReducer<Aut
       loadingAuth: false,
     },
     [AuthActionsType.SET_USER_ERROR]: {
-      ...state,
-      loadingAuth: false,
+      ...initialStateAuthReducer,
     },
   }
 

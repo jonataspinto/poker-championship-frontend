@@ -9,6 +9,10 @@ export interface IAuthContext {
   dispatch: Dispatch<IActionReducer<AuthActionsType, IAuthState>>
 }
 
-export interface IAuthContextProvider {
-  children: ReactNode;
+export namespace IAuthContext {
+  export type IProvider = {
+    children: ReactNode;
+  }
 }
+
+

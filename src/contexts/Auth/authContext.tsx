@@ -7,13 +7,13 @@ import React, {
 } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { AuthReducer, initialStateAuthReducer } from "./reducer";
-import { IAuthContext, IAuthContextProvider, IAuthState, AuthActionsType } from "./interfaces";
+import { IAuthContext, IAuthState, AuthActionsType } from "./interfaces";
 import { IActionReducer, IPlayer } from "../../interfaces";
 import { useStorage } from "../../utils";
 
 export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 
-export const AuthProvider = ({ children }: IAuthContextProvider) => {
+export const AuthProvider = ({ children }: IAuthContext.IProvider) => {
   const history = useHistory();
   const location = useLocation();
   const [state, dispatch] = useReducer<

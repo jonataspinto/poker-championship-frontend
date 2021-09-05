@@ -1,6 +1,6 @@
 import { IPlayer } from "../../../interfaces";
 
-export interface IAuthState {
+export type IAuthState = {
   isAuthenticated?: boolean;
   loadingAuth?: boolean;
   user: IPlayer;
