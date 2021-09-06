@@ -1,18 +1,14 @@
 import React, { useCallback, useEffect, useState } from "react";
 import {
-  Avatar,
-  Chip,
-  Divider,
   Box,
-  Button,
-  DialogContent,
-  DialogTitle
+  Button
 } from "@material-ui/core";
 
-import { IPlayer, INewJourney } from "../../../interfaces";
-import { useModal } from "../../../contexts";
-import { formatDateToIso } from "../../../utils";
-import { useJourney } from "../../../contexts/Journey";
+import { IPlayer, INewJourney } from "../../../../interfaces";
+import { useModal } from "../../../../contexts";
+import { formatDateToIso } from "../../../../utils";
+import { useJourney } from "../../../../contexts/Journey";
+import { ModalCreateJourney } from "./ModalCreateJourney"
 
 interface CreateJourneyProps {
   players: IPlayer[],
@@ -65,58 +61,18 @@ export const CreateJourney = ({ players }: CreateJourneyProps) => {
     }
   }
 
-  const ModalCreateJourney = (
-    <>
-      <DialogTitle>
-        Selecione os jogadores.
-      </DialogTitle>
-        <Divider />
-      <DialogContent>
-        <Box
-          display="flex"
-          flexWrap="wrap"
-          gridGap={16}
-        >
-          {players.length > 0 && (
-            players.map((player) => (
-              <Chip
-                key={player.uuid}
-                size="medium"
-                label={player.name}
-                avatar={(
-                  <Avatar
-                    src={player?.photoURL}
-                  />
-                )}
-                variant={
-                  newJourney.players.includes(player.uuid)
-                    ? "default"
-                    : "outlined"
-                }
-                color={
-                  newJourney.players.includes(player.uuid)
-                    ? "primary"
-                    : "default"
-                }
-                onClick={() => {
-                  addOrRemovePlayerfromJourney(player.uuid);
-                }}
-              />
-            ))
-          )}
-        </Box>
-      </DialogContent>
-    </>
-  )
-
   // eslint-disable-next-line
   const handleShowModal = () => {
     if(isOpen) {
       showModal(
-        ModalCreateJourney,
+        <ModalCreateJourney
+          players={players}
+          newJourney={newJourney}
+          addOrRemovePlayerfromJourney={addOrRemovePlayerfromJourney}
+        />,
         ActionsModalCreateJourney
-        )
-      }
+      )
+    }
   }
 
   useEffect(() => {
@@ -135,7 +91,11 @@ export const CreateJourney = ({ players }: CreateJourneyProps) => {
         variant="outlined"
         color="primary"
         onClick={() => showModal(
-          ModalCreateJourney,
+          <ModalCreateJourney
+            players={players}
+            newJourney={newJourney}
+            addOrRemovePlayerfromJourney={addOrRemovePlayerfromJourney}
+          />,
           ActionsModalCreateJourney
         )}
       >

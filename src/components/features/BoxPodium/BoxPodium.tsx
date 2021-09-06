@@ -45,5 +45,5 @@ export const BoxPodium = ({ podiums, otherScorers, closedBy }: IBoxPodiumProps) 
         style={{ marginLeft: "4px" }}
       />
     </>
-  )
+  );
 }

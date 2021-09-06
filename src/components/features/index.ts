@@ -1,0 +1,1 @@
+export { BoxPodium } from "./BoxPodium";

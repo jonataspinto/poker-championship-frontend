@@ -14,7 +14,7 @@ export const useJourney = () => {
   const { state } = context
 
   return {
-    state,
+    ...state,
     ...useFetchJourney(),
     ...useUpdateJourney(),
     ...useCreateJourney()

@@ -14,10 +14,10 @@ import {
 } from "@material-ui/core";
 
 import { makeStyles } from '@material-ui/core/styles';
-import { IJourney, IPlayer } from "../../../interfaces";
-import { useModal } from "../../../contexts";
-import { JourneyIsComplete } from "../../../utils";
-import { useJourney } from "../../../contexts/Journey";
+import { IJourney, IPlayer } from "../../../../interfaces";
+import { useModal } from "../../../../contexts";
+import { JourneyIsComplete } from "../../../../utils";
+import { useJourney } from "../../../../contexts/Journey";
 
 interface CloseOrUpdateJourneyProps {
   players: IPlayer[],
@@ -91,7 +91,7 @@ export const CloseOrUpdateJourney = ({ players, journey }: CloseOrUpdateJourneyP
 
   const RenderItem = (player: IPlayer) => (
     <MenuItem
-      key={player?.uuid}
+      key={`close-or-update${player?.uuid}`}
       value={player?.uuid}
     >
       <Chip
