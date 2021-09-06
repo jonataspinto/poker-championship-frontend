@@ -1,3 +1,4 @@
+import * as SeasonServices from "./season";
 import * as JourneyServices from "./journey";
 import * as PlayerServices from "./players";
 
@@ -10,6 +11,7 @@ export {
 export { uploadFile } from "./uploadFile";
 
 export {
+  SeasonServices,
   JourneyServices,
   PlayerServices,
 };
