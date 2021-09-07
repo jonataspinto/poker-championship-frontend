@@ -1,5 +1,5 @@
 
-import { IActionReducer, IObjectLiteral, Status } from "../../../interfaces";
+import { IActionReducer, IObjectLiteralCall, Status } from "../../../interfaces";
 import { IJourneyState, JourneyActionsType } from "../interfaces";
 import { CreateJourneyReducer } from "./createJourney";
 import { FetchJourneysReducer } from "./fetchJourneys";
@@ -15,11 +15,11 @@ export const JourneyReducer = (state: IJourneyState, action: IActionReducer<Jour
     return state;
   }
 
-  const REDUCERS: IObjectLiteral<IJourneyState> = {
+  const REDUCERS: IObjectLiteralCall<IJourneyState> = {
     ...CreateJourneyReducer(state, action),
     ...FetchJourneysReducer(state, action),
     ...UpdateAndCloseJourneyReducer(state, action)
   }
 
-  return REDUCERS[action.type]
+  return REDUCERS[action.type]()
 }

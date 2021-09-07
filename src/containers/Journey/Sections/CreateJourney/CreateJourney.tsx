@@ -76,6 +76,13 @@ export const CreateJourney = ({ players }: CreateJourneyProps) => {
   }
 
   useEffect(() => {
+    setNewJourney(prevState => ({
+      ...prevState,
+      players: players.length > 0 ? players.map(player => player.uuid) : []
+    }))
+  }, [players])
+
+  useEffect(() => {
     handleShowModal()
     // eslint-disable-next-line
   }, [

@@ -53,7 +53,7 @@ export const useUpdateJourney = () => {
       type: JourneyActionsType.CLOSE_JOURNEY
     })
     try {
-      await JourneyServices.closeJourney(journeyId);
+      const data = await JourneyServices.closeJourney(journeyId);
 
       const draftStateJourneys = state.journeys;
 
@@ -61,7 +61,8 @@ export const useUpdateJourney = () => {
         state.journeys.findIndex((journey) => (
           journey.id === journeyId
         )),
-        1
+        1,
+        data
       );
 
       dispatch({
