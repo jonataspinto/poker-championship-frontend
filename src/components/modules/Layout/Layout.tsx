@@ -1,9 +1,10 @@
 import React, { useEffect, useState, SyntheticEvent, ReactNode } from "react";
-import { Container, Snackbar } from "@material-ui/core";
+import { Container, Snackbar, Typography } from "@material-ui/core";
 import { useLocation } from "react-router-dom";
 import { Header } from "../Header";
 import { Toast } from "../../elements/Toast/Toast";
 import { SideBar } from "..";
+import { useSeason } from "../../../contexts";
 
 interface LayoutProps {
   children: ReactNode
@@ -12,6 +13,8 @@ interface LayoutProps {
 export const Layout = ({ children }: LayoutProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [openToast, setOpenToast] = useState(false);
+  const { season, seasons, loadOpenedSeason } = useSeason();
+
   const notify = {
     message: "",
     type: "success"
@@ -41,6 +44,13 @@ export const Layout = ({ children }: LayoutProps) => {
     }
   }, [notify])
 
+  useEffect(() => {
+    loadOpenedSeason()
+  }, [
+    loadOpenedSeason,
+    seasons
+  ])
+
   return (
     <>
       <Header setSideBar={toggleDrawer} hiden={(pathname === "/login")}/>
@@ -49,6 +59,14 @@ export const Layout = ({ children }: LayoutProps) => {
         maxWidth={(pathname === "/login") ? "xs" : "lg"}
         style={{ paddingTop: "20px", paddingBottom: "20px" }}
       >
+        <Typography
+          variant="h5"
+          style={{
+            marginBottom: "24px"
+          }}
+        >
+          {`Temporada #${season?.tag || ""} - Guaratiba Série A`}
+        </Typography>
         {children}
         <SideBar anchor={isOpen} setAnchor={toggleDrawer} />
       </Container>

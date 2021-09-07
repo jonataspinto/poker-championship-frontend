@@ -24,9 +24,11 @@ export const CreateJourney = ({ players }: CreateJourneyProps) => {
 
   const { createJourney } = useJourney();
 
-  const { season } = useSeason();
+  const { season, updateSeason } = useSeason();
 
-  const seasonId = season?.id || ""
+  const seasonId = season?.id || "";
+
+  const journeysIds = season?.journeys || []
 
   const addOrRemovePlayerfromJourney = useCallback((uuid) => {
     setNewJourney((prevState) => {
@@ -59,7 +61,16 @@ export const CreateJourney = ({ players }: CreateJourneyProps) => {
 
   const ActionsModalCreateJourney = {
     agree: () => {
-      createJourney({ ...newJourney, seasonId });
+      createJourney(
+        { ...newJourney, seasonId },
+        async (journeyId: string) => await updateSeason({
+          ...season,
+          journeys: [
+            ...journeysIds,
+            journeyId
+          ]
+        })
+      );
     },
     disAgree: () => {
 

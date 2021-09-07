@@ -3,6 +3,7 @@ import { ISeasonContext } from "../interfaces";
 import { SeasonContext } from "../seasonContext";
 import { useCreateSeason } from "./useCreateSeason";
 import { useFetchSeason } from "./useFetchSeason";
+import { useUpdateSeason } from "./useUpdateSeason";
 
 export const useSeason = () => {
   const context = useContext(SeasonContext);
@@ -16,6 +17,7 @@ export const useSeason = () => {
   return {
     ...state,
     ...useCreateSeason(),
-    ...useFetchSeason()
+    ...useFetchSeason(),
+    ...useUpdateSeason()
   }
 }

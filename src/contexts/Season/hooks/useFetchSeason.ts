@@ -52,6 +52,7 @@ export const useFetchSeason = () => {
         type: SeasonActionsType.LOAD_OPENED_SEASON_ERROR,
       })
     }
+    // eslint-disable-next-line
   }, [dispatch])
 
   return {

@@ -7,6 +7,7 @@ import { useJourney, usePlayersData } from "../../contexts";
 
 export const Journey = () => {
   const { journeys, status, fetchJourneys } = useJourney();
+
   const { players } = usePlayersData();
 
   useEffect(() => {

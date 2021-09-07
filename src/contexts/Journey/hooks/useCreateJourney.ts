@@ -9,7 +9,7 @@ export const useCreateJourney = () => {
 
   const { state, dispatch } = context;
 
-  const createJourney = useCallback(async (journeyData: INewJourney) => {
+  const createJourney = useCallback(async (journeyData: INewJourney, callBack?: (journeyId: string) => void) => {
     dispatch({
       type: JourneyActionsType.CREATE_JOURNEY,
     })
@@ -25,6 +25,9 @@ export const useCreateJourney = () => {
           ]
         }
       })
+      if( data.id && callBack ) {
+        callBack(data.id)
+      }
     } catch (error) {
       console.error(error?.response);
 
