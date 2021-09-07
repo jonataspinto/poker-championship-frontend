@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { ISeasonContext } from "../interfaces";
 import { SeasonContext } from "../seasonContext";
 import { useCreateSeason } from "./useCreateSeason";
+import { useFetchSeason } from "./useFetchSeason";
 
 export const useSeason = () => {
   const context = useContext(SeasonContext);
@@ -14,6 +15,7 @@ export const useSeason = () => {
 
   return {
     ...state,
-    ...useCreateSeason()
+    ...useCreateSeason(),
+    ...useFetchSeason()
   }
 }

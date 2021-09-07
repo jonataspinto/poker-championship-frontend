@@ -1,7 +1,8 @@
 
-import { Status } from "../../../interfaces";
+import { ISeason, Status } from "../../../interfaces";
 
 export type ISeasonState = {
   status?: Status;
-  season: {}
+  season?: ISeason;
+  seasons?: Array<ISeason>;
 }
