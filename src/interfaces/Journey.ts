@@ -16,4 +16,5 @@ export interface IJourney {
 export interface INewJourney {
   players: string[],
   createdAt: string,
+  seasonId: string;
 }

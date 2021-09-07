@@ -5,7 +5,7 @@ import {
 } from "@material-ui/core";
 
 import { IPlayer, INewJourney } from "../../../../interfaces";
-import { useModal } from "../../../../contexts";
+import { useModal, useSeason } from "../../../../contexts";
 import { formatDateToIso } from "../../../../utils";
 import { useJourney } from "../../../../contexts/Journey";
 import { ModalCreateJourney } from "./ModalCreateJourney"
@@ -18,10 +18,15 @@ export const CreateJourney = ({ players }: CreateJourneyProps) => {
   const { showModal, isOpen } = useModal();
   const [newJourney, setNewJourney] = useState<INewJourney>({
     players: [],
-    createdAt: formatDateToIso(new Date())
+    createdAt: formatDateToIso(new Date()),
+    seasonId: ""
   });
 
   const { createJourney } = useJourney();
+
+  const { season } = useSeason();
+
+  const seasonId = season?.id || ""
 
   const addOrRemovePlayerfromJourney = useCallback((uuid) => {
     setNewJourney((prevState) => {
@@ -54,7 +59,7 @@ export const CreateJourney = ({ players }: CreateJourneyProps) => {
 
   const ActionsModalCreateJourney = {
     agree: () => {
-      createJourney(newJourney);
+      createJourney({ ...newJourney, seasonId });
     },
     disAgree: () => {
 
