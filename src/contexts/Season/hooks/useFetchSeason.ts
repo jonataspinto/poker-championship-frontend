@@ -1,3 +1,4 @@
+import { useNotification } from "contexts";
 import { useCallback, useContext } from "react"
 import { SeasonServices } from "services";
 import { SeasonActionsType } from "../interfaces";
@@ -11,6 +12,8 @@ export const useFetchSeason = () => {
   }
 
   const { state, dispatch } = context;
+
+  const { notify } = useNotification();
 
   const fetchSeasons = useCallback(async () => {
     dispatch({
@@ -26,12 +29,16 @@ export const useFetchSeason = () => {
           seasons: data
         }
       })
+      notify({ type: "success", content: "Temporada atualizada!"})
     } catch (error) {
       dispatch({
         type: SeasonActionsType.FETCH_SEASON_ERROR,
       })
     }
-  }, [dispatch])
+  }, [
+    dispatch,
+    notify
+  ])
 
   const loadOpenedSeason = useCallback(async () => {
     dispatch({

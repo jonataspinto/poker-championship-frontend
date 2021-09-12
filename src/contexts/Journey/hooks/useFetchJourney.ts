@@ -1,10 +1,13 @@
 import { useCallback, useContext } from "react"
+import { useNotification } from "../../Notification";
 import { JourneyServices } from "../../../services";
 import { JourneyActionsType } from "../interfaces";
 import { JourneyContext } from "../journeyContext"
 
 export const useFetchJourney = () => {
   const context = useContext(JourneyContext);
+
+  const { notify } = useNotification();
 
   const { dispatch } = context;
 
@@ -21,6 +24,7 @@ export const useFetchJourney = () => {
           journeys: data
         }
       })
+      notify({ type: "success", content: "Jornadas carregadas com socesso!"})
     } catch (error) {
       console.error(error?.response);
 
@@ -29,7 +33,8 @@ export const useFetchJourney = () => {
       })
     }
   }, [
-    dispatch
+    dispatch,
+    notify
   ])
 
   return {

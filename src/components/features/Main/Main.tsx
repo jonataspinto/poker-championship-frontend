@@ -11,11 +11,9 @@ export const Main = ({ children }) => {
     fetchSeasons();
     fetchJourneys();
     fetchPlayers();
-  }, [
-    fetchJourneys,
-    fetchPlayers,
-    fetchSeasons
-  ]);
+
+    // eslint-disable-next-line
+  }, []);
 
   return children
 }

@@ -6,4 +6,5 @@ export type { IPodium, IPlayerPodium } from "./Podium";
 export type { IObjectLiteral, IObjectLiteralCall } from "./ObjectLiteral";
 export type { IActionReducer } from "./ActionReducer";
 export type { ISeason } from "./Season";
+export type { INotification } from "./Notification";
 export { Status } from "./Status"

@@ -1,4 +1,5 @@
-import { useCallback, useContext } from "react"
+import { useCallback, useContext } from "react";
+import { useNotification } from "../../Notification";
 import { PlayerServices } from "../../../services";
 import { PlayerActionsType } from "../interfaces";
 import { PlayerContext } from "../playerContext"
@@ -7,6 +8,8 @@ export const useFetchPlayers = () => {
   const context = useContext(PlayerContext);
 
   const { dispatch } = context;
+
+  const { notify } = useNotification();
 
   const fetchPlayers = useCallback(async () => {
     dispatch({
@@ -21,6 +24,7 @@ export const useFetchPlayers = () => {
           players: data
         }
       })
+      notify({ type: "success", content: "Tabela carregada com socesso!"})
     } catch (error) {
       console.error(error?.response);
 
@@ -29,7 +33,8 @@ export const useFetchPlayers = () => {
       })
     }
   }, [
-    dispatch
+    dispatch,
+    notify
   ])
 
   return {

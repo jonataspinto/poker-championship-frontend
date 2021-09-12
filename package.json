@@ -10,6 +10,7 @@
     "date-fns": "^2.22.1",
     "firebase": "^7.16.1",
     "formik": "^2.0.6",
+    "notistack": "^1.0.10",
     "polished": "^3.4.2",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
