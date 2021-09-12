@@ -45,7 +45,7 @@ export const Layout = ({ children }: LayoutProps) => {
   }, [notify])
 
   useEffect(() => {
-    loadOpenedSeason()
+    if( seasons.length ) loadOpenedSeason()
   }, [
     loadOpenedSeason,
     seasons

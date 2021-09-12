@@ -32,7 +32,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const SideBar = ({ anchor, setAnchor }) => {
+export const SideBar = ({ anchor, setAnchor }) => {
   const classes = useStyles();
 
   const {
@@ -130,5 +130,3 @@ SideBar.propTypes = {
   anchor: PropTypes.bool.isRequired,
   setAnchor: PropTypes.func.isRequired,
 };
-
-export default SideBar;

@@ -1,2 +1,1 @@
-export { Layout } from "./Layout";
-export { default as SideBar } from "./SideBar";
+export { BoxPodium } from "./BoxPodium";
