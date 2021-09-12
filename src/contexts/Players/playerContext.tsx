@@ -1,42 +1,23 @@
-import React, { createContext, ReactNode, useCallback, useState } from "react";
-import { useEffect } from "react";
-import { PlayerServices } from "../../services";
-import { IPlayer } from "../../interfaces";
-
-interface IPlayerContextProvider {
-  children: ReactNode
-}
-
-interface IPlayerContext {
-  players: Array<IPlayer>
-  fetchPlayers: () => Promise<void>
-}
+import React, { createContext, Reducer, useReducer } from "react";
+import { IPlayerContext, IPlayerContextProvider, IPlayerState, PlayerActionsType } from "./interfaces";
+import { PlayerReducer, InitialStatePlayerReducer } from "./reducer";
+import { IActionReducer } from "../../interfaces";
 
 export const PlayerContext = createContext<IPlayerContext>({} as IPlayerContext);
 
 export const PlayerProvider = ({ children }: IPlayerContextProvider) => {
-  const [players, setPlayers] = useState<Array<IPlayer>>([]);
-
-  const fetchPlayers = useCallback(async () => {
-    try {
-      const data = await PlayerServices.getAllPlayers();
-      setPlayers(data);
-    } catch (error) {
-      console.error(error?.response)
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchPlayers();
-  }, [
-    fetchPlayers
-  ])
+  const [state, dispatch] = useReducer<
+    Reducer<
+      IPlayerState,
+      IActionReducer<PlayerActionsType, IPlayerState>
+    >
+  >(PlayerReducer, InitialStatePlayerReducer )
 
   return (
     <PlayerContext.Provider
       value={{
-        players,
-        fetchPlayers
+        state,
+        dispatch
       }}
     >
       {children}

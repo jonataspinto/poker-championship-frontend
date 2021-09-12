@@ -11,7 +11,7 @@ import { ExpandMore, Block } from "@material-ui/icons";
 import { CloseOrUpdateJourney } from "./CloseOrUpdateJourney";
 import { IJourney, IPlayer } from "../../../../interfaces"
 import { formatDate, MapPodiumJourney } from "../../../../utils";
-import { BoxPodium } from "../../../../components/features";
+import { BoxPodium } from "../../../../components/modules";
 
 interface JourneyListItemProps {
   journey: IJourney,
