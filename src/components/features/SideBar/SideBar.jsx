@@ -9,37 +9,33 @@ import {
   ListItemText,
   ListItemIcon,
   Avatar,
-  makeStyles,
+  makeStyles
 } from "@material-ui/core";
 import {
   ExitToApp,
   LockOpen,
   HomeOutlined,
   StyleOutlined,
-  VerifiedUser,
+  VerifiedUser
 } from "@material-ui/icons";
 import { useAuth } from "../../../contexts";
 
 const useStyles = makeStyles(() => ({
   list: {
-    width: 250,
+    width: 250
   },
   link: {
-    display: "flex",
+    display: "flex"
   },
   fullList: {
-    width: "auto",
-  },
+    width: "auto"
+  }
 }));
 
 export const SideBar = ({ anchor, setAnchor }) => {
   const classes = useStyles();
 
-  const {
-    user,
-    isAuthenticated,
-    logoutGoogle,
-  } = useAuth();
+  const { user, isAuthenticated, logoutGoogle } = useAuth();
 
   const list = () => (
     <div
@@ -58,11 +54,13 @@ export const SideBar = ({ anchor, setAnchor }) => {
                   alt={`imagem de ${user?.name}`}
                   imgProps={{
                     style: {
-                      borderRadius: "50%",
-                    },
+                      borderRadius: "50%"
+                    }
                   }}
                 >
-                  {!user?.photoURL && <VerifiedUser style={{ width: "100%" }} />}
+                  {!user?.photoURL && (
+                    <VerifiedUser style={{ width: "100%" }} />
+                  )}
                 </Avatar>
               </ListItemIcon>
               <ListItemText primary={user?.name} />
@@ -90,36 +88,30 @@ export const SideBar = ({ anchor, setAnchor }) => {
 
         <Divider />
 
-        {(user && isAuthenticated)
-          ? (
-            <ListItem button onClick={() => logoutGoogle()}>
+        {user && isAuthenticated ? (
+          <ListItem button onClick={() => logoutGoogle()}>
+            <ListItemIcon>
+              <ExitToApp />
+            </ListItemIcon>
+            <ListItemText primary="Sair" />
+          </ListItem>
+        ) : (
+          <ListItem button>
+            <Link to="/login" className={classes.link}>
               <ListItemIcon>
-                <ExitToApp />
+                <LockOpen />
               </ListItemIcon>
-              <ListItemText primary="Sair" />
-            </ListItem>
-          )
-          : (
-            <ListItem button>
-              <Link to="/login" className={classes.link}>
-                <ListItemIcon>
-                  <LockOpen />
-                </ListItemIcon>
-                <ListItemText primary="Fazer Login" />
-              </Link>
-            </ListItem>
-          )}
+              <ListItemText primary="Fazer Login" />
+            </Link>
+          </ListItem>
+        )}
       </List>
     </div>
   );
 
   return (
     <>
-      <Drawer
-        anchor="left"
-        open={anchor}
-        onClose={setAnchor()}
-      >
+      <Drawer anchor="left" open={anchor} onClose={setAnchor()}>
         {list("left")}
       </Drawer>
     </>
@@ -128,5 +120,5 @@ export const SideBar = ({ anchor, setAnchor }) => {
 
 SideBar.propTypes = {
   anchor: PropTypes.bool.isRequired,
-  setAnchor: PropTypes.func.isRequired,
+  setAnchor: PropTypes.func.isRequired
 };

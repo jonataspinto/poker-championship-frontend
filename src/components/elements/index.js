@@ -1,2 +1,2 @@
-export { UserImage } from "./UserImage"
-export { Typography } from "./Typography"
+export { UserImage } from "./UserImage";
+export { Typography } from "./Typography";

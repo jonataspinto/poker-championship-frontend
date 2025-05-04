@@ -5,15 +5,19 @@ export const JourneyIsComplete = (journey: IJourney) => {
 
   const { podium, biggestEliminator, bestHand } = journey;
 
-  const ValuesOfKeys = Object.values({ ...podium, biggestEliminator, bestHand })
+  const ValuesOfKeys = Object.values({
+    ...podium,
+    biggestEliminator,
+    bestHand
+  });
 
   ValuesOfKeys.forEach((key) => {
-    if(key) {
-      isValid = true
+    if (key) {
+      isValid = true;
     } else {
-      isValid = false
+      isValid = false;
     }
-  })
+  });
 
-  return isValid
-}
+  return isValid;
+};

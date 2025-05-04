@@ -1,11 +1,14 @@
 import { IAuthState, AuthActionsType } from "../interfaces";
-import { IActionReducer, IObjectLiteral } from "../../../interfaces"
+import { IActionReducer, IObjectLiteral } from "../../../interfaces";
 
-export const AuthLoginGoogleReducer = (state: IAuthState, action: IActionReducer<AuthActionsType, IAuthState>) => {
+export const AuthLoginGoogleReducer = (
+  state: IAuthState,
+  action: IActionReducer<AuthActionsType, IAuthState>
+) => {
   const REDUCERS: IObjectLiteral<IAuthState> = {
     [AuthActionsType.LOGIN_GOOGLE]: {
       ...state,
-      loadingAuth: true,
+      loadingAuth: true
     },
     [AuthActionsType.LOGIN_GOOGLE_SUCCESS]: {
       ...state,
@@ -29,9 +32,9 @@ export const AuthLoginGoogleReducer = (state: IAuthState, action: IActionReducer
     [AuthActionsType.LOGOUT_GOOGLE_ERROR]: {
       ...state,
       isAuthenticated: false,
-      loadingAuth: false,
+      loadingAuth: false
     }
-  }
+  };
 
   return REDUCERS;
-}
+};

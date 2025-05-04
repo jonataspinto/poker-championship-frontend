@@ -8,7 +8,7 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Avatar,
+  Avatar
 } from "@material-ui/core";
 import { UserTie } from "styled-icons/fa-solid";
 
@@ -17,24 +17,24 @@ import { formatStringToCapitalize } from "../../../utils";
 
 const useStyles = makeStyles((theme) => ({
   table: {
-    minWidth: 650,
+    minWidth: 650
   },
   wrapperAvatar: {
     display: "flex",
-    alignItems: "center",
+    alignItems: "center"
   },
   avatar: {
     margin: theme.spacing(1),
-    padding: theme.spacing(1),
+    padding: theme.spacing(1)
   },
   photo: {
     margin: theme.spacing(1),
-    padding: "2px",
-  },
+    padding: "2px"
+  }
 }));
 
 interface TablePlayersProps {
-  players: Array<IPlayer>
+  players: Array<IPlayer>;
 }
 
 export const TablePlayers = ({ players }: TablePlayersProps) => {
@@ -56,44 +56,45 @@ export const TablePlayers = ({ players }: TablePlayersProps) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {players && players.map((player, index) => (
-            <TableRow key={player.id}>
-              <TableCell component="th" scope="row">
-                {`${index + 1} º`}
-              </TableCell>
-              <TableCell component="th" scope="row" className={classes.wrapperAvatar}>
-                <Avatar
-                  className={player.photoURL ? classes.photo : classes.avatar}
-                  src={player.photoURL && player.photoURL}
-                  alt={`imagem de ${player.displayName || player.name}`}
-                  imgProps={{
-                    style: {
-                      borderRadius: "50%",
-                    },
-                  }}
+          {players &&
+            players.map((player, index) => (
+              <TableRow key={player.id}>
+                <TableCell component="th" scope="row">
+                  {`${index + 1} º`}
+                </TableCell>
+                <TableCell
+                  component="th"
+                  scope="row"
+                  className={classes.wrapperAvatar}
                 >
-                  {!player.photoURL && <UserTie style={{ width: "100%" }} />}
-                </Avatar>
-                {formatStringToCapitalize(player.displayName || player.name)}
-              </TableCell>
-              <TableCell align="left">{player?.points}</TableCell>
-              { player?.podiums
-                && Object.values(player?.podiums).map((podium, podiumIndex) => {
-                  const podiumMapKey = `${player.id}-podium${player.name}-${podiumIndex}`;
-                  return (
-                    <TableCell
-                      key={podiumMapKey}
-                      align="left"
-                    >
-                      {podium}
-                    </TableCell>
-                  )
-                })
-              }
-            </TableRow>
-          ))}
+                  <Avatar
+                    className={player.photoURL ? classes.photo : classes.avatar}
+                    src={player.photoURL && player.photoURL}
+                    alt={`imagem de ${player.displayName || player.name}`}
+                    imgProps={{
+                      style: {
+                        borderRadius: "50%"
+                      }
+                    }}
+                  >
+                    {!player.photoURL && <UserTie style={{ width: "100%" }} />}
+                  </Avatar>
+                  {formatStringToCapitalize(player.displayName || player.name)}
+                </TableCell>
+                <TableCell align="left">{player?.points}</TableCell>
+                {player?.podiums &&
+                  Object.values(player?.podiums).map((podium, podiumIndex) => {
+                    const podiumMapKey = `${player.id}-podium${player.name}-${podiumIndex}`;
+                    return (
+                      <TableCell key={podiumMapKey} align="left">
+                        {podium}
+                      </TableCell>
+                    );
+                  })}
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </TableContainer>
-  )
-}
+  );
+};

@@ -8,5 +8,5 @@ export interface INotificationContext {
 export namespace INotificationContext {
   export type Provider = {
     children: ReactNode;
-  }
+  };
 }

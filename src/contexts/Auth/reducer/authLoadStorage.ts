@@ -1,7 +1,10 @@
 import { IAuthState, AuthActionsType } from "../interfaces";
-import { IActionReducer, IObjectLiteral } from "../../../interfaces"
+import { IActionReducer, IObjectLiteral } from "../../../interfaces";
 
-export const AuthLoadStorageReducer = (state: IAuthState, action: IActionReducer<AuthActionsType, IAuthState>) => {
+export const AuthLoadStorageReducer = (
+  state: IAuthState,
+  action: IActionReducer<AuthActionsType, IAuthState>
+) => {
   const TYPES: IObjectLiteral<IAuthState> = {
     [AuthActionsType.LOAD_STORAGE_DATA]: {
       ...state,
@@ -18,7 +21,7 @@ export const AuthLoadStorageReducer = (state: IAuthState, action: IActionReducer
       isAuthenticated: false,
       loadingAuth: false
     }
-  }
+  };
 
   return TYPES;
-}
+};

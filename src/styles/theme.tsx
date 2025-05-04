@@ -1,33 +1,36 @@
 import { DefaultTheme } from "styled-components";
 
 export const Theme: DefaultTheme = {
-  shadows: ["0px 4px 4px hsla(0, 0%, 0%, 0.25)", "0px -4px 4px rgba(0,0,0,0.25)"],
+  shadows: [
+    "0px 4px 4px hsla(0, 0%, 0%, 0.25)",
+    "0px -4px 4px rgba(0,0,0,0.25)"
+  ],
   palette: {
     type: "light",
     primary: {
       main: "#2E3B80",
       dark: "#202a60",
-      contrastText: "#fff",
+      contrastText: "#fff"
     },
     error: {
-      main: "#B80000",
+      main: "#B80000"
     },
     secondary: {
-      main: "#FD7700",
+      main: "#FD7700"
     },
     background: {
       paper: "#FCFCFC",
-      default: "#FFF",
+      default: "#FFF"
     },
     text: {
       disabled: "#8A8A8A",
       primary: "#323232",
       secondary: "#FAFAFA",
       tertiary: "#FD7700",
-      dark: "#4B4B4B",
+      dark: "#4B4B4B"
     },
     action: {
-      disabledBackground: "rgba(0, 0, 0, 0.12)",
+      disabledBackground: "rgba(0, 0, 0, 0.12)"
     },
     grey: {
       50: "#fafafa",
@@ -43,7 +46,7 @@ export const Theme: DefaultTheme = {
       A100: "#d5d5d5",
       A200: "#aaaaaa",
       A400: "#303030",
-      A700: "#616161",
+      A700: "#616161"
     },
     graph: {
       simple: "#202a60",
@@ -53,7 +56,7 @@ export const Theme: DefaultTheme = {
         3: "#202a60",
         4: "#FD7700",
         5: "#4E2294",
-        6: "#6E5E40",
+        6: "#6E5E40"
       }
     }
   },
@@ -62,7 +65,7 @@ export const Theme: DefaultTheme = {
     regular: "16px",
     medium: "24px",
     large: "32px",
-    huge: "48px",
+    huge: "48px"
   },
   typography: {
     htmlFontSize: "16px",
@@ -77,36 +80,36 @@ export const Theme: DefaultTheme = {
       fontWeight: 600,
       fontSize: "20px",
       lineHeight: "26.82px",
-      letterSpacing: "-0.01562em",
+      letterSpacing: "-0.01562em"
     },
     h2: {
       fontFamily: "Open Sans",
       fontWeight: 700,
       fontSize: "18px",
       lineHeight: "24.38px",
-      letterSpacing: "-0.01562em",
+      letterSpacing: "-0.01562em"
     },
     body1: {
       fontFamily: "Open Sans",
       fontWeight: 300,
       fontSize: "16px",
       lineHeight: "22.5px",
-      letterSpacing: "-0.01562em",
+      letterSpacing: "-0.01562em"
     },
     body2: {
       fontFamily: "Open Sans",
       fontWeight: 300,
       fontSize: "16px",
       lineHeight: "20.07px",
-      letterSpacing: "-0.01562em",
+      letterSpacing: "-0.01562em"
     },
     button: {
       fontFamily: "Open Sans",
       fontWeight: 700,
       fontSize: "12px",
       lineHeight: 1.167,
-      letterSpacing: "-0.01562em",
-    },
+      letterSpacing: "-0.01562em"
+    }
   },
   shape: {
     borderRadius: "5px",
@@ -115,7 +118,7 @@ export const Theme: DefaultTheme = {
       regular: "16px",
       medium: "24px",
       large: "32px",
-      huge: "48px",
-    },
-  },
+      huge: "48px"
+    }
+  }
 };

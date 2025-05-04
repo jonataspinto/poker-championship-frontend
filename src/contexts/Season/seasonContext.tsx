@@ -3,24 +3,23 @@ import { IActionReducer } from "../../interfaces";
 import { ISeasonContext, ISeasonState, SeasonActionsType } from "./interfaces";
 import { SeasonReducer, initialStateSeasonReducer } from "./reducer";
 
-export const SeasonContext = createContext<ISeasonContext>({} as ISeasonContext);
+export const SeasonContext = createContext<ISeasonContext>(
+  {} as ISeasonContext
+);
 
 export const SeasonProvider = ({ children }: ISeasonContext.Provider) => {
   const [state, dispatch] = useReducer<
-    Reducer<
-      ISeasonState,
-      IActionReducer<SeasonActionsType, ISeasonState>
-    >
+    Reducer<ISeasonState, IActionReducer<SeasonActionsType, ISeasonState>>
   >(SeasonReducer, initialStateSeasonReducer);
 
   return (
     <SeasonContext.Provider
       value={{
         state,
-        dispatch,
+        dispatch
       }}
     >
       {children}
     </SeasonContext.Provider>
-  )
-}
+  );
+};

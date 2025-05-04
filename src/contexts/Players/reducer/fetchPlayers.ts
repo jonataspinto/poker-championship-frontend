@@ -1,7 +1,14 @@
-import { IActionReducer, IObjectLiteralCall, Status } from "../../../interfaces";
+import {
+  IActionReducer,
+  IObjectLiteralCall,
+  Status
+} from "../../../interfaces";
 import { IPlayerState, PlayerActionsType } from "../interfaces";
 
-export const FetchPlayersReducer = (state: IPlayerState, action: IActionReducer<PlayerActionsType, IPlayerState>) => {
+export const FetchPlayersReducer = (
+  state: IPlayerState,
+  action: IActionReducer<PlayerActionsType, IPlayerState>
+) => {
   const REDUCERS: IObjectLiteralCall<IPlayerState> = {
     [PlayerActionsType.FETCH_PLAYER]: () => ({
       ...state,
@@ -18,7 +25,7 @@ export const FetchPlayersReducer = (state: IPlayerState, action: IActionReducer<
       ...action.payload,
       status: Status.ERROR
     })
-  }
+  };
 
   return REDUCERS;
-}
+};

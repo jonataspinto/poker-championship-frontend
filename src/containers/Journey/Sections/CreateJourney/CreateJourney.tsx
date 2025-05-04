@@ -1,17 +1,14 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  Box,
-  Button
-} from "@material-ui/core";
+import { Box, Button } from "@material-ui/core";
 
 import { IPlayer, INewJourney } from "../../../../interfaces";
 import { useModal, useSeason } from "../../../../contexts";
 import { formatDateToIso } from "../../../../utils";
 import { useJourney } from "../../../../contexts/Journey";
-import { ModalCreateJourney } from "./ModalCreateJourney"
+import { ModalCreateJourney } from "./ModalCreateJourney";
 
 interface CreateJourneyProps {
-  players: IPlayer[],
+  players: IPlayer[];
 }
 
 export const CreateJourney = ({ players }: CreateJourneyProps) => {
@@ -28,7 +25,7 @@ export const CreateJourney = ({ players }: CreateJourneyProps) => {
 
   const seasonId = season?.id || "";
 
-  const journeysIds = season?.journeys || []
+  const journeysIds = season?.journeys || [];
 
   const addOrRemovePlayerfromJourney = useCallback((uuid) => {
     setNewJourney((prevState) => {
@@ -37,25 +34,23 @@ export const CreateJourney = ({ players }: CreateJourneyProps) => {
       const isIncluded = !!prevState.players.find((currentPlayer, position) => {
         index = position;
 
-        return (
-          currentPlayer === uuid
-        );
+        return currentPlayer === uuid;
       });
 
       if (!isIncluded) {
-        return ({
+        return {
           ...prevState,
-          players: [...prevState.players, uuid],
-        });
+          players: [...prevState.players, uuid]
+        };
       }
       const draftPlayersList = [...prevState.players];
 
       draftPlayersList.splice(index, 1);
 
-      return ({
+      return {
         ...prevState,
-        players: [...draftPlayersList],
-      });
+        players: [...draftPlayersList]
+      };
     });
   }, []);
 
@@ -63,23 +58,19 @@ export const CreateJourney = ({ players }: CreateJourneyProps) => {
     agree: () => {
       createJourney(
         { ...newJourney, seasonId },
-        async (journeyId: string) => await updateSeason({
-          ...season,
-          journeys: [
-            ...journeysIds,
-            journeyId
-          ]
-        })
+        async (journeyId: string) =>
+          await updateSeason({
+            ...season,
+            journeys: [...journeysIds, journeyId]
+          })
       );
     },
-    disAgree: () => {
-
-    }
-  }
+    disAgree: () => {}
+  };
 
   // eslint-disable-next-line
   const handleShowModal = () => {
-    if(isOpen) {
+    if (isOpen) {
       showModal(
         <ModalCreateJourney
           players={players}
@@ -87,40 +78,37 @@ export const CreateJourney = ({ players }: CreateJourneyProps) => {
           addOrRemovePlayerfromJourney={addOrRemovePlayerfromJourney}
         />,
         ActionsModalCreateJourney
-      )
+      );
     }
-  }
+  };
 
   useEffect(() => {
-    setNewJourney(prevState => ({
+    setNewJourney((prevState) => ({
       ...prevState,
-      players: players.length > 0 ? players.map(player => player.uuid) : []
-    }))
-  }, [players])
+      players: players.length > 0 ? players.map((player) => player.uuid) : []
+    }));
+  }, [players]);
 
   useEffect(() => {
-    handleShowModal()
+    handleShowModal();
     // eslint-disable-next-line
-  }, [
-    newJourney.players.length
-  ])
+  }, [newJourney.players.length]);
 
   return (
-    <Box
-      display="flex"
-      pb={3}
-    >
+    <Box display="flex" pb={3}>
       <Button
         variant="outlined"
         color="primary"
-        onClick={() => showModal(
-          <ModalCreateJourney
-            players={players}
-            newJourney={newJourney}
-            addOrRemovePlayerfromJourney={addOrRemovePlayerfromJourney}
-          />,
-          ActionsModalCreateJourney
-        )}
+        onClick={() =>
+          showModal(
+            <ModalCreateJourney
+              players={players}
+              newJourney={newJourney}
+              addOrRemovePlayerfromJourney={addOrRemovePlayerfromJourney}
+            />,
+            ActionsModalCreateJourney
+          )
+        }
       >
         Abrir nova rodada.
       </Button>

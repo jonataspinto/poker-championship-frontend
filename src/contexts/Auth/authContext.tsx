@@ -3,7 +3,7 @@ import React, {
   useEffect,
   useCallback,
   useReducer,
-  Reducer,
+  Reducer
 } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { AuthReducer, initialStateAuthReducer } from "./reducer";
@@ -17,20 +17,17 @@ export const AuthProvider = ({ children }: IAuthContext.IProvider) => {
   const history = useHistory();
   const location = useLocation();
   const [state, dispatch] = useReducer<
-    Reducer<
-      IAuthState,
-      IActionReducer<AuthActionsType, IAuthState>
-    >
-  >(AuthReducer, initialStateAuthReducer)
+    Reducer<IAuthState, IActionReducer<AuthActionsType, IAuthState>>
+  >(AuthReducer, initialStateAuthReducer);
 
   const { getStorageData } = useStorage();
 
-  const redirectTo = useCallback((path: string, state: any = { from: { pathname: "/" }}) => {
-    if(location.pathname !== path) history.push(path, state)
-  }, [
-    history,
-    location.pathname
-  ]);
+  const redirectTo = useCallback(
+    (path: string, state: any = { from: { pathname: "/" } }) => {
+      if (location.pathname !== path) history.push(path, state);
+    },
+    [history, location.pathname]
+  );
 
   const mountRedirectState = useCallback(() => {
     return {
@@ -38,16 +35,14 @@ export const AuthProvider = ({ children }: IAuthContext.IProvider) => {
         pathname: location.pathname
       }
     };
-  },[
-    location.pathname
-  ]);
+  }, [location.pathname]);
 
   const { user } = getStorageData<IPlayer>(["user"]);
 
   useEffect(() => {
     dispatch({
-      type: AuthActionsType.LOAD_STORAGE_DATA,
-    })
+      type: AuthActionsType.LOAD_STORAGE_DATA
+    });
 
     if (user) {
       dispatch({
@@ -55,29 +50,26 @@ export const AuthProvider = ({ children }: IAuthContext.IProvider) => {
         payload: {
           user: user as IPlayer
         }
-      })
+      });
     } else {
       const stateToRedirect = mountRedirectState();
-      redirectTo("/login", stateToRedirect );
+      redirectTo("/login", stateToRedirect);
       dispatch({
-        type: AuthActionsType.LOAD_STORAGE_DATA_ERROR,
-      })
+        type: AuthActionsType.LOAD_STORAGE_DATA_ERROR
+      });
     }
     // eslint-disable-next-line
-  }, [
-    redirectTo,
-    mountRedirectState,
-  ])
+  }, [redirectTo, mountRedirectState]);
 
   return (
     <AuthContext.Provider
       value={{
         redirectTo,
         state,
-        dispatch,
+        dispatch
       }}
     >
-      { children }
+      {children}
     </AuthContext.Provider>
   );
-}
+};

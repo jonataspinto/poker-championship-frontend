@@ -4,7 +4,7 @@ import {
   Button,
   Avatar,
   Typography,
-  CircularProgress,
+  CircularProgress
 } from "@material-ui/core";
 import { Google } from "styled-icons/boxicons-logos";
 import { UserTie } from "styled-icons/fa-solid";
@@ -19,46 +19,36 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     padding: theme.spacing(1),
     width: "60px",
-    height: "60px",
+    height: "60px"
   },
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
+    alignItems: "center"
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(1)
   },
   google: {
-    margin: theme.spacing(0, 0, 2),
-  },
+    margin: theme.spacing(0, 0, 2)
+  }
 }));
 
 export const Login = () => {
   const classes = useStyles();
 
-  const {
-    loginGoogle,
-    loadingAuth,
-    user,
-    isAuthenticated,
-    redirectTo
-  } = useAuth();
+  const { loginGoogle, loadingAuth, user, isAuthenticated, redirectTo } =
+    useAuth();
 
-  const { state } = useLocation<{ from: { pathname: string }}>();
+  const { state } = useLocation<{ from: { pathname: string } }>();
 
   useEffect(() => {
-    if(user && isAuthenticated) {
+    if (user && isAuthenticated) {
       redirectTo(state?.from?.pathname, state);
     }
-  }, [
-    user,
-    isAuthenticated,
-    state,
-    redirectTo
-  ])
+  }, [user, isAuthenticated, state, redirectTo]);
 
   return (
     <>
@@ -82,16 +72,14 @@ export const Login = () => {
             className={classes.google}
             disabled={loadingAuth}
           >
-            {
-            loadingAuth
-              ? <CircularProgress color="secondary" />
-              : (
-                <>
-                  <Google style={{ width: "24px", marginRight: "10px" }} />
-                  Login com google
-                </>
-              )
-            }
+            {loadingAuth ? (
+              <CircularProgress color="secondary" />
+            ) : (
+              <>
+                <Google style={{ width: "24px", marginRight: "10px" }} />
+                Login com google
+              </>
+            )}
           </Button>
         </form>
       </div>

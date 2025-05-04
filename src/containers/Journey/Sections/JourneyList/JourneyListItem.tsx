@@ -9,17 +9,23 @@ import {
 } from "@material-ui/core";
 import { ExpandMore, Block } from "@material-ui/icons";
 import { CloseOrUpdateJourney } from "./CloseOrUpdateJourney";
-import { IJourney, IPlayer } from "../../../../interfaces"
+import { IJourney, IPlayer } from "../../../../interfaces";
 import { formatDate, MapPodiumJourney } from "../../../../utils";
 import { BoxPodium } from "../../../../components/modules";
 
 interface JourneyListItemProps {
-  journey: IJourney,
-  players: IPlayer[],
+  journey: IJourney;
+  players: IPlayer[];
 }
 
-export const JourneyListItem = ({ journey, players = [] }: JourneyListItemProps) => {
-  const { closedBy, podiums, otherScorers } = MapPodiumJourney(journey, players);
+export const JourneyListItem = ({
+  journey,
+  players = []
+}: JourneyListItemProps) => {
+  const { closedBy, podiums, otherScorers } = MapPodiumJourney(
+    journey,
+    players
+  );
 
   return (
     <Accordion>
@@ -28,10 +34,11 @@ export const JourneyListItem = ({ journey, players = [] }: JourneyListItemProps)
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography
-          variant="subtitle1"
-        >
-          {`Rodada #${journey.tag} - ${formatDate(new Date(journey.createdAt), "dd/MM/yy")} `}
+        <Typography variant="subtitle1">
+          {`Rodada #${journey.tag} - ${formatDate(
+            new Date(journey.createdAt),
+            "dd/MM/yy"
+          )} `}
         </Typography>
         {journey.hasClosed && (
           <Chip
@@ -47,16 +54,11 @@ export const JourneyListItem = ({ journey, players = [] }: JourneyListItemProps)
       <AccordionDetails
         style={{
           display: "flex",
-          flexDirection: "column",
+          flexDirection: "column"
         }}
       >
-        <Box
-          display="flex"
-          flexDirection="column"
-          gridGap={16}
-          width="100%"
-        >{
-          journey.hasClosed ? (
+        <Box display="flex" flexDirection="column" gridGap={16} width="100%">
+          {journey.hasClosed ? (
             <BoxPodium
               podiums={podiums}
               otherScorers={otherScorers}
@@ -64,9 +66,10 @@ export const JourneyListItem = ({ journey, players = [] }: JourneyListItemProps)
             />
           ) : (
             <CloseOrUpdateJourney
-              players={journey.players.map(playerIdInJourney => (
-                  players.find(player => player.uuid === playerIdInJourney)
-                )) as IPlayer[]
+              players={
+                journey.players.map((playerIdInJourney) =>
+                  players.find((player) => player.uuid === playerIdInJourney)
+                ) as IPlayer[]
               }
               journey={journey}
             />
@@ -75,4 +78,4 @@ export const JourneyListItem = ({ journey, players = [] }: JourneyListItemProps)
       </AccordionDetails>
     </Accordion>
   );
-}
+};

@@ -1,13 +1,13 @@
-import { useContext } from "react"
+import { useContext } from "react";
 import { SeasonServices } from "services";
 import { SeasonActionsType } from "../interfaces";
-import { SeasonContext } from "../seasonContext"
+import { SeasonContext } from "../seasonContext";
 
 export const useUpdateSeason = () => {
-  const context  = useContext(SeasonContext);
+  const context = useContext(SeasonContext);
 
-  if(!context) {
-    throw new Error("Ops... não foi possivel conectar-se ao provider.")
+  if (!context) {
+    throw new Error("Ops... não foi possivel conectar-se ao provider.");
   }
 
   const { state, dispatch } = context;
@@ -15,7 +15,7 @@ export const useUpdateSeason = () => {
   const updateSeason = async (seasonData: {}) => {
     dispatch({
       type: SeasonActionsType.UPDATE_SEASON
-    })
+    });
 
     try {
       const season = await SeasonServices.updateSeason(seasonData);
@@ -28,15 +28,15 @@ export const useUpdateSeason = () => {
             ...season
           }
         }
-      })
+      });
     } catch (error) {
       dispatch({
-        type: SeasonActionsType.UPDATE_SEASON_ERROR,
-      })
+        type: SeasonActionsType.UPDATE_SEASON_ERROR
+      });
     }
-  }
+  };
 
   return {
     updateSeason
-  }
-}
+  };
+};

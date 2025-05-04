@@ -3,7 +3,7 @@ import {
   EmailOutlined as iconEmail,
   PhoneOutlined as iconPhone,
   UpdateOutlined as iconUpdate,
-  AccountBalanceWalletOutlined as wallet,
+  AccountBalanceWalletOutlined as wallet
 } from "@material-ui/icons/";
 import { UserImage, Typography } from "../../components/elements";
 
@@ -64,7 +64,7 @@ export const UpdateOutlined = styled(iconUpdate)`
 `;
 
 export const Text = styled(Typography).attrs(() => ({
-  variant: "h2",
+  variant: "h2"
 }))`
   font-family: Roboto;
   margin: ${(props) => props.theme.margin?.small};

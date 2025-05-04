@@ -5,11 +5,11 @@ import axios from "axios";
 import { LogOutGoogle, RefreshIdToken } from "../authentication";
 
 export const api = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL,
+  baseURL: process.env.REACT_APP_BASE_URL
 });
 
 api.interceptors.request.use(async (config) => {
-  const idToken = localStorage.getItem("idToken")?.replaceAll("\"", "");
+  const idToken = localStorage.getItem("idToken")?.replaceAll('"', "");
 
   if (idToken) {
     config.headers.Authorization = `Bearer ${idToken}`;
@@ -18,28 +18,37 @@ api.interceptors.request.use(async (config) => {
   return config;
 });
 
-api.interceptors.response.use((config) => config, async (error) => {
-  const originalRequest = error.config;
+api.interceptors.response.use(
+  (config) => config,
+  async (error) => {
+    const originalRequest = error.config;
 
-  if (error?.response?.data?.code === "auth/id-token-expired" && !originalRequest._retry) {
-    originalRequest._retry = true;
+    if (
+      error?.response?.data?.code === "auth/id-token-expired" &&
+      !originalRequest._retry
+    ) {
+      originalRequest._retry = true;
 
-    await RefreshIdToken(({ status }) => {
-      if (status === "success") {
-        return api(originalRequest);
-      }
-      LogOutGoogle();
-    });
+      await RefreshIdToken(({ status }) => {
+        if (status === "success") {
+          return api(originalRequest);
+        }
+        LogOutGoogle();
+      });
+    }
+
+    if (
+      error?.response?.data?.code === "auth/argument-error" &&
+      !originalRequest._retry
+    ) {
+      originalRequest._retry = true;
+
+      await RefreshIdToken(({ status }) => {
+        if (status === "success") {
+          return api(originalRequest);
+        }
+        LogOutGoogle();
+      });
+    }
   }
-
-  if (error?.response?.data?.code === "auth/argument-error" && !originalRequest._retry) {
-    originalRequest._retry = true;
-
-    await RefreshIdToken(({ status }) => {
-      if (status === "success") {
-        return api(originalRequest);
-      }
-      LogOutGoogle();
-    });
-  }
-});
+);

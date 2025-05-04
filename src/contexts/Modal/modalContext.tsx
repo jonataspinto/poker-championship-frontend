@@ -6,20 +6,20 @@ import React, {
   ReactNode,
   SetStateAction
 } from "react";
-import Button from '@material-ui/core/Button';
-import { Dialog, DialogActions } from '@material-ui/core';
+import Button from "@material-ui/core/Button";
+import { Dialog, DialogActions } from "@material-ui/core";
 import { Dispatch } from "react";
 
 interface IDialogActions {
-  agree: () => void,
-  disAgree: () => void
+  agree: () => void;
+  disAgree: () => void;
 }
 
 interface IModalContext {
   showModal: (content: ReactNode, actions: IDialogActions) => void;
   closeModal: () => void;
-  isOpen: boolean
-  setIsOpen: Dispatch<SetStateAction<boolean>>
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 interface IModalContextProvider {
@@ -32,26 +32,21 @@ export const ModalProvider = ({ children }: IModalContextProvider) => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalContent, setModalContent] = useState<ReactNode>(<> </>);
   const [dialogActions, setDialogAction] = useState<{
-    actions: IDialogActions
+    actions: IDialogActions;
   }>({
     actions: {
       agree: () => {},
       disAgree: () => {}
     }
-  })
+  });
 
-  useEffect(() => {
+  useEffect(() => {}, []);
 
-  }, []);
-
-  const showModal = (
-    content: ReactNode,
-    actions: IDialogActions
-  ) => {
+  const showModal = (content: ReactNode, actions: IDialogActions) => {
     setModalContent(content);
     setDialogAction({
       actions
-    })
+    });
     setIsOpen(true);
   };
 
@@ -79,7 +74,7 @@ export const ModalProvider = ({ children }: IModalContextProvider) => {
         <DialogActions>
           <Button
             onClick={() => {
-              dialogActions.actions.disAgree()
+              dialogActions.actions.disAgree();
               closeModal();
             }}
             color="primary"

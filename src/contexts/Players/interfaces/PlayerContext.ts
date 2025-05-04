@@ -9,5 +9,5 @@ export interface IPlayerContextProvider {
 
 export interface IPlayerContext {
   state: IPlayerState;
-  dispatch: Dispatch<IActionReducer<PlayerActionsType, IPlayerState>>
+  dispatch: Dispatch<IActionReducer<PlayerActionsType, IPlayerState>>;
 }

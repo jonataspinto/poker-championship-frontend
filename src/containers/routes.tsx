@@ -1,17 +1,17 @@
 import React from "react";
-import {
-  BrowserRouter,
-  Switch,
-  Route,
-  Redirect
-} from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import { Home } from "./Home";
 import { Login } from "./Login";
 import { Journey } from "./Journey";
 import { Profile } from "./Profile";
 import { Layout, Main } from "../components/features";
-import { AuthProvider, SeasonProvider, JourneyProvider, PlayerProvider } from "../contexts";
+import {
+  AuthProvider,
+  SeasonProvider,
+  JourneyProvider,
+  PlayerProvider
+} from "../contexts";
 
 export const Routes = () => (
   <BrowserRouter>

@@ -1,7 +1,14 @@
-import { IActionReducer, IObjectLiteralCall, Status } from "../../../interfaces";
+import {
+  IActionReducer,
+  IObjectLiteralCall,
+  Status
+} from "../../../interfaces";
 import { ISeasonState, SeasonActionsType } from "../interfaces";
 
-export const CreateSeasonReducer = (state: ISeasonState, action: IActionReducer<SeasonActionsType, ISeasonState>) => {
+export const CreateSeasonReducer = (
+  state: ISeasonState,
+  action: IActionReducer<SeasonActionsType, ISeasonState>
+) => {
   const REDUCERS: IObjectLiteralCall<ISeasonState> = {
     [SeasonActionsType.CREATE_SEASON]: () => ({
       ...state,
@@ -18,7 +25,7 @@ export const CreateSeasonReducer = (state: ISeasonState, action: IActionReducer<
       ...action.payload,
       status: Status.ERROR
     })
-  }
+  };
 
   return REDUCERS;
-}
+};

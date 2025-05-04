@@ -9,5 +9,5 @@ export interface IJourneyContextProvider {
 
 export interface IJourneyContext {
   state: IJourneyState;
-  dispatch: Dispatch<IActionReducer<JourneyActionsType, IJourneyState>>
+  dispatch: Dispatch<IActionReducer<JourneyActionsType, IJourneyState>>;
 }

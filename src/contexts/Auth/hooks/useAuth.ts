@@ -6,7 +6,7 @@ import { AuthContext } from "../authContext";
 export const useAuth = () => {
   const context = useContext(AuthContext);
 
-  if(!context) {
+  if (!context) {
     throw new Error("Ops... não foi possivel conectar-se ao provider.");
   }
 
@@ -15,6 +15,6 @@ export const useAuth = () => {
   return {
     ...useLoginGoogle(),
     ...useProfile(),
-    redirectTo,
-  }
-}
+    redirectTo
+  };
+};

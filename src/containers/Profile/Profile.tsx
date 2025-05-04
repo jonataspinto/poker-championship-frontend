@@ -7,41 +7,37 @@ import { EditProfileModal } from "./Sections/EditProfileModal";
 import { updatePlayerProfile } from "../../services/players";
 
 export const Profile = () => {
-  const [currentUserProfile, setCurrentUserProfile] = useState<IPlayer>({} as IPlayer)
+  const [currentUserProfile, setCurrentUserProfile] = useState<IPlayer>(
+    {} as IPlayer
+  );
   const { user } = useAuth();
-  const { showModal, isOpen } = useModal()
+  const { showModal, isOpen } = useModal();
 
-  const {
-    points,
-    email,
-    name,
-    photoURL,
-  } = currentUserProfile;
+  const { points, email, name, photoURL } = currentUserProfile;
 
   useEffect(() => {
-    setCurrentUserProfile(user)
-  }, [user])
+    setCurrentUserProfile(user);
+  }, [user]);
 
   const actionsEditProfileModal = {
-    agree: () => {updatePlayerProfile(currentUserProfile)},
+    agree: () => {
+      updatePlayerProfile(currentUserProfile);
+    },
     disAgree: () => setCurrentUserProfile(currentUserProfile)
   };
 
   useEffect(() => {
-    if(isOpen) {
+    if (isOpen) {
       showModal(
         <EditProfileModal
           currentUserProfile={currentUserProfile}
           setCurrentUserProfile={setCurrentUserProfile}
-        />
-        ,
+        />,
         actionsEditProfileModal
-      )
+      );
     }
     // eslint-disable-next-line
-  }, [
-    currentUserProfile
-  ])
+  }, [currentUserProfile]);
 
   return (
     <S.ProfileContainer>
@@ -51,14 +47,15 @@ export const Profile = () => {
       <S.ProfileImage
         src={photoURL}
         alt="Imagem do usuário"
-        onClick={() => showModal(
-          <EditProfileModal
-            currentUserProfile={currentUserProfile}
-            setCurrentUserProfile={setCurrentUserProfile}
-          />
-          ,
-          actionsEditProfileModal
-        )}
+        onClick={() =>
+          showModal(
+            <EditProfileModal
+              currentUserProfile={currentUserProfile}
+              setCurrentUserProfile={setCurrentUserProfile}
+            />,
+            actionsEditProfileModal
+          )
+        }
       />
       <S.ProfileName>{name}</S.ProfileName>
       <S.Row>

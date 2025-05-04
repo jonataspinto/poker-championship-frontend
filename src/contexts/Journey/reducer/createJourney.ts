@@ -1,7 +1,14 @@
-import { IActionReducer, IObjectLiteralCall, Status } from "../../../interfaces";
+import {
+  IActionReducer,
+  IObjectLiteralCall,
+  Status
+} from "../../../interfaces";
 import { IJourneyState, JourneyActionsType } from "../interfaces";
 
-export const CreateJourneyReducer = (state: IJourneyState, action: IActionReducer<JourneyActionsType, IJourneyState>) => {
+export const CreateJourneyReducer = (
+  state: IJourneyState,
+  action: IActionReducer<JourneyActionsType, IJourneyState>
+) => {
   const REDUCERS: IObjectLiteralCall<IJourneyState> = {
     [JourneyActionsType.CREATE_JOURNEY]: () => ({
       ...state,
@@ -18,7 +25,7 @@ export const CreateJourneyReducer = (state: IJourneyState, action: IActionReduce
       ...action.payload,
       status: Status.ERROR
     })
-  }
+  };
 
   return REDUCERS;
-}
+};

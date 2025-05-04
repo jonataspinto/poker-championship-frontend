@@ -1,1 +1,1 @@
-export { TablePlayers } from "./TablePlayers"
+export { TablePlayers } from "./TablePlayers";

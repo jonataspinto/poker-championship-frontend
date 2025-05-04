@@ -10,5 +10,5 @@ describe("Test map podium players.", () => {
       podiums: {},
       otherScorers: {}
     });
-  })
-})
+  });
+});

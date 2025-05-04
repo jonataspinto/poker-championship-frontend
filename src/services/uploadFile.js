@@ -1,6 +1,11 @@
 import { firebaseStorage } from "./config";
 
-export const uploadFile = async (storageRef, file, setUploadProgress, callBack) => {
+export const uploadFile = async (
+  storageRef,
+  file,
+  setUploadProgress,
+  callBack
+) => {
   const uploadTask = firebaseStorage
     .ref(`${storageRef}/${file.name}`)
     .put(file);
@@ -9,7 +14,7 @@ export const uploadFile = async (storageRef, file, setUploadProgress, callBack) 
     "state_changed",
     (snapshot) => {
       const progress = Math.round(
-        (snapshot.bytesTransferred / snapshot.totalBytes) * 100,
+        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
       );
 
       setUploadProgress(progress);
@@ -24,6 +29,6 @@ export const uploadFile = async (storageRef, file, setUploadProgress, callBack) 
         .getDownloadURL();
 
       callBack(responseUrlData);
-    },
+    }
   );
 };

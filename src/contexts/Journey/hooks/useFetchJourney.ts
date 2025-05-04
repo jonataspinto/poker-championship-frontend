@@ -1,8 +1,8 @@
-import { useCallback, useContext } from "react"
+import { useCallback, useContext } from "react";
 import { useNotification } from "../../Notification";
 import { JourneyServices } from "../../../services";
 import { JourneyActionsType } from "../interfaces";
-import { JourneyContext } from "../journeyContext"
+import { JourneyContext } from "../journeyContext";
 
 export const useFetchJourney = () => {
   const context = useContext(JourneyContext);
@@ -14,7 +14,7 @@ export const useFetchJourney = () => {
   const fetchJourneys = useCallback(async () => {
     dispatch({
       type: JourneyActionsType.FETCH_JOURNEY
-    })
+    });
     try {
       const data = await JourneyServices.getAllJourneys();
 
@@ -23,21 +23,18 @@ export const useFetchJourney = () => {
         payload: {
           journeys: data
         }
-      })
-      notify({ type: "success", content: "Jornadas carregadas com socesso!"})
+      });
+      notify({ type: "success", content: "Jornadas carregadas com socesso!" });
     } catch (error) {
       console.error(error?.response);
 
       dispatch({
         type: JourneyActionsType.FETCH_JOURNEY_ERROR
-      })
+      });
     }
-  }, [
-    dispatch,
-    notify
-  ])
+  }, [dispatch, notify]);
 
   return {
     fetchJourneys
-  }
-}
+  };
+};

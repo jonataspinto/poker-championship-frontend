@@ -48,7 +48,7 @@ const Typographies = {
   h1,
   h2,
   body1,
-  body2,
+  body2
 };
 
 export { Typographies };

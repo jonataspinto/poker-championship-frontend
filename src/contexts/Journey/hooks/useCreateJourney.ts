@@ -1,46 +1,46 @@
-import { useCallback, useContext } from "react"
+import { useCallback, useContext } from "react";
 import { INewJourney } from "../../../interfaces";
 import { JourneyServices } from "../../../services";
 import { JourneyActionsType } from "../interfaces";
-import { JourneyContext } from "../journeyContext"
+import { JourneyContext } from "../journeyContext";
 
 export const useCreateJourney = () => {
   const context = useContext(JourneyContext);
 
   const { state, dispatch } = context;
 
-  const createJourney = useCallback(async (journeyData: INewJourney, callBack?: (journeyId: string) => void) => {
-    dispatch({
-      type: JourneyActionsType.CREATE_JOURNEY,
-    })
-    try {
-      const data = await JourneyServices.createNewJourney(journeyData);
-
+  const createJourney = useCallback(
+    async (
+      journeyData: INewJourney,
+      callBack?: (journeyId: string) => void
+    ) => {
       dispatch({
-        type: JourneyActionsType.CREATE_JOURNEY_SUCCESS,
-        payload: {
-          journeys: [
-            data,
-            ...state.journeys
-          ]
+        type: JourneyActionsType.CREATE_JOURNEY
+      });
+      try {
+        const data = await JourneyServices.createNewJourney(journeyData);
+
+        dispatch({
+          type: JourneyActionsType.CREATE_JOURNEY_SUCCESS,
+          payload: {
+            journeys: [data, ...state.journeys]
+          }
+        });
+        if (data.id && callBack) {
+          callBack(data.id);
         }
-      })
-      if( data.id && callBack ) {
-        callBack(data.id)
-      }
-    } catch (error) {
-      console.error(error?.response);
+      } catch (error) {
+        console.error(error?.response);
 
-      dispatch({
-        type: JourneyActionsType.CREATE_JOURNEY_ERROR
-      })
-    }
-  }, [
-    dispatch,
-    state.journeys
-  ])
+        dispatch({
+          type: JourneyActionsType.CREATE_JOURNEY_ERROR
+        });
+      }
+    },
+    [dispatch, state.journeys]
+  );
 
   return {
     createJourney
-  }
-}
+  };
+};

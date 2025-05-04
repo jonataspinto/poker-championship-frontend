@@ -6,7 +6,7 @@ import { SideBar } from "..";
 import { useSeason } from "../../../contexts";
 
 interface LayoutProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 export const Layout = ({ children }: LayoutProps) => {
@@ -16,7 +16,10 @@ export const Layout = ({ children }: LayoutProps) => {
   const { pathname } = useLocation();
 
   const toggleDrawer = () => (event: any) => {
-    if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
       return;
     }
 
@@ -24,18 +27,15 @@ export const Layout = ({ children }: LayoutProps) => {
   };
 
   useEffect(() => {
-    if(seasons.length) loadOpenedSeason()
-  }, [
-    loadOpenedSeason,
-    seasons
-  ])
+    if (seasons.length) loadOpenedSeason();
+  }, [loadOpenedSeason, seasons]);
 
   return (
     <>
-      <Header setSideBar={toggleDrawer} hiden={(pathname === "/login")}/>
+      <Header setSideBar={toggleDrawer} hiden={pathname === "/login"} />
       <Container
         component="main"
-        maxWidth={(pathname === "/login") ? "xs" : "lg"}
+        maxWidth={pathname === "/login" ? "xs" : "lg"}
         style={{ paddingTop: "20px", paddingBottom: "20px" }}
       >
         <Typography
@@ -51,4 +51,4 @@ export const Layout = ({ children }: LayoutProps) => {
       </Container>
     </>
   );
-}
+};

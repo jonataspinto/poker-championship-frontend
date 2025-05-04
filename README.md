@@ -11,15 +11,16 @@ yarn add prettier eslint babel-eslint eslint-config-airbnb eslint-config-prettie
 ## how to use this template?
 
 Open your terminal and run:
+
 ```shell
 npx create-react-app YOUR_PROJECT_NAME --template jonataspinto-template
 ```
 
 This will create a project with the following libs:
 
-* [axios](https://github.com/axios/axios)
-* [react-router-dom](https://reacttraining.com/react-router/web/guides/quick-start)
-* [styled-components](https://www.styled-components.com/)
-* [plop](https://www.npmjs.com/package/plop)
+- [axios](https://github.com/axios/axios)
+- [react-router-dom](https://reacttraining.com/react-router/web/guides/quick-start)
+- [styled-components](https://www.styled-components.com/)
+- [plop](https://www.npmjs.com/package/plop)
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/040f10fc-1bb0-420e-b569-ee25974d5931/deploy-status)](https://app.netlify.com/sites/poker-championship/deploys)

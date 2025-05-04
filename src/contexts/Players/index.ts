@@ -1,2 +1,2 @@
-export { PlayerProvider } from "./playerContext"
-export { usePlayersData } from "./hooks"
+export { PlayerProvider } from "./playerContext";
+export { usePlayersData } from "./hooks";

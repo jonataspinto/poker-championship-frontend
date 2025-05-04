@@ -6,13 +6,11 @@ import { IActionReducer } from "../../../interfaces";
 export interface IAuthContext {
   redirectTo: (path: string, state: {}) => void;
   state: IAuthState;
-  dispatch: Dispatch<IActionReducer<AuthActionsType, IAuthState>>
+  dispatch: Dispatch<IActionReducer<AuthActionsType, IAuthState>>;
 }
 
 export namespace IAuthContext {
   export type IProvider = {
     children: ReactNode;
-  }
+  };
 }
-
-

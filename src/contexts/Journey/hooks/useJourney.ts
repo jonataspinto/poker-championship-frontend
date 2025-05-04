@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { JourneyContext } from "../journeyContext";
-import { useFetchJourney } from "./useFetchJourney"
-import { useUpdateJourney } from "./useUpdateJourney"
-import { useCreateJourney } from "./useCreateJourney"
+import { useFetchJourney } from "./useFetchJourney";
+import { useUpdateJourney } from "./useUpdateJourney";
+import { useCreateJourney } from "./useCreateJourney";
 
 export const useJourney = () => {
   const context = useContext(JourneyContext);
@@ -11,7 +11,7 @@ export const useJourney = () => {
     throw new Error("useJourney must be used within an JourneyProvider");
   }
 
-  const { state } = context
+  const { state } = context;
 
   return {
     ...state,
@@ -19,4 +19,4 @@ export const useJourney = () => {
     ...useUpdateJourney(),
     ...useCreateJourney()
   };
-}
+};

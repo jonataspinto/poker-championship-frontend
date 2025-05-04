@@ -1,17 +1,12 @@
 import React from "react";
 
-import {
-  Typography,
-  Chip,
-  Avatar,
-  Box,
-} from "@material-ui/core";
+import { Typography, Chip, Avatar, Box } from "@material-ui/core";
 
-import { IPlayer } from "../../../interfaces"
+import { IPlayer } from "../../../interfaces";
 
 interface IBoxPodiumPlayerProps {
   player: IPlayer;
-  label: React.ReactNode
+  label: React.ReactNode;
 }
 
 export const BoxPodiumPlayer = ({ player, label }: IBoxPodiumPlayerProps) => (
@@ -21,7 +16,7 @@ export const BoxPodiumPlayer = ({ player, label }: IBoxPodiumPlayerProps) => (
       style={{
         textTransform: "capitalize",
         display: "flex",
-        alignItems: "center",
+        alignItems: "center"
       }}
     >
       {label}
@@ -30,11 +25,7 @@ export const BoxPodiumPlayer = ({ player, label }: IBoxPodiumPlayerProps) => (
       variant="outlined"
       size="medium"
       label={player.name}
-      avatar={(
-        <Avatar
-          src={player?.photoURL}
-        />
-      )}
+      avatar={<Avatar src={player?.photoURL} />}
       style={{ marginLeft: "4px" }}
     />
   </Box>

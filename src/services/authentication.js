@@ -3,7 +3,7 @@ import { createPlayer, getPlayerData } from "./players";
 
 export const RefreshIdToken = async (callback) => {
   const response = {
-    status: "failed",
+    status: "failed"
   };
 
   const idToken = await firebaseAuthGoogle.currentUser?.getIdToken(true);
@@ -23,7 +23,7 @@ export const LoginGoogle = async () => {
   const {
     user: { displayName, photoURL, email, uid },
     credential: { accessToken },
-    additionalUserInfo: { isNewUser },
+    additionalUserInfo: { isNewUser }
   } = result;
 
   const idToken = await firebaseAuthGoogle.currentUser.getIdToken();
@@ -34,7 +34,7 @@ export const LoginGoogle = async () => {
       displayName,
       photoURL,
       email,
-      uuid: uid,
+      uuid: uid
     });
   } else {
     user = await getPlayerData(email);
@@ -43,7 +43,7 @@ export const LoginGoogle = async () => {
   return {
     user,
     accessToken,
-    idToken,
+    idToken
   };
 };
 

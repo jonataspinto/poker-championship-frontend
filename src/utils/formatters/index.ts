@@ -1,2 +1,2 @@
-export { formatDate, formatDateToIso } from "./formatDate"
-export { formatStringToCapitalize } from "./formatString"
+export { formatDate, formatDateToIso } from "./formatDate";
+export { formatStringToCapitalize } from "./formatString";

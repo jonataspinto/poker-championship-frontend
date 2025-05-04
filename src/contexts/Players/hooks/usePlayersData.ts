@@ -5,8 +5,10 @@ import { useFetchPlayers } from "./useFetchPlayers";
 export const usePlayersData = () => {
   const context = useContext(PlayerContext);
 
-  if(!context) {
-    throw new Error("usePlayersData must be used within an PlayerContextProvider");
+  if (!context) {
+    throw new Error(
+      "usePlayersData must be used within an PlayerContextProvider"
+    );
   }
 
   const { state } = context;
@@ -15,4 +17,4 @@ export const usePlayersData = () => {
     ...state,
     ...useFetchPlayers()
   };
-}
+};

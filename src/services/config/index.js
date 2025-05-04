@@ -3,5 +3,5 @@ export { api } from "./api";
 export {
   firebaseAuthGoogle,
   googleProvider,
-  firebaseStorage,
+  firebaseStorage
 } from "./firebase";

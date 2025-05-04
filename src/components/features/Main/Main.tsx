@@ -1,8 +1,7 @@
-import { useEffect } from 'react';
-import { useJourney, usePlayersData, useSeason } from 'contexts';
+import { useEffect } from "react";
+import { useJourney, usePlayersData, useSeason } from "contexts";
 
 export const Main = ({ children }) => {
-
   const { fetchSeasons } = useSeason();
   const { fetchJourneys } = useJourney();
   const { fetchPlayers } = usePlayersData();
@@ -15,5 +14,5 @@ export const Main = ({ children }) => {
     // eslint-disable-next-line
   }, []);
 
-  return children
-}
+  return children;
+};

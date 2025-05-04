@@ -9,13 +9,13 @@ import { useLocation } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(2)
   },
   title: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   displayNoneHeader: {
     display: "none"
@@ -23,8 +23,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface HeaderProps {
-  setSideBar: Function,
-  hiden: boolean
+  setSideBar: Function;
+  hiden: boolean;
 }
 
 export const Header = ({ setSideBar, hiden, ...rest }: HeaderProps) => {
@@ -33,7 +33,11 @@ export const Header = ({ setSideBar, hiden, ...rest }: HeaderProps) => {
   const { pathname } = useLocation();
 
   return (
-    <AppBar position="sticky" {...rest} className={hiden ? classes.displayNoneHeader : ""}>
+    <AppBar
+      position="sticky"
+      {...rest}
+      className={hiden ? classes.displayNoneHeader : ""}
+    >
       <Toolbar>
         <IconButton
           edge="start"
@@ -45,7 +49,9 @@ export const Header = ({ setSideBar, hiden, ...rest }: HeaderProps) => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" className={classes.title}>
-          {(pathname === "/") ? "Classificação Geral" : pathname.replace("/", "").toUpperCase().replace("-", " ")}
+          {pathname === "/"
+            ? "Classificação Geral"
+            : pathname.replace("/", "").toUpperCase().replace("-", " ")}
         </Typography>
       </Toolbar>
     </AppBar>

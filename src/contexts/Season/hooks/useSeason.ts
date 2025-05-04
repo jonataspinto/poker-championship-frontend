@@ -8,7 +8,7 @@ import { useUpdateSeason } from "./useUpdateSeason";
 export const useSeason = () => {
   const context = useContext(SeasonContext);
 
-  if(!context) {
+  if (!context) {
     throw new Error("Ops... não foi possivel conectar-se ao provider.");
   }
 
@@ -19,5 +19,5 @@ export const useSeason = () => {
     ...useCreateSeason(),
     ...useFetchSeason(),
     ...useUpdateSeason()
-  }
-}
+  };
+};

@@ -12,5 +12,5 @@ export interface IPlayer {
   address?: IAddress;
   points: number;
   isAdmin: boolean;
-  podiums?: IPlayerPodium
+  podiums?: IPlayerPodium;
 }

@@ -15,15 +15,9 @@ export const Journey = () => {
       <Helmet>
         <title>{`Poker | Rodadas`}</title>
       </Helmet>
-      <CreateJourney
-        players={players}
-      />
+      <CreateJourney players={players} />
       <Paper>
-        <JourneyList
-          journeys={journeys}
-          players={players}
-          status={status}
-        />
+        <JourneyList journeys={journeys} players={players} status={status} />
       </Paper>
     </>
   );
