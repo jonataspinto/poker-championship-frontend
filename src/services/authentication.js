@@ -1,5 +1,5 @@
 import { firebaseAuthGoogle, googleProvider } from "./config";
-import { getPlayerByKey, createPlayer } from "./players";
+import { createPlayer, getPlayerData } from "./players";
 
 export const RefreshIdToken = async (callback) => {
   const response = {
@@ -21,18 +21,9 @@ export const LoginGoogle = async () => {
   const result = await firebaseAuthGoogle.signInWithPopup(googleProvider);
 
   const {
-    user: {
-      displayName,
-      photoURL,
-      email,
-      uid,
-    },
-    credential: {
-      accessToken,
-    },
-    additionalUserInfo: {
-      isNewUser,
-    },
+    user: { displayName, photoURL, email, uid },
+    credential: { accessToken },
+    additionalUserInfo: { isNewUser },
   } = result;
 
   const idToken = await firebaseAuthGoogle.currentUser.getIdToken();
@@ -46,13 +37,7 @@ export const LoginGoogle = async () => {
       uuid: uid,
     });
   } else {
-    user = await getPlayerByKey(
-      "email",
-      email,
-      {
-        authorization: `Bearer ${idToken.replaceAll("\"", "")}`,
-      },
-    );
+    user = await getPlayerData(email);
   }
 
   return {

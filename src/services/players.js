@@ -6,34 +6,13 @@ export const createPlayer = async (playerData) => {
 };
 
 export const getAllPlayers = async () => {
-  const response = await api.get(
-    "/users",
-  );
+  const response = await api.get("/players");
 
   return response.data;
 };
 
 export const getPlayerData = async (id) => {
-  const response = await api.get(
-    `/users/${id}`,
-  );
-
-  return response.data;
-};
-
-export const getPlayerByKey = async (key = "uuid", value, headers = {}) => {
-  const response = await api.get(
-    "/user-by-key/",
-    {
-      headers: {
-        ...headers,
-      },
-      params: {
-        key,
-        value,
-      },
-    },
-  );
+  const response = await api.get(`/players/${id}`);
 
   return response.data;
 };
@@ -41,10 +20,7 @@ export const getPlayerByKey = async (key = "uuid", value, headers = {}) => {
 export const updatePlayerProfile = async (playerData) => {
   const { id, ...rest } = playerData;
 
-  const response = await api.put(
-    `/users/${id}`,
-    { ...rest },
-  );
+  const response = await api.put(`/users/${id}`, { ...rest });
 
   return response.data;
 };
