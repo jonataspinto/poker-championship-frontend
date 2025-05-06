@@ -29,20 +29,12 @@ export const AuthProvider = ({ children }: IAuthContext.IProvider) => {
     [history, location.pathname]
   );
 
-  const mountRedirectState = useCallback(() => {
-    return {
-      from: {
-        pathname: location.pathname
-      }
-    };
-  }, [location.pathname]);
-
-  const { user } = getStorageData<IPlayer>(["user"]);
-
   useEffect(() => {
     dispatch({
       type: AuthActionsType.LOAD_STORAGE_DATA
     });
+
+    const { user } = getStorageData<IPlayer>(["user"]);
 
     if (user) {
       dispatch({
@@ -52,14 +44,11 @@ export const AuthProvider = ({ children }: IAuthContext.IProvider) => {
         }
       });
     } else {
-      const stateToRedirect = mountRedirectState();
-      redirectTo("/login", stateToRedirect);
       dispatch({
         type: AuthActionsType.LOAD_STORAGE_DATA_ERROR
       });
     }
-    // eslint-disable-next-line
-  }, [redirectTo, mountRedirectState]);
+  }, [dispatch, getStorageData]);
 
   return (
     <AuthContext.Provider
