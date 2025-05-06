@@ -8,7 +8,8 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Avatar
+  Avatar,
+  Typography
 } from "@material-ui/core";
 import { UserTie } from "styled-icons/fa-solid";
 
@@ -60,7 +61,7 @@ export const TablePlayers = ({ players }: TablePlayersProps) => {
             players.map((player, index) => (
               <TableRow key={player.id}>
                 <TableCell component="th" scope="row">
-                  {`${index + 1} º`}
+                  <Typography noWrap>{`${index + 1} º`}</Typography>
                 </TableCell>
                 <TableCell
                   component="th"
