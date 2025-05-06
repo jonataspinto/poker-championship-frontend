@@ -1,5 +1,7 @@
+import { useCallback } from "react";
+
 export const useStorage = () => {
-  const setStorageData = <T>(data: Record<string, T>) => {
+  const setStorageData = useCallback(<T>(data: Record<string, T>) => {
     const keys = Object.keys(data);
 
     if (keys.length > 0) {
@@ -7,9 +9,9 @@ export const useStorage = () => {
         localStorage.setItem(key, JSON.stringify(data[key]));
       });
     }
-  };
+  }, []);
 
-  const getStorageData = <T>(keys: Array<string>) => {
+  const getStorageData = useCallback(<T>(keys: Array<string>) => {
     let state: Record<string, T | {} | null> = {};
 
     keys.forEach((key) => {
@@ -22,17 +24,17 @@ export const useStorage = () => {
     });
 
     return state;
-  };
+  }, []);
 
-  const removeSorageData = (keys: Array<string>) => {
+  const removeStorageData = useCallback((keys: Array<string>) => {
     keys.forEach((key) => {
       localStorage.removeItem(key);
     });
-  };
+  }, []);
 
   return {
     setStorageData,
     getStorageData,
-    removeSorageData
+    removeStorageData
   };
 };
