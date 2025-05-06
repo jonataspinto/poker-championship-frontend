@@ -11,7 +11,7 @@ export const useFetchSeason = () => {
     throw new Error("Ops... não foi possivel conectar-se ao provider.");
   }
 
-  const { state, dispatch } = context;
+  const { dispatch } = context;
 
   const { notify } = useNotification();
 
@@ -30,6 +30,21 @@ export const useFetchSeason = () => {
         }
       });
       notify({ type: "success", content: "Temporada atualizada!" });
+
+      const openedSeason = data.find((season) => !season.hasClosed);
+
+      if (openedSeason) {
+        dispatch({
+          type: SeasonActionsType.LOAD_OPENED_SEASON_SUCCESS,
+          payload: {
+            season: openedSeason
+          }
+        });
+      } else {
+        dispatch({
+          type: SeasonActionsType.LOAD_OPENED_SEASON_ERROR
+        });
+      }
     } catch (error) {
       dispatch({
         type: SeasonActionsType.FETCH_SEASON_ERROR
@@ -37,30 +52,7 @@ export const useFetchSeason = () => {
     }
   }, [dispatch, notify]);
 
-  const loadOpenedSeason = useCallback(async () => {
-    dispatch({
-      type: SeasonActionsType.LOAD_OPENED_SEASON
-    });
-
-    try {
-      const data = state?.seasons?.find((season) => !season.hasClosed);
-
-      dispatch({
-        type: SeasonActionsType.LOAD_OPENED_SEASON_SUCCESS,
-        payload: {
-          season: data
-        }
-      });
-    } catch (error) {
-      dispatch({
-        type: SeasonActionsType.LOAD_OPENED_SEASON_ERROR
-      });
-    }
-    // eslint-disable-next-line
-  }, [dispatch]);
-
   return {
-    fetchSeasons,
-    loadOpenedSeason
+    fetchSeasons
   };
 };
