@@ -24,10 +24,10 @@ const useStyles = makeStyles((theme) => ({
 
 interface HeaderProps {
   setSideBar: Function;
-  hiden: boolean;
+  hidden: boolean;
 }
 
-export const Header = ({ setSideBar, hiden, ...rest }: HeaderProps) => {
+export const Header = ({ setSideBar, hidden, ...rest }: HeaderProps) => {
   const classes = useStyles();
 
   const { pathname } = useLocation();
@@ -36,7 +36,7 @@ export const Header = ({ setSideBar, hiden, ...rest }: HeaderProps) => {
     <AppBar
       position="sticky"
       {...rest}
-      className={hiden ? classes.displayNoneHeader : ""}
+      className={hidden ? classes.displayNoneHeader : ""}
     >
       <Toolbar>
         <IconButton

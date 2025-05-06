@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ReactNode } from "react";
+import React, { useState, ReactNode } from "react";
 import { Container, Typography } from "@material-ui/core";
 import { useLocation } from "react-router-dom";
 import { Header } from "../Header";
@@ -11,7 +11,7 @@ interface LayoutProps {
 
 export const Layout = ({ children }: LayoutProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { season, seasons, loadOpenedSeason } = useSeason();
+  const { season } = useSeason();
 
   const { pathname } = useLocation();
 
@@ -26,25 +26,22 @@ export const Layout = ({ children }: LayoutProps) => {
     setIsOpen(!isOpen);
   };
 
-  useEffect(() => {
-    if (seasons.length) loadOpenedSeason();
-  }, [loadOpenedSeason, seasons]);
-
   return (
     <>
-      <Header setSideBar={toggleDrawer} hiden={pathname === "/login"} />
+      <Header setSideBar={toggleDrawer} hidden={pathname === "/login"} />
       <Container
         component="main"
         maxWidth={pathname === "/login" ? "xs" : "lg"}
         style={{ paddingTop: "20px", paddingBottom: "20px" }}
       >
+        <Typography variant="h5">Guaratiba Série A</Typography>
         <Typography
-          variant="h5"
+          variant="subtitle2"
           style={{
             marginBottom: "24px"
           }}
         >
-          {`Temporada #${season?.tag || ""} - Guaratiba Série A`}
+          {season?.tag && `Temporada #${season?.tag}`}
         </Typography>
         {children}
         <SideBar anchor={isOpen} setAnchor={toggleDrawer} />
