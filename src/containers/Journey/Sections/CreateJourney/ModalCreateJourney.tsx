@@ -14,13 +14,13 @@ import { IPlayer, INewJourney } from "../../../../interfaces";
 interface ModalCreateJourneyProps {
   players: IPlayer[];
   newJourney: INewJourney;
-  addOrRemovePlayerfromJourney: (playerId: string) => void;
+  addOrRemovePlayerFromJourney: (playerId: string) => void;
 }
 
 export const ModalCreateJourney = ({
   players,
   newJourney,
-  addOrRemovePlayerfromJourney
+  addOrRemovePlayerFromJourney
 }: ModalCreateJourneyProps) => (
   <>
     <DialogTitle>Selecione os jogadores.</DialogTitle>
@@ -30,20 +30,18 @@ export const ModalCreateJourney = ({
         {players.length > 0 &&
           players.map((player) => (
             <Chip
-              key={player.uuid}
+              key={player.id}
               size="medium"
               label={player.name}
               avatar={<Avatar src={player?.photoURL} />}
               variant={
-                newJourney.players.includes(player.uuid)
-                  ? "default"
-                  : "outlined"
+                newJourney.players.includes(player.id) ? "default" : "outlined"
               }
               color={
-                newJourney.players.includes(player.uuid) ? "primary" : "default"
+                newJourney.players.includes(player.id) ? "primary" : "default"
               }
               onClick={() => {
-                addOrRemovePlayerfromJourney(player.uuid);
+                addOrRemovePlayerFromJourney(player.id);
               }}
             />
           ))}
