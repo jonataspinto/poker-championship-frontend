@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Box, Button } from "@material-ui/core";
 
 import { IPlayer, INewJourney } from "../../../../interfaces";
-import { useModal, useSeason } from "../../../../contexts";
+import { useAuth, useModal, useSeason } from "../../../../contexts";
 import { formatDateToIso } from "../../../../utils";
 import { useJourney } from "../../../../contexts/Journey";
 import { ModalCreateJourney } from "./ModalCreateJourney";
@@ -21,26 +21,28 @@ export const CreateJourney = ({ players }: CreateJourneyProps) => {
 
   const { createJourney } = useJourney();
 
+  const { isAuthenticated, user } = useAuth();
+
   const { season, updateSeason } = useSeason();
 
   const seasonId = season?.id || "";
 
   const journeysIds = season?.journeys || [];
 
-  const addOrRemovePlayerfromJourney = useCallback((uuid) => {
+  const addOrRemovePlayerFromJourney = useCallback((id) => {
     setNewJourney((prevState) => {
       let index = 0;
 
       const isIncluded = !!prevState.players.find((currentPlayer, position) => {
         index = position;
 
-        return currentPlayer === uuid;
+        return currentPlayer === id;
       });
 
       if (!isIncluded) {
         return {
           ...prevState,
-          players: [...prevState.players, uuid]
+          players: [...prevState.players, id]
         };
       }
       const draftPlayersList = [...prevState.players];
@@ -68,14 +70,13 @@ export const CreateJourney = ({ players }: CreateJourneyProps) => {
     disAgree: () => {}
   };
 
-  // eslint-disable-next-line
   const handleShowModal = () => {
     if (isOpen) {
       showModal(
         <ModalCreateJourney
           players={players}
           newJourney={newJourney}
-          addOrRemovePlayerfromJourney={addOrRemovePlayerfromJourney}
+          addOrRemovePlayerFromJourney={addOrRemovePlayerFromJourney}
         />,
         ActionsModalCreateJourney
       );
@@ -85,7 +86,7 @@ export const CreateJourney = ({ players }: CreateJourneyProps) => {
   useEffect(() => {
     setNewJourney((prevState) => ({
       ...prevState,
-      players: players.length > 0 ? players.map((player) => player.uuid) : []
+      players: players.length > 0 ? players.map((player) => player.id) : []
     }));
   }, [players]);
 
@@ -99,12 +100,13 @@ export const CreateJourney = ({ players }: CreateJourneyProps) => {
       <Button
         variant="outlined"
         color="primary"
+        disabled={!isAuthenticated && !user?.isAdmin}
         onClick={() =>
           showModal(
             <ModalCreateJourney
               players={players}
               newJourney={newJourney}
-              addOrRemovePlayerfromJourney={addOrRemovePlayerfromJourney}
+              addOrRemovePlayerFromJourney={addOrRemovePlayerFromJourney}
             />,
             ActionsModalCreateJourney
           )
