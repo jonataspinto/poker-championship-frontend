@@ -91,7 +91,7 @@ export const CloseOrUpdateJourney = ({
   }
 
   const RenderItem = (player: IPlayer) => (
-    <MenuItem key={`close-or-update${player?.uuid}`} value={player?.uuid}>
+    <MenuItem key={`close-or-update${player?.id}`} value={player?.id}>
       <Chip
         size="medium"
         label={player?.name}
@@ -112,7 +112,7 @@ export const CloseOrUpdateJourney = ({
             <FormControl className={classes.formControl}>
               <InputLabel htmlFor="first">Primeiro Lugar</InputLabel>
               <Select
-                value={journeyData.podium.first}
+                value={journeyData?.podium?.first}
                 onChange={(event) => handleChange(event, "podium")}
                 inputProps={{
                   name: "first",
@@ -126,7 +126,7 @@ export const CloseOrUpdateJourney = ({
             <FormControl className={classes.formControl}>
               <InputLabel htmlFor="second">Sagundo Lugar</InputLabel>
               <Select
-                value={journeyData.podium.second}
+                value={journeyData?.podium?.second}
                 onChange={(event) => handleChange(event, "podium")}
                 inputProps={{
                   name: "second",
@@ -140,7 +140,7 @@ export const CloseOrUpdateJourney = ({
             <FormControl className={classes.formControl}>
               <InputLabel htmlFor="third">Terceiro Lugar</InputLabel>
               <Select
-                value={journeyData.podium.third}
+                value={journeyData?.podium?.third}
                 onChange={(event) => handleChange(event, "podium")}
                 inputProps={{
                   name: "third",
@@ -154,7 +154,7 @@ export const CloseOrUpdateJourney = ({
             <FormControl className={classes.formControl}>
               <InputLabel htmlFor="fourth">Quarto Lugar</InputLabel>
               <Select
-                value={journeyData.podium.fourth}
+                value={journeyData?.podium?.fourth}
                 onChange={(event) => handleChange(event, "podium")}
                 inputProps={{
                   name: "fourth",
@@ -168,7 +168,7 @@ export const CloseOrUpdateJourney = ({
             <FormControl className={classes.formControl}>
               <InputLabel htmlFor="fifth">Quinto Lugar</InputLabel>
               <Select
-                value={journeyData.podium.fifth}
+                value={journeyData?.podium?.fifth}
                 onChange={(event) => handleChange(event, "podium")}
                 inputProps={{
                   name: "fifth",
