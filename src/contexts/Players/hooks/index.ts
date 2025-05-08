@@ -1,1 +1,0 @@
-export { usePlayersData } from "./usePlayersData";

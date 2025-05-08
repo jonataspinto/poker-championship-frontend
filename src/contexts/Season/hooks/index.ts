@@ -1,1 +1,0 @@
-export { useSeason } from "./useSeason";

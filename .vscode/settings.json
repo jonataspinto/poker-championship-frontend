@@ -1,0 +1,12 @@
+{
+  "cSpell.language": "en,pt,pt_BR",
+  "tailwindCSS.classAttributes": [
+    "class",
+    "className",
+    "ngClass",
+    "class:list",
+    "classes",
+    ".*Classes"
+  ],
+  "editor.formatOnSave": true
+}

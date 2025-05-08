@@ -1,26 +1,36 @@
-This is a template for [Create React App](https://github.com/facebook/create-react-app) with some useful dependencies configured.
-You can read more about custom-templates on the [oficial documentation](https://create-react-app.dev/docs/custom-templates/)
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-> [IMPORTANT] - development dependencies (devDependencies) are not yet supported by create-react-app templates. So if you want to have ESLint and Prettier configured in your project, please follow the steps bellow:
+## Getting Started
 
-```shell
-# install devDependencies manually
-yarn add prettier eslint babel-eslint eslint-config-airbnb eslint-config-prettier eslint-plugin-import eslint-plugin-import-helpers eslint-plugin-jsx-a11y eslint-plugin-prettier eslint-plugin-react eslint-plugin-react-hooks -D
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-## how to use this template?
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Open your terminal and run:
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-```shell
-npx create-react-app YOUR_PROJECT_NAME --template jonataspinto-template
-```
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-This will create a project with the following libs:
+## Learn More
 
-- [axios](https://github.com/axios/axios)
-- [react-router-dom](https://reacttraining.com/react-router/web/guides/quick-start)
-- [styled-components](https://www.styled-components.com/)
-- [plop](https://www.npmjs.com/package/plop)
+To learn more about Next.js, take a look at the following resources:
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/040f10fc-1bb0-420e-b569-ee25974d5931/deploy-status)](https://app.netlify.com/sites/poker-championship/deploys)
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

@@ -1,1 +1,0 @@
-export { TablePlayers } from "./TablePlayers";
