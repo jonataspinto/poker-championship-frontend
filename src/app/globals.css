@@ -24,3 +24,98 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@theme {
+  --animate-fadeId: fadeId 0.3s ease-in-out forwards;
+  --animate-fadeOut: fadeOut 0.3s ease-in-out forwards;
+  --animate-inUp: inUp 0.3s ease-in-out forwards;
+  --animate-outDown: outDown 0.3s ease-in-out forwards;
+  --animate-outRight: outRight 0.3s ease-in-out forwards;
+  --animate-outLeft: outLeft 0.3s ease-in-out forwards;
+  --animate-appearsFromRight: appearsFromRight 0.3s ease-in-out forwards;
+  --animate-appearsFromLeft: appearsFromLeft 0.3s ease-in-out forwards;
+
+  @keyframes fadeId {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes inUp {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes outDown {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes outRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes outLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes appearsFromLeft {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes appearsFromRight {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0%);
+      opacity: 1;
+    }
+  }
+}
