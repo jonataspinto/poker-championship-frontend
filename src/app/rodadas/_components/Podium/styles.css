@@ -1,0 +1,49 @@
+.podium {
+  display: grid;
+  grid-template-areas:
+    ". first ."
+    "second first-base third"
+    "second-base first-base third-base";
+}
+
+.first {
+  grid-area: first;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.second {
+  grid-area: second;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.third {
+  grid-area: third;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.first-base {
+  grid-area: first-base;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.second-base {
+  grid-area: second-base;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.third-base {
+  grid-area: third-base;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
