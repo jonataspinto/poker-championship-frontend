@@ -1,4 +1,4 @@
-type IPodium = {
+type Podium = {
   first: string;
   second: string;
   third: string;

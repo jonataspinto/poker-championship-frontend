@@ -6,7 +6,7 @@ type Journey = {
   biggestEliminator?: string;
   bestHand?: string;
   closedBy?: string;
-  podium?: IPodium;
+  podium?: Podium;
 };
 
 type JourneyDTO = Journey & {
