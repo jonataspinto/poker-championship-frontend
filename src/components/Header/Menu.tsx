@@ -2,13 +2,19 @@
 
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
-import { useAnimatedUnmount, useToggle } from "@/hooks";
+import { useAnimatedUnmount, useClickOutside, useToggle } from "@/hooks";
 import { Dialog } from "../Dialog";
 
 export function Menu() {
-  const [isOpen, toggle] = useToggle(false);
+  const [isOpen, toggle, setToggle] = useToggle(false);
   const { animatedElementRef, shouldRender } =
     useAnimatedUnmount<HTMLDivElement>(isOpen);
+
+  useClickOutside(animatedElementRef, () => {
+    if (animatedElementRef.current) {
+      setToggle(false);
+    }
+  });
 
   return (
     <>
