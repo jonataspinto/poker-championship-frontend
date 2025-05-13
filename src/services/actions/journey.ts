@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { HttpClient } from "../clients/httpClient";
 
 const client = new HttpClient<Journey, JourneyDTO>(
@@ -24,4 +25,8 @@ export async function updateJourney(id: string, payload: Partial<Journey>) {
 
 export async function closeJourney(id: string) {
   return client.put(`/journeys/${id}/close`, {} as Journey);
+}
+
+export async function revalidateListJourneys() {
+  revalidateTag("list-journeys");
 }
