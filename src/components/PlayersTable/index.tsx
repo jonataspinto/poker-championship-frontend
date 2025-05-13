@@ -1,3 +1,13 @@
+import { ComponentProps } from "react";
+
+function Root(props: ComponentProps<"table">) {
+  return (
+    <table
+      {...props}
+      className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+    />
+  );
+}
 function THead() {
   const cols = [
     // { name: "id", label: "#" },
@@ -63,6 +73,7 @@ function TBody({ players }: { players: PlayerDTO[] }) {
 }
 
 export const PlayersTable = {
+  Root,
   Head: THead,
   Body: TBody
 };
