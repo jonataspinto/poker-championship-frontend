@@ -70,27 +70,27 @@ export function Menu() {
               !isOpen && "animate-outLeft",
               "max-h-full h-screen",
               "lg:col-start-1 lg:col-end-5",
-              "max-lg:rounded-none lg:rounded-br-2xl lg:rounded-tr-2xl lg:rounded-bl-none lg:rounded-tl-none"
+              "max-lg:rounded-none lg:rounded-br-2xl lg:rounded-tr-2xl lg:rounded-bl-none lg:rounded-tl-none",
+              "bg-zinc-800"
             ])}
           >
             <Dialog.Header className="justify-end">
               <Dialog.CloseButton
                 onClick={toggle}
-                className="px-4 py-2 text-black border  border-solid rounded"
+                className="btn-light px-1 py-1 border-none"
               >
                 X
               </Dialog.CloseButton>
             </Dialog.Header>
-            <Dialog.Content className="items-start">
-              <Link href="/" className="text-black border-b border-solid">
+            <Dialog.Content className="items-start gap-4">
+              <Link href="/" className="border-b border-solid" onClick={toggle}>
                 Home
               </Link>
-              <Link href="/login" className="text-black border-b border-solid">
-                Login
-              </Link>
+
               <Link
                 href="/rodadas"
-                className="text-black border-b border-solid"
+                className="border-b border-solid"
+                onClick={toggle}
               >
                 Rodadas
               </Link>
