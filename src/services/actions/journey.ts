@@ -4,7 +4,7 @@ import { revalidateTag } from "next/cache";
 import { HttpClient } from "../clients/httpClient";
 
 const client = new HttpClient<Journey, JourneyDTO>(
-  process.env.NEXT_PUBLIC_BASE_URL || ""
+  process.env.NEXT_PUBLIC_API_BASE_URL || ""
 );
 
 export async function listJourneys() {
