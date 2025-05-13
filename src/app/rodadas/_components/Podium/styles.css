@@ -8,23 +8,17 @@
 
 .first {
   grid-area: first;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
 }
 
 .second {
   grid-area: second;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
 }
 
 .third {
   grid-area: third;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
 }
 
 .first-base {
