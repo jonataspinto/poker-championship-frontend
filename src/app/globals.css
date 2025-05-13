@@ -37,6 +37,11 @@ button {
   @apply text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-0 focus:border-gray-100 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:border-gray-700;
 }
 
+.scrollbar-none {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer and Edge */
+}
+
 @theme {
   --animate-fadeId: fadeId 0.3s ease-in-out forwards;
   --animate-fadeOut: fadeOut 0.3s ease-in-out forwards;
