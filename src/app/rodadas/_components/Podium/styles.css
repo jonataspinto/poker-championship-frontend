@@ -1,5 +1,6 @@
 .podium {
   display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-areas:
     ". first ."
     "second first-base third"
@@ -23,21 +24,12 @@
 
 .first-base {
   grid-area: first-base;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .second-base {
   grid-area: second-base;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .third-base {
   grid-area: third-base;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
