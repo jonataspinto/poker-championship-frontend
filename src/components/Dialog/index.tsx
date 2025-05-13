@@ -36,7 +36,7 @@ const DialogContainer = forwardRef<HTMLDivElement, ComponentProps<"div">>(
           "lg:col-start-9 lg:col-end-13",
           "grid grid-cols-4 grid-rows-[auto_1fr_auto] gap-4",
           "sm:grid-cols-8 lg:grid-cols-1",
-          "p-4 pb-6 md:px-8 lg:pl-6 lg:py-6",
+          "p-4 md:px-8",
           "h-fit min-h-fit max-h-[80%] lg:max-h-full lg:h-screen",
           "w-full max-w-full",
           "rounded-2xl max-lg:rounded-b-none lg:rounded-br-none lg:rounded-tr-none",
@@ -65,7 +65,7 @@ const DialogHeader = ({ className, ...restProps }: ComponentProps<"div">) => {
 };
 
 const DialogTitle = ({ className, ...restProps }: ComponentProps<"h3">) => (
-  <h3 className={twMerge(["text-H4", className])} {...restProps} />
+  <h3 className={twMerge(["text-3xl", className])} {...restProps} />
 );
 
 const DialogCloseButton = ({
