@@ -7,7 +7,7 @@ import { ConditionalRender, Dialog } from "@/components";
 import {
   JOURNEY_ACTIONS_EVENT_KEY,
   journeyActionsEventManager
-} from "./journeyActionsEventManager";
+} from "../journeyActionsEventManager";
 
 export function JourneyPodiumDialog({
   children

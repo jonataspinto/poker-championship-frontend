@@ -7,7 +7,7 @@ import { SubmitButton } from "./SubmitButton";
 import {
   JOURNEY_ACTIONS_EVENT_KEY,
   journeyActionsEventManager
-} from "./journeyActionsEventManager";
+} from "../journeyActionsEventManager";
 import { Divider } from "@/components";
 
 function SelectField({
