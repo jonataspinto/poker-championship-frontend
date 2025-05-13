@@ -1,8 +1,14 @@
+"use client";
+
 import { ComponentProps } from "react";
 import { twMerge } from "tailwind-merge";
-import { revalidateTag } from "next/cache";
-import { updateJourney } from "@/services/actions";
+import { revalidateListJourneys, updateJourney } from "@/services/actions";
 import { SubmitButton } from "./SubmitButton";
+import {
+  JOURNEY_ACTIONS_EVENT_KEY,
+  journeyActionsEventManager
+} from "./journeyActionsEventManager";
+import { Divider } from "@/components";
 
 function SelectField({
   label,
@@ -54,8 +60,6 @@ export function JourneyPodiumForm({
   players: Map<string, PlayerDTO>;
 }) {
   async function handleSubmit(formData: FormData) {
-    "use server";
-
     const bestHand = formData.get("bestHand") as string;
     const biggestEliminator = formData.get("biggestEliminator") as string;
     const podium: Podium = {
@@ -75,12 +79,25 @@ export function JourneyPodiumForm({
     const response = await updateJourney(journey.id, payload);
 
     if (response) {
-      revalidateTag("list-journeys");
+      revalidateListJourneys();
+      journeyActionsEventManager.emit(JOURNEY_ACTIONS_EVENT_KEY.UPDATE, {
+        detail: {
+          success: true
+        }
+      });
     }
   }
 
   return (
-    <form className="flex flex-col gap-4 w-full h-full" action={handleSubmit}>
+    <form
+      className="flex flex-col gap-4 w-full h-full"
+      onSubmit={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const formData = new FormData(e.currentTarget);
+        handleSubmit(formData);
+      }}
+    >
       <SelectField
         name="first"
         label="Primeiro lugar"
@@ -111,6 +128,7 @@ export function JourneyPodiumForm({
         players={players}
         defaultValue={journey?.podium?.fifth}
       />
+      <Divider className="w-[80%] mx-auto mt-4 bg-gray-500" />
       <SelectField
         name="bestHand"
         label="Melhor mão"
