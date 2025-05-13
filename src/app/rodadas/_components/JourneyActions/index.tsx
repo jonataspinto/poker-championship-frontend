@@ -1,11 +1,11 @@
 import { ConditionalRender } from "@/components/ConditionalRender";
-import { closeJourney, PlayerService } from "@/services/actions";
+import { closeJourney, listPlayers } from "@/services/actions";
 import { JourneyPodiumDialog } from "./JourneyPodiumDialog";
 import { JourneyPodiumForm } from "./JourneyPodiumForm";
 import { CloseJourney } from "./CloseJourney";
 
 export async function JourneyActions({ journey }: { journey: JourneyDTO }) {
-  const playersResponse = await PlayerService.list();
+  const playersResponse = await listPlayers();
   const players = new Map(
     playersResponse?.map((player) => [player.id, player])
   );
