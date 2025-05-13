@@ -27,6 +27,12 @@ export async function closeJourney(id: string) {
   return client.put(`/journeys/${id}/close`, {} as Journey);
 }
 
+export async function createJourney(
+  payload: Pick<Journey, "seasonId" | "players">
+) {
+  return client.post("/journeys", payload);
+}
+
 export async function revalidateListJourneys() {
   revalidateTag("list-journeys");
 }

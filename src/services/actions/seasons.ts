@@ -4,14 +4,14 @@ const client = new HttpClient<Player, PlayerDTO>(
   process.env.NEXT_PUBLIC_API_BASE_URL || ""
 );
 
-export async function listPlayers() {
-  return client.get("/players", {
+export async function listSeasons() {
+  return client.get("/seasons", {
     next: {
-      tags: ["list-players"]
+      tags: ["list-seasons"]
     }
   }) as unknown as Promise<PlayerDTO[]>;
 }
 
-export async function getPlayerById(id: string) {
-  return client.get(`/players/${id}`);
+export async function getSeasonById(id: string) {
+  return client.get(`/seasons/${id}`);
 }
