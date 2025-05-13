@@ -37,7 +37,7 @@ const DialogContainer = forwardRef<HTMLDivElement, ComponentProps<"div">>(
           "grid grid-cols-4 grid-rows-[auto_1fr_auto] gap-4",
           "sm:grid-cols-8 lg:grid-cols-1",
           "p-4 md:px-8",
-          "h-fit min-h-fit max-h-[80%] lg:max-h-full lg:h-screen",
+          "h-fit min-h-fit max-h-[80vh] lg:max-h-full lg:h-screen",
           "w-full max-w-full",
           "rounded-2xl max-lg:rounded-b-none lg:rounded-br-none lg:rounded-tr-none",
           className
