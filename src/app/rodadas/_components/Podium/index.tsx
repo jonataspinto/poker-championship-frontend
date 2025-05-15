@@ -1,4 +1,34 @@
+import { Avatar } from "@/components";
 import "./styles.css";
+import { ComponentProps } from "react";
+
+function PodiumCard({
+  name,
+  src,
+  alt,
+  ...props
+}: ComponentProps<"div"> & {
+  name: string;
+  src: string;
+  alt: string;
+}) {
+  return (
+    <div {...props}>
+      <div className="rounded-2xl bg-gray-200 w-[60px] mx-auto">
+        <Avatar
+          src={src}
+          alt={alt}
+          title={name}
+          width={60}
+          height={60}
+          fill={false}
+          className="rounded-2xl w-full"
+        />
+      </div>
+      <p className="truncate mt-1 capitalize">{name}</p>
+    </div>
+  );
+}
 
 export async function Podium({
   podium,
@@ -9,23 +39,26 @@ export async function Podium({
 }) {
   return (
     <div className="podium px-4 overflow-hidden">
-      <div className="first font-bold min-w-28 justify-center">
-        <p className="truncate">
-          {podium?.first && players.get(podium?.first)?.name}
-        </p>
-      </div>
+      <PodiumCard
+        className="first font-bold min-w-28 justify-center"
+        name={players.get(podium?.first as string)?.name as string}
+        src={players.get(podium?.first as string)?.photoURL as string}
+        alt={players.get(podium?.first as string)?.name as string}
+      />
 
-      <div className="second truncate mb-1 justify-center">
-        <p className="truncate">
-          {podium?.second && players.get(podium?.second)?.name}
-        </p>
-      </div>
+      <PodiumCard
+        className="second truncate mb-1 justify-center min-w-16"
+        name={players.get(podium?.second as string)?.name as string}
+        src={players.get(podium?.second as string)?.photoURL as string}
+        alt={players.get(podium?.second as string)?.name as string}
+      />
 
-      <div className="third flex mb-1 justify-center">
-        <p className="truncate">
-          {podium?.third && players.get(podium?.third)?.name}
-        </p>
-      </div>
+      <PodiumCard
+        className="third flex mb-1 justify-center min-w-16"
+        name={players.get(podium?.third as string)?.name as string}
+        src={players.get(podium?.third as string)?.photoURL as string}
+        alt={players.get(podium?.third as string)?.name as string}
+      />
 
       <div className="first-base py-4 font-bold text-center">1</div>
       <div className="second-base py-4 font-bold text-center">2</div>
