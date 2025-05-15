@@ -7,9 +7,7 @@ export function ToastContainer() {
   const { renderList, handleRemoveItem } = useToastContainer();
 
   return (
-    <div className="fixed flex flex-col justify-end gap-3 bottom-[48px] left-[50%] z-[200] transform -translate-[50%]">
-      {/* TODO: Fix type error */}
-      {/* @ts-expect-error: description in todo */}
+    <div className="fixed flex flex-col gap-3 top-[48px] left-[50%] z-[200] transform -translate-x-[50%]">
       {renderList((message, { isLeaving, animatedRef }) => (
         <ToastMessage
           key={message.id}

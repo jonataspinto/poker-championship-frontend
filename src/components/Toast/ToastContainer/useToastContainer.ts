@@ -12,13 +12,7 @@ export function useToastContainer() {
   useEffect(() => {
     function handleAddToast({
       detail: { type, text, duration }
-    }: Partial<CustomEvent> & {
-      detail: {
-        type: "default" | "success" | "error";
-        text: string;
-        duration?: number;
-      };
-    }) {
+    }: Partial<CustomEvent>) {
       setMessages((prevState: ToastItem[]) => [
         ...prevState,
         {
@@ -29,13 +23,10 @@ export function useToastContainer() {
         }
       ]);
     }
-    //@ts-expect-error: description in todo
-    // TODO: Fix type error
+
     toastEventManager.on("addtoast", handleAddToast);
 
     return () => {
-      //@ts-expect-error: description in todo
-      // TODO: Fix type error
       toastEventManager.removeListener("addtoast", handleAddToast);
     };
   }, [setMessages]);

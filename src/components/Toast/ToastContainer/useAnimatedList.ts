@@ -1,4 +1,19 @@
-import { useState, useCallback, useRef, createRef, useEffect } from "react";
+import {
+  useState,
+  useCallback,
+  useRef,
+  createRef,
+  useEffect,
+  JSX
+} from "react";
+
+type RenderItem = (
+  message: ToastItem,
+  args: {
+    isLeaving: boolean;
+    animatedRef: React.RefObject<HTMLDivElement>;
+  }
+) => JSX.Element;
 
 export function useAnimatedList(initialValue: ToastItem[] = []) {
   const [items, setItems] = useState<ToastItem[]>(initialValue);
@@ -64,9 +79,7 @@ export function useAnimatedList(initialValue: ToastItem[] = []) {
   }, []);
 
   const renderList = useCallback(
-    //@ts-expect-error: description in todo
-    // TODO: Fix type error
-    (renderItem) =>
+    (renderItem: RenderItem) =>
       items.map((item) => {
         const isLeaving = pendingRemovalItemsIds.includes(item.id);
 
