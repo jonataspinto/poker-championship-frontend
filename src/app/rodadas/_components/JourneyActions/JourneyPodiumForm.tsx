@@ -9,6 +9,28 @@ import {
 } from "../journeyActionsEventManager";
 import { SelectPlayersField } from "./SelectPlayersField";
 
+function validateValue(value: string) {
+  return value && !value.includes("Selecione") ? value : "";
+}
+
+function mapper(formData: FormData) {
+  const podiumMap = {
+    first: "",
+    second: "",
+    third: "",
+    fourth: "",
+    fifth: ""
+  };
+
+  Object.keys(podiumMap).forEach((key: string) => {
+    const value = formData.get(key) as string;
+
+    podiumMap[key as keyof typeof podiumMap] = validateValue(value);
+  });
+
+  return podiumMap;
+}
+
 export function JourneyPodiumForm({
   journey,
   players
@@ -22,15 +44,11 @@ export function JourneyPodiumForm({
     event.preventDefault();
     event.stopPropagation();
     const formData = new FormData(event.currentTarget);
-    const bestHand = formData.get("bestHand") as string;
-    const biggestEliminator = formData.get("biggestEliminator") as string;
-    const podium: Podium = {
-      first: formData.get("first") as string,
-      second: formData.get("second") as string,
-      third: formData.get("third") as string,
-      fourth: formData.get("fourth") as string,
-      fifth: formData.get("fifth") as string
-    };
+    const bestHand = validateValue(formData.get("bestHand") as string);
+    const biggestEliminator = validateValue(
+      formData.get("biggestEliminator") as string
+    );
+    const podium: Podium = mapper(formData);
 
     const payload: Partial<Journey> = {
       bestHand,
@@ -41,6 +59,7 @@ export function JourneyPodiumForm({
     startTransition(async () => {
       try {
         await updateJourney(journey.id, payload);
+
         toast({
           type: "success",
           text: "Rodada atualizada com sucesso"
