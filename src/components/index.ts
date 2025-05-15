@@ -1,3 +1,4 @@
+export * from "./Avatar";
 export * from "./ClientOnlyPortal";
 export * from "./ConditionalRender";
 export * from "./DetailPanel";
