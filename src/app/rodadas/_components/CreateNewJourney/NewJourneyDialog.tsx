@@ -62,7 +62,7 @@ export function NewJourneyDialog({
             <Dialog.Header className="justify-end bg-zinc-800 sticky top-0">
               <Dialog.CloseButton
                 onClick={toggle}
-                className="btn-light my-4 border-none"
+                className="btn-light my-0 border-none"
               >
                 X
               </Dialog.CloseButton>

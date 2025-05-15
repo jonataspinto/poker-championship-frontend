@@ -2,7 +2,7 @@
 
 import { ComponentProps, useTransition } from "react";
 import { createJourney, revalidateListJourneys } from "@/services/actions";
-import { Spinner, toast } from "@/components";
+import { Avatar, Spinner, toast } from "@/components";
 import {
   JOURNEY_ACTIONS_EVENT_KEY,
   journeyActionsEventManager
@@ -48,11 +48,16 @@ export function NewJourneyForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full">
-      <h2>Selecione os jogadores</h2>
-      <div className="flex flex-col grid-cols-1 gap-4 sm:grid-cols-2">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col gap-4 w-full relative"
+    >
+      <h2 className="font-bold text-2xl sticky top-0 bg-zinc-800 z-10 pb-2">
+        Selecione os jogadores
+      </h2>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-1">
         {players.map((player) => (
-          <div key={player.id}>
+          <div key={player.id} className="inline-flex">
             <input
               type="checkbox"
               id={player.id}
@@ -62,14 +67,27 @@ export function NewJourneyForm({
             />
             <label
               htmlFor={player.id}
-              className="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600 dark:peer-checked:border-blue-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
+              className="inline-flex gap-4 w-full p-4 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600 dark:peer-checked:border-blue-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
             >
-              <div className="block">
-                {/* TODO: Add player image */}
-                <div className="w-full text-lg font-semibold">
+              <div className="relative rounded-full overflow-hidden bg-gray-200 min-w-[80px] h-[80px] flex items-center justify-center">
+                <Avatar
+                  fill
+                  src={player.photoURL || ""}
+                  alt={player.name}
+                  title={player.name}
+                  className="object-cover w-full"
+                />
+              </div>
+              <div className="inline-grid h-fit gap-1">
+                <h3
+                  className="w-full text-lg font-semibold capitalize truncate"
+                  title={player?.name}
+                >
                   {player?.name}
-                </div>
-                <div className="w-full text-sm">{player?.email}</div>
+                </h3>
+                <p className="w-full text-sm truncate" title={player.email}>
+                  {player?.email}
+                </p>
               </div>
             </label>
           </div>
