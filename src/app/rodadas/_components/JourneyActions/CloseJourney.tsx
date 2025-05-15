@@ -4,6 +4,16 @@ import { useTransition } from "react";
 import { Spinner, toast } from "@/components";
 import { revalidateListJourneys } from "@/services/actions";
 
+function isValidToClose(journey: JourneyDTO) {
+  const assertions = [
+    !!journey?.bestHand,
+    !!journey?.biggestEliminator,
+    !!journey?.podium?.first
+  ];
+
+  return assertions.some((assertion) => assertion === true);
+}
+
 export function CloseJourney({
   journey,
   action
@@ -11,6 +21,7 @@ export function CloseJourney({
   journey: JourneyDTO;
   action: (id: string) => Promise<JourneyDTO>;
 }) {
+  const isValid = isValidToClose(journey);
   const [isPending, startTransition] = useTransition();
 
   function handleClose() {
@@ -30,7 +41,7 @@ export function CloseJourney({
   }
 
   return (
-    <button onClick={handleClose} className="btn-light">
+    <button onClick={handleClose} className="btn-light" disabled={isValid}>
       {!isPending ? "Encerrar" : <Spinner />}
     </button>
   );
