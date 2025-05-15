@@ -30,11 +30,18 @@ button {
 }
 
 .btn-primary {
-  @apply text-white bg-blue-700 hover:bg-blue-800 disabled:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:disabled:bg-blue-600 focus:outline-none dark:focus:ring-blue-800 disabled:opacity-50;
+  @apply text-white bg-blue-700 dark:bg-blue-600;
+  @apply hover:bg-blue-800 dark:hover:bg-blue-700;
+  @apply focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800;
+  @apply disabled:bg-blue-700 dark:disabled:bg-blue-600 disabled:opacity-50;
 }
 
 .btn-light {
-  @apply text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-0 focus:border-gray-100 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:border-gray-700;
+  @apply text-gray-900 bg-white border border-gray-300 dark:bg-gray-800 dark:text-white dark:border-gray-600;
+  @apply hover:bg-gray-100;
+  @apply focus:outline-none  focus:ring-0 focus:border-gray-100 dark:focus:border-gray-700;
+  @apply dark:hover:bg-gray-700 dark:hover:border-gray-600;
+  @apply disabled:bg-white disabled:dark:bg-gray-800;
 }
 
 .scrollbar-none {
