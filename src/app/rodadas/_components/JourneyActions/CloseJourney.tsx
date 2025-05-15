@@ -1,7 +1,8 @@
 "use client";
 
 import { useTransition } from "react";
-import { Spinner } from "@/components";
+import { Spinner, toast } from "@/components";
+import { revalidateListJourneys } from "@/services/actions";
 
 export function CloseJourney({
   journey,
@@ -16,8 +17,14 @@ export function CloseJourney({
     startTransition(async () => {
       try {
         await action(journey?.id);
+
+        revalidateListJourneys();
       } catch (error) {
-        console.error("Error closing journey:", error);
+        toast({
+          type: "danger",
+          text: "Erro ao encerrar a rodada"
+        });
+        console.error(error);
       }
     });
   }
