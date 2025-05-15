@@ -2,7 +2,7 @@
 
 import { ComponentProps, useTransition } from "react";
 import { createJourney, revalidateListJourneys } from "@/services/actions";
-import { Spinner } from "@/components";
+import { Spinner, toast } from "@/components";
 import {
   JOURNEY_ACTIONS_EVENT_KEY,
   journeyActionsEventManager
@@ -25,6 +25,11 @@ export function NewJourneyForm({
       try {
         await createJourney({ seasonId, players });
 
+        toast({
+          type: "success",
+          text: "Rodada criada com sucesso"
+        });
+
         journeyActionsEventManager.emit(JOURNEY_ACTIONS_EVENT_KEY.CREATE, {
           detail: {
             success: true
@@ -33,7 +38,11 @@ export function NewJourneyForm({
 
         revalidateListJourneys();
       } catch (error) {
-        console.log("🚀 ~ startTransition ~ error:", error);
+        toast({
+          type: "danger",
+          text: "Erro ao criar nova rodada"
+        });
+        console.error(error);
       }
     });
   };
