@@ -50,7 +50,7 @@ export function NewJourneyForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-4 w-full relative"
+      className="flex flex-col gap-4 w-full relative max-h-[70vh]"
     >
       <h2 className="font-bold text-2xl sticky top-0 bg-zinc-800 z-10 pb-2">
         Selecione os jogadores
