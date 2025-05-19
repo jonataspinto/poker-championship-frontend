@@ -64,6 +64,7 @@ export function NewJourneyForm({
               name={`players-${player.id}`}
               value={player.id}
               className="hidden peer"
+              defaultChecked
             />
             <label
               htmlFor={player.id}
