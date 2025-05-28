@@ -4,7 +4,6 @@ type Player = {
   displayName?: string;
   dateBirth?: Date | string;
   photoURL?: string;
-  address?: IAddress;
   points?: number;
   isAdmin?: boolean;
   podiums?: PlayerPodium;
