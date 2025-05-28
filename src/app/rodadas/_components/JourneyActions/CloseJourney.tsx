@@ -8,10 +8,11 @@ function isValidToClose(journey: JourneyDTO) {
   const assertions = [
     !!journey?.bestHand,
     !!journey?.biggestEliminator,
-    !!journey?.podium?.first
+    !!journey?.podium?.first,
+    !!journey?.podium?.second
   ];
 
-  return assertions.some((assertion) => assertion === true);
+  return assertions.every((assertion) => assertion === true);
 }
 
 export function CloseJourney({
@@ -29,6 +30,10 @@ export function CloseJourney({
       try {
         await action(journey?.id);
 
+        toast({
+          type: "success",
+          text: "Rodada encerrada!"
+        });
         revalidateListJourneys();
       } catch (error) {
         toast({
@@ -41,7 +46,7 @@ export function CloseJourney({
   }
 
   return (
-    <button onClick={handleClose} className="btn-light" disabled={isValid}>
+    <button onClick={handleClose} className="btn-light" disabled={!isValid}>
       {!isPending ? "Encerrar" : <Spinner />}
     </button>
   );
