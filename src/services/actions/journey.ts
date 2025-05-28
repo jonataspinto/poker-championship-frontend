@@ -1,7 +1,8 @@
 "use server";
 
 import { revalidateTag } from "next/cache";
-import { HttpClient } from "../clients/httpClient";
+import { HttpClient } from "@/services/clients/httpClient";
+import { auth } from "@/auth";
 
 const client = new HttpClient<Journey, JourneyDTO>(
   process.env.NEXT_PUBLIC_API_BASE_URL || ""
@@ -20,17 +21,34 @@ export async function getJourneyById(id: string) {
 }
 
 export async function updateJourney(id: string, payload: Partial<Journey>) {
-  return client.put(`/journeys/${id}`, payload as Journey);
+  const session = await auth();
+  return client.put(`/journeys/${id}`, payload as Journey, {
+    headers: {
+      Authorization: `Bearer ${session?.accessToken}`
+    }
+  });
 }
 
 export async function closeJourney(id: string) {
-  return client.put(`/journeys/${id}/close`, {} as Journey);
+  const session = await auth();
+
+  return client.put(`/journeys/${id}/close`, {} as Journey, {
+    headers: {
+      Authorization: `Bearer ${session?.accessToken}`
+    }
+  });
 }
 
 export async function createJourney(
   payload: Pick<Journey, "seasonId" | "players">
 ) {
-  return client.post("/journeys", payload);
+  const session = await auth();
+
+  return client.post("/journeys", payload, {
+    headers: {
+      Authorization: `Bearer ${session?.accessToken}`
+    }
+  });
 }
 
 export async function revalidateListJourneys() {
