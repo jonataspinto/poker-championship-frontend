@@ -8,7 +8,7 @@ export function BestHandAndEliminator({
   const { bestHand, biggestEliminator } = journey;
 
   return (
-    <div className="px-4">
+    <div className="px-4 capitalize">
       <div>
         <span className="font-bold">Melhor mão: </span>
         {bestHand && players.get(bestHand)?.name}
