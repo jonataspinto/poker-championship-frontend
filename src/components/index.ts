@@ -1,4 +1,5 @@
 export * from "./Avatar";
+export * from "./BrandLogo";
 export * from "./ClientOnlyPortal";
 export * from "./ConditionalRender";
 export * from "./DetailPanel";
