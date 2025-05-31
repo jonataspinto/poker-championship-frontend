@@ -5,6 +5,7 @@ import { twMerge } from "tailwind-merge";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useAnimatedUnmount, useClickOutside, useToggle } from "@/hooks";
 import { Dialog } from "../Dialog";
+import { BrandLogo } from "../BrandLogo";
 
 export function Menu() {
   const [isOpen, toggle, setToggle] = useToggle(false);
@@ -77,7 +78,8 @@ export function Menu() {
               "bg-zinc-800"
             ])}
           >
-            <Dialog.Header className="justify-end">
+            <Dialog.Header className="justify-between items-center">
+              <BrandLogo onClick={toggle} />
               <Dialog.CloseButton
                 onClick={toggle}
                 className="btn-light px-1 py-1 border-none"
