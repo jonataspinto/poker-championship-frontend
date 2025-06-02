@@ -12,13 +12,13 @@ function Root(props: ComponentProps<"table">) {
 function THead() {
   const cols = [
     { name: "id", label: "#" },
-    { name: "name", label: "Nome" },
-    { name: "points", label: "Pontos" },
-    { name: "firsts", label: "1º" },
-    { name: "seconds", label: "2º" },
-    { name: "thirds", label: "3º" },
-    { name: "fourths", label: "4º" },
-    { name: "fifths", label: "5º" }
+    { name: "name", label: "Ranking" },
+    { name: "points", label: "Pontos" }
+    // { name: "firsts", label: "1º" },
+    // { name: "seconds", label: "2º" },
+    // { name: "thirds", label: "3º" },
+    // { name: "fourths", label: "4º" },
+    // { name: "fifths", label: "5º" }
   ];
   return (
     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -62,11 +62,11 @@ function BodyLine({
         {player.name}
       </td>
       <td className="px-6 py-4">{player.points}</td>
-      {Object.keys(player.podiums).map((podium) => (
+      {/* {Object.keys(player.podiums).map((podium) => (
         <td key={podium} className="px-6 py-4">
           {player.podiums[podium as keyof PlayerPodium]}
         </td>
-      ))}
+      ))} */}
     </tr>
   );
 }
