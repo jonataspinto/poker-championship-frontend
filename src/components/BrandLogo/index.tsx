@@ -22,7 +22,13 @@ export function BrandLogo({
       className={twMerge("relative h-[80px] w-[80px]", className)}
       {...restProps}
     >
-      <Image src={src[model]} alt="Brand Logo" fill className="object-cover" />
+      <Image
+        src={src[model]}
+        alt="Brand Logo"
+        fill
+        className="object-cover"
+        priority
+      />
     </Link>
   );
 }
