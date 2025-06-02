@@ -5,6 +5,7 @@ export * from "./ConditionalRender";
 export * from "./DetailPanel";
 export * from "./Dialog";
 export * from "./Divider";
+export * from "./Footer";
 export * from "./Header";
 export * from "./Overlay";
 export * from "./PlayersTable";
