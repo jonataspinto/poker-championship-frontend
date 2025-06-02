@@ -9,7 +9,9 @@ export function DrawerMenu() {
   return (
     <>
       <Drawer.Button onClick={toggle} />
-      <Drawer.Container isOpen={isOpen} toggle={toggle} setToggle={setToggle} />
+      <Drawer.Container isOpen={isOpen} toggle={toggle} setToggle={setToggle}>
+        <Drawer.Content />
+      </Drawer.Container>
     </>
   );
 }
