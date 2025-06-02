@@ -77,9 +77,11 @@ function Content({ toggle }: { toggle?: () => void }) {
         Rodadas
       </Link>
 
-      <Link href="/profile" className="border-b border-solid" onClick={toggle}>
-        Perfil
-      </Link>
+      <ConditionalRender condition={status === "authenticated"}>
+        <Link href="/perfil" className="border-b border-solid" onClick={toggle}>
+          Perfil
+        </Link>
+      </ConditionalRender>
 
       <ConditionalRender
         condition={status === "unauthenticated"}
