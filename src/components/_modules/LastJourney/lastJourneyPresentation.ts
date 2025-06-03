@@ -22,9 +22,9 @@ const calcDuration = (createdAt: string | Date, updatedAt: string | Date) => {
 export async function lastJourneyPresentation() {
   const journeys = await listJourneys();
 
-  const lastJourney = journeys[journeys.length - 1];
+  const lastJourney = journeys[0];
 
-  let winner = "";
+  let winner = lastJourney?.closedBy ? "" : "Sem vencedor";
 
   if (lastJourney?.podium?.first) {
     const { name } = await getPlayerById(lastJourney?.podium?.first);
@@ -36,10 +36,13 @@ export async function lastJourneyPresentation() {
 
   const participants = lastJourney.players.length;
 
+  const status = lastJourney.hasClosed ? "Encerrada" : "Em andamento";
+
   return {
     winner,
     duration,
     participants,
-    lastJourney
+    lastJourney,
+    status
   };
 }

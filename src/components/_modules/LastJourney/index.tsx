@@ -7,7 +7,8 @@ export async function LastJourney({
   className,
   ...rest
 }: ComponentProps<"section">) {
-  const { winner, duration, participants } = await lastJourneyPresentation();
+  const { winner, duration, participants, status } =
+    await lastJourneyPresentation();
 
   return (
     <section className={twMerge("flex flex-col gap-4", className)} {...rest}>
@@ -63,6 +64,21 @@ export async function LastJourney({
           <p className="text-sm font-light text-[#9EADBF]">{participants}</p>
         </div>
       </div>
+
+      <div className="flex gap-4 items-center">
+        <div className="flex items-center justify-center rounded-lg w-12 h-12 bg-gray-700 animate-fadeId">
+          <Image
+            alt="Status icon"
+            src="/icons/flag.svg"
+            width={24}
+            height={24}
+          />
+        </div>
+        <div className="animate-fadeId">
+          <p className="text-base font-semibold text-white font-sans">Status</p>
+          <p className="text-sm font-light text-[#9EADBF]">{status}</p>
+        </div>
+      </div>
     </section>
   );
 }
@@ -74,6 +90,14 @@ export function LastJourneySkeleton({
   return (
     <section className={twMerge("flex flex-col gap-4", className)} {...rest}>
       <h1 className="text-2xl font-bold">Última Rodada</h1>
+
+      <div className="flex gap-4 items-center animate-pulse">
+        <div className="rounded-lg w-12 h-12 bg-gray-700"></div>
+        <div>
+          <p className="w-32 h-6 bg-gray-700 rounded mb-2"></p>
+          <p className="w-20 h-4 bg-gray-600 rounded"></p>
+        </div>
+      </div>
 
       <div className="flex gap-4 items-center animate-pulse">
         <div className="rounded-lg w-12 h-12 bg-gray-700"></div>
