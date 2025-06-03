@@ -4,7 +4,7 @@ export async function MyResults() {
   const session = await auth();
 
   return (
-    <section className="flex flex-col gap-4 mt-5">
+    <section className="flex flex-col gap-4 mt-8">
       <h1 className="text-2xl font-bold">Meus resultados</h1>
 
       <div className="flex gap-4 items-center">
@@ -78,7 +78,7 @@ export async function MyResults() {
 
 export function MyResultsSkeleton() {
   return (
-    <section className="flex flex-col gap-4 mt-5">
+    <section className="flex flex-col gap-4 mt-8">
       <h1 className="text-2xl font-bold">Meus resultados</h1>
 
       <div className="flex gap-4 items-center animate-pulse">
