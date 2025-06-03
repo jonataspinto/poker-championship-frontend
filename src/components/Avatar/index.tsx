@@ -9,7 +9,6 @@ export function Avatar({ ...props }: ImageProps) {
         (event.target as HTMLImageElement).src =
           `/api/user-image?name=${props?.title}`;
       }}
-      fill
       {...props}
       alt={props.alt || "User avatar"}
     />
