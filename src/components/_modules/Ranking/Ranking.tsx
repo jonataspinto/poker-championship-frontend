@@ -8,7 +8,6 @@ export async function Ranking({
   ...rest
 }: ComponentProps<"section">) {
   const players = await listPlayers();
-  await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate loading delay
 
   return (
     <section className={twMerge("flex flex-col gap-4", className)} {...rest}>
@@ -36,9 +35,12 @@ export async function Ranking({
   );
 }
 
-export async function RankingSkeleton() {
+export async function RankingSkeleton({
+  className,
+  ...rest
+}: ComponentProps<"section">) {
   return (
-    <section className="flex flex-col gap-4">
+    <section className={twMerge("flex flex-col gap-4", className)} {...rest}>
       <h1 className="text-2xl font-bold">Ranking</h1>
 
       {Array.from({ length: 7 }).map((_, index) => (

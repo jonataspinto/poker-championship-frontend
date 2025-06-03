@@ -10,14 +10,11 @@ export async function LastJourney({
   const { winner, duration, participants } = await lastJourneyPresentation();
 
   return (
-    <section
-      className={twMerge("flex flex-col gap-4 mt-8", className)}
-      {...rest}
-    >
+    <section className={twMerge("flex flex-col gap-4", className)} {...rest}>
       <h1 className="text-2xl font-bold">Última Rodada</h1>
 
       <div className="flex gap-4 items-center">
-        <div className="flex items-center justify-center rounded-lg w-12 h-12 bg-gray-700">
+        <div className="flex items-center justify-center rounded-lg w-12 h-12 bg-gray-700 animate-fadeId">
           <Image
             alt="Trophy icon"
             src="/icons/trophy.svg"
@@ -25,7 +22,7 @@ export async function LastJourney({
             height={24}
           />
         </div>
-        <div>
+        <div className="animate-fadeId">
           <p className="text-base font-semibold text-white font-sans">
             Vencedor
           </p>
@@ -34,7 +31,7 @@ export async function LastJourney({
       </div>
 
       <div className="flex gap-4 items-center">
-        <div className="flex items-center justify-center rounded-lg w-12 h-12 bg-gray-700">
+        <div className="flex items-center justify-center rounded-lg w-12 h-12 bg-gray-700 animate-fadeId">
           <Image
             alt="Clock icon"
             src="/icons/duration.svg"
@@ -42,7 +39,7 @@ export async function LastJourney({
             height={24}
           />
         </div>
-        <div>
+        <div className="animate-fadeId">
           <p className="text-base font-semibold text-white font-sans">
             Duração
           </p>
@@ -51,7 +48,7 @@ export async function LastJourney({
       </div>
 
       <div className="flex gap-4 items-center">
-        <div className="flex items-center justify-center rounded-lg w-12 h-12 bg-gray-700">
+        <div className="flex items-center justify-center rounded-lg w-12 h-12 bg-gray-700 animate-fadeId">
           <Image
             alt="Participants icon"
             src="/icons/participants.svg"
@@ -59,7 +56,7 @@ export async function LastJourney({
             height={24}
           />
         </div>
-        <div>
+        <div className="animate-fadeId">
           <p className="text-base font-semibold text-white font-sans">
             Participantes
           </p>
@@ -70,9 +67,12 @@ export async function LastJourney({
   );
 }
 
-export function LastJourneySkeleton() {
+export function LastJourneySkeleton({
+  className,
+  ...rest
+}: ComponentProps<"section">) {
   return (
-    <section className="flex flex-col gap-4 mt-8">
+    <section className={twMerge("flex flex-col gap-4", className)} {...rest}>
       <h1 className="text-2xl font-bold">Última Rodada</h1>
 
       <div className="flex gap-4 items-center animate-pulse">
