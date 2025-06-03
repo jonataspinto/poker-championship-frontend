@@ -3,7 +3,6 @@ import { listPlayers } from "@/services/actions";
 
 export async function Ranking() {
   const players = await listPlayers();
-  await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate loading delay
 
   return (
     <section className="flex flex-col gap-4">
@@ -36,7 +35,7 @@ export async function RankingSkeleton() {
     <section className="flex flex-col gap-4">
       <h1 className="text-2xl font-bold">Ranking</h1>
 
-      {Array.from({ length: 10 }).map((_, index) => (
+      {Array.from({ length: 7 }).map((_, index) => (
         <div key={index} className="flex gap-4 items-center animate-pulse">
           <div className="w-14 h-14 bg-gray-700 rounded-full" />
           <div className="flex flex-col gap-1">
