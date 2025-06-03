@@ -3,7 +3,7 @@ import { DrawerMenu } from "./DrawerMenu";
 
 export function Header() {
   return (
-    <header className="flex items-center justify-between p-4 bg-gray-800 text-white">
+    <header className="flex items-center justify-between px-4 shadow-sm">
       <DrawerMenu />
       <BrandLogo model="minimalist" />
     </header>
