@@ -13,21 +13,27 @@ export const metadata = {
 
 export default function Home() {
   return (
-    <div className="container mx-auto px-4 py-8 md:grid md:grid-cols-2 md:grid-rows-3 md:gap-4">
-      <Suspense fallback={<RankingSkeleton className="md:row-span-3" />}>
-        <Ranking className="md:row-span-3" />
+    <div className="container mx-auto px-4 py-8 home-grid-areas md:gap-8">
+      <Suspense
+        fallback={<RankingSkeleton className="home-grid-area__ranking" />}
+      >
+        <Ranking className="home-grid-area__ranking" />
       </Suspense>
 
       <Suspense
-        fallback={<MyResultsSkeleton className="max-md:mt-8 md:row-span-1" />}
+        fallback={
+          <MyResultsSkeleton className="max-md:mt-8 home-grid-area__my-results" />
+        }
       >
-        <MyResults className="max-md:mt-8 md:row-span-1" />
+        <MyResults className="max-md:mt-8 home-grid-area__my-results" />
       </Suspense>
 
       <Suspense
-        fallback={<LastJourneySkeleton className="max-md:mt-8 md:row-span-1" />}
+        fallback={
+          <LastJourneySkeleton className="max-md:mt-8 home-grid-area__last-journey" />
+        }
       >
-        <LastJourney className="max-md:mt-8 md:row-span-1" />
+        <LastJourney className="max-md:mt-8 home-grid-area__last-journey" />
       </Suspense>
     </div>
   );

@@ -48,6 +48,32 @@ button {
   -ms-overflow-style: none; /* Internet Explorer and Edge */
 }
 
+.home-grid-areas {
+  @media (min-width: 768px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(4, auto);
+    grid-template-areas:
+      "ranking my-results"
+      "ranking my-results"
+      "ranking last-journey"
+      "ranking last-journey"
+      "ranking last-journey";
+  }
+}
+
+.home-grid-area__ranking {
+  grid-area: ranking;
+}
+
+.home-grid-area__my-results {
+  grid-area: my-results;
+}
+
+.home-grid-area__last-journey {
+  grid-area: last-journey;
+}
+
 @theme {
   --animate-fadeId: fadeId 0.3s ease-in-out forwards;
   --animate-fadeOut: fadeOut 0.3s ease-in-out forwards;
