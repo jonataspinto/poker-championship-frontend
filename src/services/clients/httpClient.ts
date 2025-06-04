@@ -22,6 +22,12 @@ export class HttpClient<T = unknown, DTO = unknown> {
         headers: {
           ...this.options.headers,
           ...options?.headers
+        },
+        next: {
+          ...(!options.cache && {
+            revalidate: 3600 // 1 hour
+          }),
+          ...options.next
         }
       };
     }
