@@ -8,7 +8,7 @@ export class HttpClient<T = unknown, DTO = unknown> {
     this.baseUrl = baseUrl;
     this.options = {
       ...options,
-      headers: { ...options?.headers, "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json", ...options?.headers }
     };
   }
 
