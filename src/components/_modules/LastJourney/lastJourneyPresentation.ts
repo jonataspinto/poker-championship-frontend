@@ -36,7 +36,20 @@ export async function lastJourneyPresentation() {
 
   const participants = lastJourney.players.length;
 
-  const status = lastJourney.hasClosed ? "Encerrada" : "Em andamento";
+  let status = "Em andamento";
+
+  if (lastJourney.hasClosed) {
+    status = "Encerrada";
+  }
+
+  if (
+    !lastJourney?.hasClosed &&
+    (!lastJourney?.podium?.first ||
+      !lastJourney?.podium?.second ||
+      !lastJourney?.podium?.third)
+  ) {
+    status = "Aguardando encerramento";
+  }
 
   return {
     winner,
