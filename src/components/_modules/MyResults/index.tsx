@@ -1,18 +1,13 @@
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
-import { ComponentProps } from "react";
+import { ComponentProps, Suspense } from "react";
 import { auth } from "@/auth";
 
-export async function MyResults({
-  className,
-  ...rest
-}: ComponentProps<"section">) {
+async function MyResultsList() {
   const session = await auth();
 
   return (
-    <section className={twMerge("flex flex-col gap-4", className)} {...rest}>
-      <h1 className="text-2xl font-bold">Meus resultados</h1>
-
+    <>
       <div className="flex gap-4 items-center">
         <div className="flex items-center justify-center rounded-lg w-12 h-12 bg-gray-700 animate-fadeId">
           <Image
@@ -48,33 +43,40 @@ export async function MyResults({
           </p>
         </div>
       </div>
-    </section>
+    </>
   );
 }
 
-export function MyResultsSkeleton({
-  className,
-  ...rest
-}: ComponentProps<"section">) {
+function MyResultsListSkeleton() {
+  return (
+    <>
+      <div className="flex gap-4 items-center animate-pulse">
+        <div className="rounded-lg w-12 h-12 bg-gray-700"></div>
+        <div>
+          <p className="w-32 h-6 bg-gray-700 rounded mb-2"></p>
+          <p className="w-20 h-4 bg-gray-600 rounded"></p>
+        </div>
+      </div>
+
+      <div className="flex gap-4 items-center animate-pulse">
+        <div className="rounded-lg w-12 h-12 bg-gray-700"></div>
+        <div>
+          <p className="w-32 h-6 bg-gray-700 rounded mb-2"></p>
+          <p className="w-20 h-4 bg-gray-600 rounded"></p>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export function MyResults({ className, ...rest }: ComponentProps<"section">) {
   return (
     <section className={twMerge("flex flex-col gap-4", className)} {...rest}>
       <h1 className="text-2xl font-bold">Meus resultados</h1>
 
-      <div className="flex gap-4 items-center animate-pulse">
-        <div className="rounded-lg w-12 h-12 bg-gray-700"></div>
-        <div>
-          <p className="w-32 h-6 bg-gray-700 rounded mb-2"></p>
-          <p className="w-20 h-4 bg-gray-600 rounded"></p>
-        </div>
-      </div>
-
-      <div className="flex gap-4 items-center animate-pulse">
-        <div className="rounded-lg w-12 h-12 bg-gray-700"></div>
-        <div>
-          <p className="w-32 h-6 bg-gray-700 rounded mb-2"></p>
-          <p className="w-20 h-4 bg-gray-600 rounded"></p>
-        </div>
-      </div>
+      <Suspense fallback={<MyResultsListSkeleton />}>
+        <MyResultsList />
+      </Suspense>
     </section>
   );
 }

@@ -20,7 +20,19 @@ const calcDuration = (createdAt: string | Date, updatedAt: string | Date) => {
 };
 
 export async function lastJourneyPresentation() {
-  const journeys = await listJourneys();
+  let journeys = null;
+
+  try {
+    journeys = await listJourneys();
+  } catch (error) {
+    console.error("Error fetching journeys:", error);
+    return {
+      winner: "Erro ao buscar jornada",
+      duration: "N/A",
+      participants: 0,
+      status: "Erro"
+    };
+  }
 
   const lastJourney = journeys[0];
 
@@ -55,7 +67,6 @@ export async function lastJourneyPresentation() {
     winner,
     duration,
     participants,
-    lastJourney,
     status
   };
 }
