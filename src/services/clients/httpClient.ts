@@ -25,7 +25,7 @@ export class HttpClient<T = unknown, DTO = unknown> {
         },
         next: {
           ...(!options.cache && {
-            revalidate: 3600 // 1 hour
+            revalidate: 60 * 2 // 2 minutes
           }),
           ...options.next
         }
