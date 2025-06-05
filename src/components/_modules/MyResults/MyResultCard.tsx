@@ -54,10 +54,19 @@ function Description({ className, ...restProps }: ComponentProps<"p">) {
   );
 }
 
-function Skeleton() {
+function Skeleton({
+  className,
+  iconClassName,
+  ...restProps
+}: ComponentProps<"div"> & { iconClassName?: string }) {
   return (
-    <div className="flex gap-4 items-center animate-pulse">
-      <div className="rounded-lg w-12 h-12 bg-gray-700"></div>
+    <div
+      className={twMerge(["flex gap-4 items-center animate-pulse", className])}
+      {...restProps}
+    >
+      <div
+        className={twMerge(["rounded-lg w-12 h-12 bg-gray-700", iconClassName])}
+      ></div>
       <div>
         <p className="w-32 h-6 bg-gray-700 rounded mb-2"></p>
         <p className="w-20 h-4 bg-gray-600 rounded"></p>
