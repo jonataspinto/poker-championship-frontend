@@ -28,6 +28,10 @@ button {
   @apply font-medium rounded-lg px-5 py-2.5 disabled:cursor-not-allowed;
 }
 
+.btn {
+  @apply font-medium rounded-lg px-5 py-2.5 disabled:cursor-not-allowed;
+}
+
 .btn-primary {
   @apply text-white bg-blue-700 dark:bg-blue-600;
   @apply hover:bg-blue-800 dark:hover:bg-blue-700;
