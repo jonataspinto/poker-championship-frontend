@@ -1,5 +1,5 @@
 import { listJourneys, listPlayers } from "@/services/actions";
-import { DetailPanel } from "@/components/DetailPanel";
+import { DetailPanel, PageContainer } from "@/components";
 import { Divider } from "@/components/Divider";
 import { Podium } from "./_components/Podium";
 import { BestHandAndEliminator } from "./_components/BestHandAndEliminator";
@@ -17,7 +17,7 @@ export default async function Page() {
     }).format(new Date(_journey?.createdAt))}`;
 
   return (
-    <div className="flex flex-col items-center gap-4 p-4 w-full max-w-2xl mx-auto">
+    <PageContainer className="flex flex-col items-center gap-4 w-full">
       <CreateNewJourney
         disabled={journeys?.some((journey) => !journey?.hasClosed)}
       />
@@ -40,6 +40,6 @@ export default async function Page() {
           </DetailPanel.Content>
         </DetailPanel.Root>
       ))}
-    </div>
+    </PageContainer>
   );
 }

@@ -8,6 +8,7 @@ export * from "./Divider";
 export * from "./Footer";
 export * from "./Header";
 export * from "./Overlay";
+export * from "./PageContainer";
 export * from "./PlayersTable";
 export * from "./Spinner";
 export * from "./Toast";
