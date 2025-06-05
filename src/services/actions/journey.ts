@@ -8,8 +8,8 @@ const client = new HttpClient<Journey, JourneyDTO>(
   process.env.NEXT_PUBLIC_API_BASE_URL || ""
 );
 
-export async function listJourneys() {
-  return client.get("/journeys", {
+export async function listJourneys(query?: URLSearchParams) {
+  return client.get(`/journeys?${query?.toString()}`, {
     next: {
       tags: ["list-journeys"]
     }
