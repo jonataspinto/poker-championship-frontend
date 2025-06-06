@@ -1,7 +1,7 @@
 type PageProps<T extends string = string, K extends string = string> = {
-  params: {
+  params: Promise<{
     [P in T]: P extends "slugs" ? string[] : string;
-  };
+  }>;
 
-  searchParams: Partial<Record<K, string>>;
+  searchParams: Promise<Partial<Record<K, string>>>;
 };

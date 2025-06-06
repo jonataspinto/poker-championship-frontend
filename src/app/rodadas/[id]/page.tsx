@@ -1,7 +1,7 @@
 import { FinalResult } from "../_components/FinalResult";
 
-export default function Page(pageProps: PageProps<"id">) {
-  const { id } = pageProps.params;
+export default async function Page(pageProps: PageProps) {
+  const { id } = await pageProps.params;
 
   return (
     <>
