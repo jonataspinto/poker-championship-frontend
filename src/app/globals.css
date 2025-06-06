@@ -44,7 +44,7 @@ button {
   @apply hover:bg-gray-100;
   @apply focus:outline-none  focus:ring-0 focus:border-gray-100 dark:focus:border-gray-700;
   @apply dark:hover:bg-gray-700 dark:hover:border-gray-600;
-  @apply disabled:bg-white disabled:dark:bg-gray-800;
+  @apply disabled:bg-white disabled:dark:bg-gray-800 disabled:opacity-50;
 }
 
 .scrollbar-none {
