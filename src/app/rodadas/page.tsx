@@ -1,4 +1,4 @@
-import { listJourneys, listPlayers } from "@/services/actions";
+import { listJourneys } from "@/services/actions";
 import { DetailPanel, PageContainer } from "@/components";
 import { Divider } from "@/components/Divider";
 import { Podium } from "./_components/Podium";
@@ -8,8 +8,6 @@ import { CreateNewJourney } from "./_components/CreateNewJourney";
 
 export default async function Page() {
   const journeys = await listJourneys();
-  const players = await listPlayers();
-  const playersMap = new Map(players?.map((player) => [player.id, player]));
 
   const title = (_journey: JourneyDTO) =>
     `Rodada #${_journey?.tag} - ${new Intl.DateTimeFormat("pt-BR", {
@@ -32,9 +30,9 @@ export default async function Page() {
           </DetailPanel.Summary>
           <DetailPanel.Content className="flex flex-col gap-4 mt-0 pb-4">
             <Divider className="bg-gray-800" />
-            <Podium podium={journey.podium} players={playersMap} />
+            <Podium podium={journey.podium} />
             <Divider className="bg-gray-800" />
-            <BestHandAndEliminator journey={journey} players={playersMap} />
+            <BestHandAndEliminator journey={journey} />
             <Divider className="bg-gray-800" />
             <JourneyActions journey={journey} />
           </DetailPanel.Content>

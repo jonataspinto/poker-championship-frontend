@@ -1,10 +1,12 @@
-export function BestHandAndEliminator({
-  journey,
-  players
+export async function BestHandAndEliminator({
+  journey
 }: {
   journey: JourneyDTO;
-  players: Map<string, PlayerDTO>;
 }) {
+  const { listPlayers } = await import("@/services/actions");
+  const playersBulk = await listPlayers();
+  const players = new Map(playersBulk?.map((player) => [player.id, player]));
+
   const { bestHand, biggestEliminator } = journey;
 
   return (

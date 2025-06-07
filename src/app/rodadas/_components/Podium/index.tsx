@@ -4,12 +4,12 @@ import "./styles.css";
 
 function PodiumCard({
   name,
-  src,
+  src = "/icons/user-placeholder.svg",
   alt,
   ...props
 }: ComponentProps<"div"> & {
   name: string;
-  src: string;
+  src?: string;
   alt: string;
 }) {
   return (
@@ -30,13 +30,11 @@ function PodiumCard({
   );
 }
 
-export async function Podium({
-  podium,
-  players
-}: {
-  podium?: Podium;
-  players: Map<string, PlayerDTO>;
-}) {
+export async function Podium({ podium }: { podium?: Podium }) {
+  const { listPlayers } = await import("@/services/actions");
+  const playersBulk = await listPlayers();
+  const players = new Map(playersBulk?.map((player) => [player.id, player]));
+
   return (
     <div className="podium px-4 overflow-hidden">
       <PodiumCard
