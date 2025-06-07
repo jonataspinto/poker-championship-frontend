@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { twMerge } from "tailwind-merge";
+import { useSession } from "next-auth/react";
 import { useAnimatedUnmount, useToggle, useClickOutside } from "@/hooks";
 import { ConditionalRender, Dialog } from "@/components";
 import {
@@ -14,6 +15,7 @@ export function JourneyPodiumDialog({
 }: {
   children?: React.ReactNode;
 }) {
+  const { status } = useSession();
   const [isOpen, toggle, setToggle] = useToggle(false);
   const { animatedElementRef, shouldRender } =
     useAnimatedUnmount<HTMLDivElement>(isOpen);
@@ -43,7 +45,11 @@ export function JourneyPodiumDialog({
 
   return (
     <>
-      <button onClick={toggle} className="btn-primary">
+      <button
+        onClick={toggle}
+        className="btn-primary"
+        disabled={status === "unauthenticated"}
+      >
         Atribuir pontuação
       </button>
       <ConditionalRender condition={shouldRender}>

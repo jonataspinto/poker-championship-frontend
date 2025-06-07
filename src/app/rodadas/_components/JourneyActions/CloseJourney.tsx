@@ -1,6 +1,7 @@
 "use client";
 
 import { useTransition } from "react";
+import { useSession } from "next-auth/react";
 import { Spinner, toast } from "@/components";
 import { revalidateListJourneys } from "@/services/actions";
 
@@ -23,6 +24,7 @@ export function CloseJourney({
   action: (id: string) => Promise<JourneyDTO>;
 }) {
   const isValid = isValidToClose(journey);
+  const { status } = useSession();
   const [isPending, startTransition] = useTransition();
 
   function handleClose() {
@@ -46,7 +48,11 @@ export function CloseJourney({
   }
 
   return (
-    <button onClick={handleClose} className="btn-light" disabled={!isValid}>
+    <button
+      onClick={handleClose}
+      className="btn-light"
+      disabled={!isValid || status === "unauthenticated"}
+    >
       {!isPending ? "Encerrar" : <Spinner />}
     </button>
   );
