@@ -23,7 +23,7 @@ export default function Page() {
   );
 }
 
-export async function JourneyList() {
+async function JourneyList() {
   const title = (_journey: JourneyDTO) =>
     `Rodada #${_journey?.tag} - ${new Intl.DateTimeFormat("pt-BR", {
       dateStyle: "long"
