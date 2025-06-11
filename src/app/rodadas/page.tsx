@@ -1,55 +1,61 @@
 import { Suspense } from "react";
-import { DetailPanel, PageContainer } from "@/components";
-import { Divider } from "@/components/Divider";
-import { Podium } from "./_components/Podium";
-import { BestHandAndEliminator } from "./_components/BestHandAndEliminator";
-import { JourneyActions } from "./_components/JourneyActions";
+// import { PageContainer } from "@/components";
+// import { Divider } from "@/components/Divider";
+// import { Podium } from "./_components/Podium";
+// import { BestHandAndEliminator } from "./_components/BestHandAndEliminator";
+// import { JourneyActions } from "./_components/JourneyActions";
 import { CreateNewJourney } from "./_components/CreateNewJourney";
+import { JourneyCard } from "./_components/JourneyCard";
+import Link from "next/link";
 
 export default function Page() {
   return (
-    <PageContainer className="flex flex-col items-center gap-4 w-full">
+    <>
       <CreateNewJourney />
-      <Suspense
-        fallback={
-          <div className="w-full h-96 flex items-center justify-center">
-            Carregando...
-          </div>
-        }
-      >
-        <JourneyList />
-      </Suspense>
-    </PageContainer>
+      <div className="flex flex-col gap-4">
+        <Suspense fallback={<>Carregando...</>}>
+          <JourneyList />
+        </Suspense>
+      </div>
+    </>
   );
 }
 
 async function JourneyList() {
-  const title = (_journey: JourneyDTO) =>
-    `Rodada #${_journey?.tag} - ${new Intl.DateTimeFormat("pt-BR", {
-      dateStyle: "long"
-    }).format(new Date(_journey?.createdAt))}`;
+  const title = (_journey: JourneyDTO) => `Rodada #${_journey?.tag}`;
+
+  const journeyDate = (_journey: JourneyDTO) => {
+    return new Intl.DateTimeFormat("pt-BR", {
+      month: "long",
+      day: "numeric",
+      year: "numeric"
+    }).format(new Date(_journey?.updatedAt));
+  };
 
   const { listJourneys } = await import("@/services/actions");
 
   const journeys = await listJourneys();
 
-  return journeys?.map((journey, index) => (
-    <DetailPanel.Root
+  return journeys?.map((journey) => (
+    <Link
       key={journey.id}
-      open={index === 0 && !journey?.hasClosed}
-      className="border border-solid border-gray-800 rounded-lg w-full"
+      href={`rodadas/${journey.id}`}
+      className="flex max-w-96"
     >
-      <DetailPanel.Summary>
-        <span className="text-lg font-bold px-4">{title(journey)}</span>
-      </DetailPanel.Summary>
-      <DetailPanel.Content className="flex flex-col gap-4 mt-0 pb-4">
-        <Divider className="bg-gray-800" />
-        <Podium podium={journey.podium} />
-        <Divider className="bg-gray-800" />
-        <BestHandAndEliminator journey={journey} />
-        <Divider className="bg-gray-800" />
-        <JourneyActions journey={journey} />
-      </DetailPanel.Content>
-    </DetailPanel.Root>
+      <JourneyCard.Container className="justify-between items-center w-full">
+        <JourneyCard.Details>
+          <JourneyCard.Title>{title(journey)}</JourneyCard.Title>
+          <JourneyCard.Description>
+            {journeyDate(journey)} · {journey.players.length} Jogadores
+          </JourneyCard.Description>
+        </JourneyCard.Details>
+
+        <JourneyCard.Icon
+          src="/icons/arrow-left.svg"
+          alt="arrow-left-icon"
+          className="w-4 h-4"
+        />
+      </JourneyCard.Container>
+    </Link>
   ));
 }
