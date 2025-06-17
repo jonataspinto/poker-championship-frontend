@@ -2,7 +2,7 @@ import { twMerge } from "tailwind-merge";
 import { ComponentProps, Suspense } from "react";
 
 import { auth } from "@/auth";
-import { MyResultCard } from "@/components/_modules/MyResults/MyResultCard";
+import { LastJourneyCard } from "./LastJourneyCard";
 
 async function List() {
   const session = await auth();
@@ -28,17 +28,17 @@ async function List() {
   return (
     <>
       {journeys.map((journey) => (
-        <MyResultCard.Container key={journey?.id}>
-          <MyResultCard.IconWrapper>
-            <MyResultCard.Icon alt="Trophy icon" src="/icons/trophy.svg" />
-          </MyResultCard.IconWrapper>
-          <MyResultCard.Details>
-            <MyResultCard.Title>Rodada {journey?.tag}</MyResultCard.Title>
-            <MyResultCard.Description>
+        <LastJourneyCard.Container key={journey?.id}>
+          <LastJourneyCard.IconWrapper>
+            <LastJourneyCard.Icon alt="Trophy icon" src="/icons/trophy.svg" />
+          </LastJourneyCard.IconWrapper>
+          <LastJourneyCard.Details>
+            <LastJourneyCard.Title>Rodada {journey?.tag}</LastJourneyCard.Title>
+            <LastJourneyCard.Description>
               {podiumPosition(journey?.podium, playerId)}
-            </MyResultCard.Description>
-          </MyResultCard.Details>
-        </MyResultCard.Container>
+            </LastJourneyCard.Description>
+          </LastJourneyCard.Details>
+        </LastJourneyCard.Container>
       ))}
     </>
   );
@@ -47,10 +47,10 @@ async function List() {
 function ListSkeleton() {
   return (
     <>
-      <MyResultCard.Skeleton />
-      <MyResultCard.Skeleton />
-      <MyResultCard.Skeleton />
-      <MyResultCard.Skeleton />
+      <LastJourneyCard.Skeleton />
+      <LastJourneyCard.Skeleton />
+      <LastJourneyCard.Skeleton />
+      <LastJourneyCard.Skeleton />
     </>
   );
 }
