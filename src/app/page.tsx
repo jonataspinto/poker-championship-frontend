@@ -1,7 +1,7 @@
 import { PageContainer } from "@/components";
-import { Ranking } from "@/components/_modules/Ranking";
-import { MyResults } from "@/components/_modules/MyResults";
-import { LastJourney } from "@/components/_modules/LastJourney";
+import { Ranking } from "@/pages/home/Ranking";
+import { MyResults } from "@/pages/home/MyResults";
+import { LastJourney } from "@/pages/home/LastJourney";
 
 export const metadata = {
   title: "Poker Championship",
