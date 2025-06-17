@@ -1,6 +1,6 @@
 import { ComponentProps, Suspense } from "react";
-import { MyResultCard } from "@/components/_modules/MyResults/MyResultCard";
 import { twMerge } from "tailwind-merge";
+import { FinalResultCard } from "./FinalResultCard";
 
 async function Container({ journeyId }: { journeyId: string }) {
   const { getJourneyById, listPlayers } = await import("@/services/actions");
@@ -24,25 +24,25 @@ async function Container({ journeyId }: { journeyId: string }) {
   );
 
   return podium?.map((player) => (
-    <MyResultCard.Container key={player.id}>
-      <MyResultCard.Icon
+    <FinalResultCard.Container key={player.id}>
+      <FinalResultCard.Icon
         src={player.photoURL ?? ""}
         alt={player.name}
         className="rounded-full"
         width={56}
         height={56}
       />
-      <MyResultCard.Details>
-        <MyResultCard.Title>{player.name}</MyResultCard.Title>
-        <MyResultCard.Description>0 pontos</MyResultCard.Description>
-      </MyResultCard.Details>
-    </MyResultCard.Container>
+      <FinalResultCard.Details>
+        <FinalResultCard.Title>{player.name}</FinalResultCard.Title>
+        <FinalResultCard.Description>0 pontos</FinalResultCard.Description>
+      </FinalResultCard.Details>
+    </FinalResultCard.Container>
   ));
 }
 
 function ContainerSkeleton() {
   return Array.from("skele").map((key) => (
-    <MyResultCard.Skeleton
+    <FinalResultCard.Skeleton
       key={key}
       iconClassName="rounded-full w-[56px] h-[56px]"
     />
