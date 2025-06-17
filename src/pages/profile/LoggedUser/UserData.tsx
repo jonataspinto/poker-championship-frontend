@@ -1,24 +1,8 @@
 import { auth } from "@/auth";
-import { Avatar } from "@/components";
-import { ComponentProps } from "react";
-import { twMerge } from "tailwind-merge";
+import { Avatar } from "@/components/ui";
+import { HighlightNumberCard } from "./HighlightNumberCard";
 
-function HighlightNumberCard({
-  highlight = "",
-  description = ""
-}: {
-  highlight?: string | number;
-  description?: string | number;
-}) {
-  return (
-    <div className="rounded-lg border border-[#3D4D5C] flex flex-col items-center justify-center p-3">
-      <span className="text-3xl font-bold text-foreground">{highlight}</span>
-      <span className="text-sm text-[#9EADBF]">{description}</span>
-    </div>
-  );
-}
-
-async function UserData() {
+export async function UserData() {
   const session = await auth();
   const playerId = session?.user?.id;
   let journeys: JourneyDTO[] = [];
@@ -71,19 +55,5 @@ async function UserData() {
         <HighlightNumberCard highlight={averageFinal} description="Avg final" />
       </div>
     </>
-  );
-}
-
-export async function LoggedUserData({
-  className,
-  ...rest
-}: ComponentProps<"section">) {
-  return (
-    <section
-      className={twMerge(["flex flex-col gap-4 items-center pb-4", className])}
-      {...rest}
-    >
-      <UserData />
-    </section>
   );
 }

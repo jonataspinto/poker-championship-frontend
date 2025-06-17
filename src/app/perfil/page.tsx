@@ -1,12 +1,12 @@
 import { PageContainer } from "@/components";
-import { LoggedUserData } from "./_components/LoggedUserData";
-import { JourneyHistory } from "./_components/JourneyHistory";
+import { LoggedUser } from "@/pages/profile";
+import { JourneysHistory } from "@/pages/profile";
 
 export default function Perfil() {
   return (
     <PageContainer>
-      <LoggedUserData />
-      <JourneyHistory />
+      <LoggedUser />
+      <JourneysHistory />
     </PageContainer>
   );
 }

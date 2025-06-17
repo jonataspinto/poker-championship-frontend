@@ -1,10 +1,7 @@
-import { twMerge } from "tailwind-merge";
-import { ComponentProps, Suspense } from "react";
-
 import { auth } from "@/auth";
 import { LastJourneyCard } from "./LastJourneyCard";
 
-async function List() {
+export async function JourneysHistoryList() {
   const session = await auth();
   const playerId = session?.user?.id;
   let journeys: JourneyDTO[] = [];
@@ -41,31 +38,5 @@ async function List() {
         </LastJourneyCard.Container>
       ))}
     </>
-  );
-}
-
-function ListSkeleton() {
-  return (
-    <>
-      <LastJourneyCard.Skeleton />
-      <LastJourneyCard.Skeleton />
-      <LastJourneyCard.Skeleton />
-      <LastJourneyCard.Skeleton />
-    </>
-  );
-}
-
-export function JourneyHistory({
-  className,
-  ...rest
-}: ComponentProps<"section">) {
-  return (
-    <section className={twMerge("flex flex-col gap-4", className)} {...rest}>
-      <h2 className="text-2xl font-bold">Histórico de Rodadas</h2>
-
-      <Suspense fallback={<ListSkeleton />}>
-        <List />
-      </Suspense>
-    </section>
   );
 }
