@@ -1,12 +1,7 @@
 import { Suspense } from "react";
-// import { PageContainer } from "@/components";
-// import { Divider } from "@/components/Divider";
-// import { Podium } from "./_components/Podium";
-// import { BestHandAndEliminator } from "./_components/BestHandAndEliminator";
-// import { JourneyActions } from "./_components/JourneyActions";
-import { CreateNewJourney } from "./_components/CreateNewJourney";
-import { JourneyCard } from "./_components/JourneyCard";
 import Link from "next/link";
+import { CreateNewJourney } from "@/pages/journeys/CreateNewJourney";
+import { JourneyCard } from "@/pages/journeys/JourneyCard";
 
 export default function Page() {
   return (

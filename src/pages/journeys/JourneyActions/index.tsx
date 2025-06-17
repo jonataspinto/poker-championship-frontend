@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { ConditionalRender } from "@/components/ui";
 import { closeJourney, listPlayers } from "@/services/actions";
 import { JourneyPodiumDialog } from "./JourneyPodiumDialog";
@@ -17,15 +16,10 @@ export async function JourneyActions({ journey }: { journey: JourneyDTO }) {
         <ConditionalRender
           condition={!journey.hasClosed}
           fallback={
-            <>
-              <p className="truncate text-nowrap">
-                <span className="font-bold">Encerrada por: </span>
-                {journey?.closedBy && players?.get(journey?.closedBy)?.name}
-              </p>
-              <Link className="btn btn-light" href={`rodadas/${journey.id}`}>
-                Ver detalhes
-              </Link>
-            </>
+            <p className="truncate text-nowrap">
+              <span className="font-bold">Encerrada por: </span>
+              {journey?.closedBy && players?.get(journey?.closedBy)?.name}
+            </p>
           }
         >
           <CloseJourney action={closeJourney} journey={journey} />
