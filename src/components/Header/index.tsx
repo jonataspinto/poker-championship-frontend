@@ -1,4 +1,4 @@
-import { BrandLogo } from "../BrandLogo";
+import { BrandLogo } from "../ui";
 import { DrawerMenu } from "./DrawerMenu";
 
 export function Header() {

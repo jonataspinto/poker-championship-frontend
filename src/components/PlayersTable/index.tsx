@@ -1,5 +1,5 @@
 import { ComponentProps } from "react";
-import { Avatar } from "../Avatar";
+import { Avatar } from "../ui";
 
 function Root(props: ComponentProps<"table">) {
   return (

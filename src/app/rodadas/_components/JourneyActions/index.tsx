@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ConditionalRender } from "@/components/ConditionalRender";
+import { ConditionalRender } from "@/components/ui";
 import { closeJourney, listPlayers } from "@/services/actions";
 import { JourneyPodiumDialog } from "./JourneyPodiumDialog";
 import { JourneyPodiumForm } from "./JourneyPodiumForm";
