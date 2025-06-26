@@ -1,17 +1,29 @@
-import { HttpClient } from "../clients/httpClient";
+"use server";
 
-const client = new HttpClient<Player, PlayerDTO>(
-  process.env.NEXT_PUBLIC_API_BASE_URL || ""
-);
+import { headers } from "next/headers";
 
 export async function listPlayers() {
-  return client.get("/players", {
+  const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
+  const host = (await headers()).get("host");
+
+  const response = await fetch(`${protocol}://${host}/api/players`, {
     next: {
       tags: ["list-players"]
     }
-  }) as unknown as Promise<PlayerDTO[]>;
+  });
+
+  const data = await response.json();
+
+  return data as PlayerDTO[];
 }
 
 export async function getPlayerById(id: string) {
-  return client.get(`/players/${id}`);
+  const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
+  const host = (await headers()).get("host");
+
+  const response = await fetch(`${protocol}://${host}/api/players/${id}`, {});
+
+  const data = await response.json();
+
+  return data as PlayerDTO;
 }
