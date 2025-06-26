@@ -13,14 +13,3 @@ const firebaseConfig = {
 
 export const firebaseClient = initializeApp(firebaseConfig);
 export const firebaseAuth = getAuth(firebaseClient);
-
-import * as admin from "firebase-admin";
-
-export const firebaseAdminApp = admin.initializeApp({
-  credential: admin.credential.cert({
-    projectId: process.env.FB_PROJECT_ID,
-    privateKey: (process.env.FB_PRIVATE_KEY || "").replace(/\\n/g, "\n"),
-    clientEmail: process.env.FB_CLIENT_EMAIL
-  }),
-  databaseURL: process.env.FB_DATABASE_URL
-});
