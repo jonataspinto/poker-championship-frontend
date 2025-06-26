@@ -1,6 +1,16 @@
-import { firebaseAdminApp } from "../clients/firebaseClient";
+import {
+  collection,
+  getDocs,
+  getDoc,
+  doc,
+  where,
+  query,
+  getFirestore,
+  deleteDoc
+} from "firebase/firestore/lite";
+import { firebaseClient } from "../clients/firebaseClient";
 
-const dataBase = firebaseAdminApp;
+const DATABASE = getFirestore(firebaseClient);
 
 const basePath = "/root_collection/document";
 
@@ -12,19 +22,21 @@ export class FirestoreAdapterDB<T, DTO> implements IDBProvider<T, DTO> {
   }
 
   async save(data: T): Promise<DTO> {
-    const newData = await dataBase
-      .firestore()
-      .collection(`${basePath}/${this.path}`)
-      .add(data as FirebaseFirestore.DocumentData);
+    //   const newData = await dataBase
+    //     .firestore()
+    //     .collection(`${basePath}/${this.path}`)
+    //     .add(data as FirebaseFirestore.DocumentData);
 
-    const response = await newData.get().then((snapshot) => ({
-      ...(snapshot.data() as T),
-      id: snapshot.id,
-      createdAt: snapshot.createTime?.toDate(),
-      updatedAt: snapshot.updateTime?.toDate()
-    }));
+    //   const response = await newData.get().then((snapshot) => ({
+    //     ...(snapshot.data() as T),
+    //     id: snapshot.id,
+    //     createdAt: snapshot.createTime?.toDate(),
+    //     updatedAt: snapshot.updateTime?.toDate()
+    //   }));
 
-    return response as DTO;
+    //   return response as DTO;
+    console.log(data);
+    throw new Error("Method not implemented.");
   }
 
   async getAll(
@@ -33,108 +45,102 @@ export class FirestoreAdapterDB<T, DTO> implements IDBProvider<T, DTO> {
   ) {
     const list: DTO[] = [];
 
-    let query;
+    let collectionQuery;
 
     if (key && queryParam) {
       const isQueryArray = Array.isArray(queryParam);
 
-      query = await dataBase
-        .firestore()
-        .collection(`${basePath}/${this.path}`)
-        .where(`${key}`, isQueryArray ? "array-contains-any" : "==", queryParam)
-        .get();
+      collectionQuery = query(
+        collection(DATABASE, `${basePath}/${this.path}`),
+        where(`${key}`, isQueryArray ? "array-contains-any" : "==", queryParam)
+      );
     } else {
-      query = await dataBase
-        .firestore()
-        .collection(`${basePath}/${this.path}`)
-        .get();
+      collectionQuery = query(collection(DATABASE, `${basePath}/${this.path}`));
     }
 
-    query.forEach((snapshot) =>
+    const collectionSnapshot = await getDocs(collectionQuery);
+
+    collectionSnapshot.forEach((snapshot) => {
       list.push({
         ...(snapshot.data() as DTO),
         id: snapshot.id,
-        createdAt: snapshot.createTime?.toDate(),
-        updatedAt: snapshot.updateTime?.toDate()
-      })
-    );
+        createdAt: snapshot.data().createdAt?.toDate(),
+        updatedAt: snapshot.data().updatedAt?.toDate()
+      });
+    });
+
     return list;
   }
 
   async getById(id: string) {
-    const data = await dataBase
-      .firestore()
-      .collection(`${basePath}/${this.path}`)
-      .doc(id)
-      .get()
-      .then((snapshot) => {
-        const value = snapshot.data();
+    const docRef = doc(DATABASE, `${basePath}/${this.path}`, id);
 
-        if (!value) {
-          return null;
-        }
+    const docSnap = await getDoc(docRef).then((snapshot) => {
+      return {
+        ...(snapshot.data() as DTO),
+        id: snapshot.id,
+        createdAt: snapshot.data()?.createdAt?.toDate(),
+        updatedAt: snapshot.data()?.updatedAt?.toDate()
+      };
+    });
 
-        return {
-          ...value,
-          id: snapshot.id,
-          createdAt: snapshot.createTime?.toDate(),
-          updatedAt: snapshot.updateTime?.toDate()
-        };
-      });
-
-    return data as DTO;
+    return docSnap as DTO;
   }
 
   async getByEmail(email: string) {
     const list: DTO[] = [];
 
-    const query = await dataBase
-      .firestore()
-      .collection(`${basePath}/${this.path}`)
-      .where("email", "==", email)
-      .get();
+    const collectionQuery = query(
+      collection(DATABASE, `${basePath}/${this.path}`),
+      where(`email`, "==", email)
+    );
 
-    query.forEach((snapshot) =>
+    const collectionSnapshot = await getDocs(collectionQuery);
+
+    collectionSnapshot.forEach((snapshot) => {
       list.push({
         ...(snapshot.data() as DTO),
         id: snapshot.id,
-        createdAt: snapshot.createTime?.toDate(),
-        updatedAt: snapshot.updateTime?.toDate()
-      })
-    );
-    //TODO: pq array?
+        createdAt: snapshot.data().createdAt?.toDate(),
+        updatedAt: snapshot.data().updatedAt?.toDate()
+      });
+    });
+
     return list[0];
   }
 
   async update(id: string, newData: T) {
-    const data = await dataBase
-      .firestore()
-      .collection(`${basePath}/${this.path}`)
-      .doc(id)
-      .update(newData as Record<string, unknown>)
-      .then(() =>
-        dataBase
-          .firestore()
-          .collection(`${basePath}/${this.path}`)
-          .doc(id)
-          .get()
-      )
-      .then((snapshot) => ({
-        ...snapshot.data(),
-        id: snapshot.id,
-        createdAt: snapshot.createTime?.toDate(),
-        updatedAt: snapshot.updateTime?.toDate()
-      }));
+    //   const data = await dataBase
+    //     .firestore()
+    //     .collection(`${basePath}/${this.path}`)
+    //     .doc(id)
+    //     .update(newData as Record<string, unknown>)
+    //     .then(() =>
+    //       dataBase
+    //         .firestore()
+    //         .collection(`${basePath}/${this.path}`)
+    //         .doc(id)
+    //         .get()
+    //     )
+    //     .then((snapshot) => ({
+    //       ...snapshot.data(),
+    //       id: snapshot.id,
+    //       createdAt: snapshot.createTime?.toDate(),
+    //       updatedAt: snapshot.updateTime?.toDate()
+    //     }));
 
-    return data as DTO;
+    //   return data as DTO;
+
+    console.log(id, newData);
+    throw new Error("Method not implemented.");
+    return {} as DTO;
   }
 
   async delete(id: string) {
-    await dataBase
-      .firestore()
-      .collection(`${basePath}/${this.path}`)
-      .doc(id)
-      .delete();
+    const docRef = doc(DATABASE, `${basePath}/${this.path}`, id);
+
+    await deleteDoc(docRef);
+
     return id;
   }
 }
