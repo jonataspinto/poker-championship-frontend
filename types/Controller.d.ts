@@ -1,5 +1,5 @@
 interface Controller<DTO = unknown> {
-  index: () => Promise<DTO[]>;
+  index: (query?: string) => Promise<DTO[]>;
 
   show: (id?: string) => Promise<DTO | undefined>;
 }
