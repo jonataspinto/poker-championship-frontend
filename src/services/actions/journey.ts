@@ -3,21 +3,39 @@
 import { revalidateTag } from "next/cache";
 import { HttpClient } from "@/services/clients/httpClient";
 import { auth } from "@/auth";
+import { headers } from "next/headers";
 
 const client = new HttpClient<Journey, JourneyDTO>(
   process.env.NEXT_PUBLIC_API_BASE_URL || ""
 );
 
 export async function listJourneys(query?: URLSearchParams) {
-  return client.get(`/journeys?${query?.toString()}`, {
-    next: {
-      tags: ["list-journeys"]
+  const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
+  const host = (await headers()).get("host");
+
+  const response = await fetch(
+    `${protocol}://${host}/api/journeys?${query?.toString()}`,
+    {
+      next: {
+        tags: ["list-journeys"]
+      }
     }
-  }) as unknown as Promise<JourneyDTO[]>;
+  );
+
+  const data = await response.json();
+
+  return data as unknown as JourneyDTO[];
 }
 
 export async function getJourneyById(id: string) {
-  return client.get(`/journeys/${id}`);
+  const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
+  const host = (await headers()).get("host");
+
+  const response = await fetch(`${protocol}://${host}/api/journeys/${id}`);
+
+  const data = await response.json();
+
+  return data;
 }
 
 export async function updateJourney(id: string, payload: Partial<Journey>) {
