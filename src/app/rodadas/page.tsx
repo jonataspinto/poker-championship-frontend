@@ -20,6 +20,10 @@ async function JourneyList() {
   const title = (_journey: JourneyDTO) => `Rodada #${_journey?.tag}`;
 
   const journeyDate = (_journey: JourneyDTO) => {
+    if (!_journey?.updatedAt) {
+      return "---";
+    }
+
     return new Intl.DateTimeFormat("pt-BR", {
       month: "long",
       day: "numeric",
