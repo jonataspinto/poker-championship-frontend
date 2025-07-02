@@ -1,4 +1,6 @@
-export const sanitizeObject = <T>(payload: Record<string, any>): Partial<T> => {
+export const sanitizeObject = <T>(
+  payload: Record<string, unknown>
+): Partial<T> => {
   const draftPayload = { ...payload };
   const keys = Object.keys(payload);
 
