@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
-import { CreateNewJourney } from "@/pages/journeys/CreateNewJourney";
-import { JourneyCard } from "@/pages/journeys/JourneyCard";
+import { CreateNewJourney } from "@/containers/journeys/CreateNewJourney";
+import { JourneyCard } from "@/containers/journeys/JourneyCard";
 
 export default function Page() {
   return (

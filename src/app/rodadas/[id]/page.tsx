@@ -1,8 +1,8 @@
 import { Divider } from "@/components/ui";
-import { BestHandAndEliminator } from "@/pages/journeys/BestHandAndEliminator";
-import { FinalResult } from "@/pages/journeys/FinalResult";
-import { JourneyActions } from "@/pages/journeys/JourneyActions";
-import { Podium } from "@/pages/journeys/Podium";
+import { BestHandAndEliminator } from "@/containers/journeys/BestHandAndEliminator";
+import { FinalResult } from "@/containers/journeys/FinalResult";
+import { JourneyActions } from "@/containers/journeys/JourneyActions";
+import { Podium } from "@/containers/journeys/Podium";
 import { getJourneyById } from "@/services/actions";
 
 export default async function Page(pageProps: PageProps) {
