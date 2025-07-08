@@ -2,6 +2,7 @@ import {
   collection,
   getDocs,
   getDoc,
+  updateDoc,
   doc,
   where,
   query,
@@ -110,30 +111,22 @@ export class FirestoreAdapterDB<T, DTO> implements IDBProvider<T, DTO> {
   }
 
   async update(id: string, newData: T) {
-    //   const data = await dataBase
-    //     .firestore()
-    //     .collection(`${basePath}/${this.path}`)
-    //     .doc(id)
-    //     .update(newData as Record<string, unknown>)
-    //     .then(() =>
-    //       dataBase
-    //         .firestore()
-    //         .collection(`${basePath}/${this.path}`)
-    //         .doc(id)
-    //         .get()
-    //     )
-    //     .then((snapshot) => ({
-    //       ...snapshot.data(),
-    //       id: snapshot.id,
-    //       createdAt: snapshot.createTime?.toDate(),
-    //       updatedAt: snapshot.updateTime?.toDate()
-    //     }));
+    const docRef = doc(DATABASE, `${basePath}/${this.path}`, id);
 
-    //   return data as DTO;
+    const docSnap = await updateDoc(
+      docRef,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      newData as Record<string, any>
+    ).then(() =>
+      getDoc(docRef).then((snapshot) => ({
+        ...(snapshot.data() as DTO),
+        id: snapshot.id,
+        createdAt: snapshot.data()?.createdAt?.toDate(),
+        updatedAt: snapshot.data()?.updatedAt?.toDate()
+      }))
+    );
 
-    console.log(id, newData);
-    throw new Error("Method not implemented.");
-    return {} as DTO;
+    return docSnap;
   }
 
   async delete(id: string) {

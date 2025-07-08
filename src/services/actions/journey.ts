@@ -61,12 +61,7 @@ export async function getJourneyById(id: string) {
 }
 
 export async function updateJourney(id: string, payload: Partial<Journey>) {
-  const session = await auth();
-  return client.put(`/journeys/${id}`, payload as Journey, {
-    headers: {
-      Authorization: `Bearer ${session?.accessToken}`
-    }
-  });
+  return journeyController.update(id, payload);
 }
 
 export async function closeJourney(id: string) {

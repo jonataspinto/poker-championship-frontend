@@ -68,25 +68,23 @@ export class JourneyController implements Controller<JourneyDTO> {
     return journey;
   };
 
-  update = async (request: Request, response: Response) => {
-    const { id } = request.params;
-    const payload = request.body;
-
+  update = async (id: string, payload: Partial<Journey>) => {
     const journeyExists = await this.journeysRepository.findById(id);
 
     if (!journeyExists) {
-      response.status(404).json({ error: "journey not found" });
-      return;
+      throw new Error("journey not found");
     }
 
     if (journeyExists.hasClosed) {
-      response.status(400).json({ error: "this journey is closed" });
-      return;
+      throw new Error("this journey is closed");
     }
 
-    const updatedData = await this.journeysRepository.update(id, payload);
+    const updatedData = await this.journeysRepository.update(
+      id,
+      payload as Journey
+    );
 
-    response.json(updatedData);
+    return updatedData;
   };
 
   delete = async (request: Request, response: Response) => {
