@@ -14,31 +14,31 @@ const client = new HttpClient<Journey, JourneyDTO>(
   process.env.NEXT_PUBLIC_API_BASE_URL || ""
 );
 
+const journeysRepository = new JourneysRepository(
+  new FirestoreAdapterDB("journeys")
+);
+
+const playersRepository = new PlayersRepository(
+  new FirestoreAdapterDB("users")
+);
+
+const journeyTagsRepository = new JourneyTagsRepository(
+  new FirestoreAdapterDB("journey-tags")
+);
+
+const seasonsRepository = new SeasonsRepository(
+  new FirestoreAdapterDB("seasons")
+);
+
+const journeyController = new JourneyController(
+  journeysRepository,
+  playersRepository,
+  journeyTagsRepository,
+  seasonsRepository
+);
+
 export async function listJourneys(query?: URLSearchParams) {
   const playerId = query?.get("playerId") ?? "";
-
-  const journeysRepository = new JourneysRepository(
-    new FirestoreAdapterDB("journeys")
-  );
-
-  const playersRepository = new PlayersRepository(
-    new FirestoreAdapterDB("users")
-  );
-
-  const journeyTagsRepository = new JourneyTagsRepository(
-    new FirestoreAdapterDB("journey-tags")
-  );
-
-  const seasonsRepository = new SeasonsRepository(
-    new FirestoreAdapterDB("seasons")
-  );
-
-  const journeyController = new JourneyController(
-    journeysRepository,
-    playersRepository,
-    journeyTagsRepository,
-    seasonsRepository
-  );
 
   const journeys = await journeyController.index(playerId);
 
@@ -46,29 +46,6 @@ export async function listJourneys(query?: URLSearchParams) {
 }
 
 export async function getJourneyById(id: string) {
-  const journeysRepository = new JourneysRepository(
-    new FirestoreAdapterDB("journeys")
-  );
-
-  const journeyTagsRepository = new JourneyTagsRepository(
-    new FirestoreAdapterDB("journey-tags")
-  );
-
-  const playersRepository = new PlayersRepository(
-    new FirestoreAdapterDB("users")
-  );
-
-  const seasonsRepository = new SeasonsRepository(
-    new FirestoreAdapterDB("seasons")
-  );
-
-  const journeyController = new JourneyController(
-    journeysRepository,
-    playersRepository,
-    journeyTagsRepository,
-    seasonsRepository
-  );
-
   const journey = await journeyController.show(id);
 
   if (!journey) {
