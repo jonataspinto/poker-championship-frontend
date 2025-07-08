@@ -25,5 +25,9 @@ export async function getPlayerById(id: string) {
 
   const player = await playerController.show(id);
 
+  if (!player) {
+    throw new Error(`Player with id ${id} not found`);
+  }
+
   return player;
 }
