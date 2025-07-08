@@ -1,12 +1,12 @@
 import { Suspense } from "react";
 import Link from "next/link";
-import { CreateNewJourney } from "@/containers/journeys/CreateNewJourney";
+// import { CreateNewJourney } from "@/containers/journeys/CreateNewJourney";
 import { JourneyCard } from "@/containers/journeys/JourneyCard";
 
 export default function Page() {
   return (
     <>
-      <CreateNewJourney />
+      {/* <CreateNewJourney /> */}
       <div className="flex flex-col gap-4">
         <Suspense fallback={<>Carregando...</>}>
           <JourneyList />
