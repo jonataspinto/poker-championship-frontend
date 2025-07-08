@@ -1,29 +1,29 @@
 "use server";
 
-import { headers } from "next/headers";
+import { PlayersRepository } from "@/server/repositories/PlayersRepository";
+import { PlayerController } from "@/server/controllers/PlayerController";
+import { FirestoreAdapterDB } from "../database";
 
-export async function listPlayers() {
-  const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
-  const host = (await headers()).get("host");
+export async function listPlayers(): Promise<PlayerDTO[]> {
+  const playersRepository = new PlayersRepository(
+    new FirestoreAdapterDB("users")
+  );
 
-  const response = await fetch(`${protocol}://${host}/api/players`, {
-    next: {
-      tags: ["list-players"]
-    }
-  });
+  const playerController = new PlayerController(playersRepository);
 
-  const data = await response.json();
+  const players = await playerController.index();
 
-  return data as PlayerDTO[];
+  return players;
 }
 
 export async function getPlayerById(id: string) {
-  const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
-  const host = (await headers()).get("host");
+  const playersRepository = new PlayersRepository(
+    new FirestoreAdapterDB("users")
+  );
 
-  const response = await fetch(`${protocol}://${host}/api/players/${id}`, {});
+  const playerController = new PlayerController(playersRepository);
 
-  const data = await response.json();
+  const player = await playerController.show(id);
 
-  return data as PlayerDTO;
+  return player;
 }
