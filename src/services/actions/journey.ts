@@ -3,39 +3,79 @@
 import { revalidateTag } from "next/cache";
 import { HttpClient } from "@/services/clients/httpClient";
 import { auth } from "@/auth";
-import { headers } from "next/headers";
+import { JourneysRepository } from "@/server/repositories/JourneysRepository";
+import { FirestoreAdapterDB } from "../database";
+import { PlayersRepository } from "@/server/repositories/PlayersRepository";
+import { JourneyTagsRepository } from "@/server/repositories/JourneyTagsRepository";
+import { SeasonsRepository } from "@/server/repositories/SeasonsRepository";
+import { JourneyController } from "@/server/controllers/JourneyController";
 
 const client = new HttpClient<Journey, JourneyDTO>(
   process.env.NEXT_PUBLIC_API_BASE_URL || ""
 );
 
 export async function listJourneys(query?: URLSearchParams) {
-  const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
-  const host = (await headers()).get("host");
+  const playerId = query?.get("playerId") ?? "";
 
-  const response = await fetch(
-    `${protocol}://${host}/api/journeys?${query?.toString()}`,
-    {
-      next: {
-        tags: ["list-journeys"]
-      }
-    }
+  const journeysRepository = new JourneysRepository(
+    new FirestoreAdapterDB("journeys")
   );
 
-  const data = await response.json();
+  const playersRepository = new PlayersRepository(
+    new FirestoreAdapterDB("users")
+  );
 
-  return data as unknown as JourneyDTO[];
+  const journeyTagsRepository = new JourneyTagsRepository(
+    new FirestoreAdapterDB("journey-tags")
+  );
+
+  const seasonsRepository = new SeasonsRepository(
+    new FirestoreAdapterDB("seasons")
+  );
+
+  const journeyController = new JourneyController(
+    journeysRepository,
+    playersRepository,
+    journeyTagsRepository,
+    seasonsRepository
+  );
+
+  const journeys = await journeyController.index(playerId);
+
+  return journeys;
 }
 
 export async function getJourneyById(id: string) {
-  const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
-  const host = (await headers()).get("host");
+  const journeysRepository = new JourneysRepository(
+    new FirestoreAdapterDB("journeys")
+  );
 
-  const response = await fetch(`${protocol}://${host}/api/journeys/${id}`);
+  const journeyTagsRepository = new JourneyTagsRepository(
+    new FirestoreAdapterDB("journey-tags")
+  );
 
-  const data = await response.json();
+  const playersRepository = new PlayersRepository(
+    new FirestoreAdapterDB("users")
+  );
 
-  return data;
+  const seasonsRepository = new SeasonsRepository(
+    new FirestoreAdapterDB("seasons")
+  );
+
+  const journeyController = new JourneyController(
+    journeysRepository,
+    playersRepository,
+    journeyTagsRepository,
+    seasonsRepository
+  );
+
+  const journey = await journeyController.show(id);
+
+  if (!journey) {
+    throw new Error(`Journey with id ${id} not found`);
+  }
+
+  return journey;
 }
 
 export async function updateJourney(id: string, payload: Partial<Journey>) {
