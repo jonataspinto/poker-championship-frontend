@@ -38,11 +38,16 @@ const journeyController = new JourneyController(
 );
 
 export async function listJourneys(query?: URLSearchParams) {
-  const playerId = query?.get("playerId") ?? "";
+  try {
+    const playerId = query?.get("playerId") ?? "";
 
-  const journeys = await journeyController.index(playerId);
+    const journeys = await journeyController.index(playerId);
 
-  return journeys;
+    return journeys;
+  } catch (error) {
+    console.log("🚀 ~ listJourneys ~ error:", error);
+    return [];
+  }
 }
 
 export async function getJourneyById(id: string) {
