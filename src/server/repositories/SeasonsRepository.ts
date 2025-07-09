@@ -2,27 +2,24 @@ export class SeasonsRepository implements Repository<Season, SeasonDTO> {
   constructor(private dbProvider: IDBProvider<Season, SeasonDTO>) {}
 
   async create(payload: Season) {
-    const data = await this.dbProvider.save(payload);
-    return data;
+    return this.dbProvider.save(payload);
   }
 
-  async findAll() {
-    const seasons = await this.dbProvider.getAll();
-    return seasons;
+  async findAll(query?: Record<string, string | number | Array<unknown>>) {
+    const [queryKey, queryValue] = Object.entries(query || {})?.[0] ?? [];
+
+    return this.dbProvider.getAll(queryKey, queryValue);
   }
 
   async findById(id: string) {
-    const season = await this.dbProvider.getById(id);
-    return season;
-  }
-
-  async update(id: string, payload: Season) {
-    const updatedSeason = await this.dbProvider.update(id, payload);
-    return updatedSeason;
+    return this.dbProvider.getById(id);
   }
 
   async delete(id: string) {
-    const deletedSeasonId = await this.dbProvider.delete(id);
-    return deletedSeasonId;
+    return this.dbProvider.delete(id);
+  }
+
+  async update(id: string, payload: Season) {
+    return this.dbProvider.update(id, payload);
   }
 }

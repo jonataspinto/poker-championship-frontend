@@ -3,6 +3,7 @@ import {
   getDocs,
   getDoc,
   updateDoc,
+  addDoc,
   doc,
   where,
   query,
@@ -23,21 +24,17 @@ export class FirestoreAdapterDB<T, DTO> implements IDBProvider<T, DTO> {
   }
 
   async save(data: T): Promise<DTO> {
-    //   const newData = await dataBase
-    //     .firestore()
-    //     .collection(`${basePath}/${this.path}`)
-    //     .add(data as FirebaseFirestore.DocumentData);
+    const newData = await addDoc(
+      collection(DATABASE, `${basePath}/${this.path}`),
+      data as Record<string, unknown>
+    );
 
-    //   const response = await newData.get().then((snapshot) => ({
-    //     ...(snapshot.data() as T),
-    //     id: snapshot.id,
-    //     createdAt: snapshot.createTime?.toDate(),
-    //     updatedAt: snapshot.updateTime?.toDate()
-    //   }));
+    const response = await getDoc(newData).then((snapshot) => ({
+      ...(snapshot.data() as DTO),
+      id: snapshot.id
+    }));
 
-    //   return response as DTO;
-    console.log(data);
-    throw new Error("Method not implemented.");
+    return response as DTO;
   }
 
   async getAll(
@@ -80,8 +77,8 @@ export class FirestoreAdapterDB<T, DTO> implements IDBProvider<T, DTO> {
       return {
         ...(snapshot.data() as DTO),
         id: snapshot.id,
-        createdAt: snapshot.data()?.createdAt?.toDate(),
-        updatedAt: snapshot.data()?.updatedAt?.toDate()
+        createdAt: snapshot.data()?.createdAt?.toDate?.(),
+        updatedAt: snapshot.data()?.updatedAt?.toDate?.()
       };
     });
 
