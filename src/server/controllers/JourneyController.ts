@@ -29,30 +29,23 @@ export class JourneyController implements Controller<JourneyDTO> {
     return orderedList;
   };
 
-  // store = async (request: Request, response: Response) => {
-  //   const payload = request.body;
+  store = async (payload: Pick<Journey, "seasonId" | "players">) => {
+    const season = await this.seasonsRepository.findById(payload?.seasonId);
 
-  //   const season = await this.seasonsRepository.findById(payload.seasonId);
+    if (season.hasClosed) {
+      throw new Error("this season is closed");
+    }
 
-  //   if (season.hasClosed) {
-  //     response.status(400).json({ error: "this season is closed" });
-  //     return;
-  //   }
+    const tag = await this.journeyTagsRepository.create(payload);
 
-  //   const tag = await this.journeyTagsRepository.create(payload);
+    const newJourney = await this.journeysRepository.create({
+      ...payload,
+      tag: tag.tagNumber,
+      hasClosed: false
+    });
 
-  //   const newJourney = await this.journeysRepository.create({
-  //     ...payload,
-  //     tag: tag.tagNumber,
-  //     hasClosed: false,
-  //     bestHand: null,
-  //     closedBy: null,
-  //     biggestEliminator: null,
-  //     podium: null
-  //   });
-
-  //   response.status(201).json(newJourney);
-  // };
+    return newJourney;
+  };
 
   show = async (id?: string) => {
     if (!id) {

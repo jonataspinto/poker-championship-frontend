@@ -77,13 +77,7 @@ export async function closeJourney(id: string) {
 export async function createJourney(
   payload: Pick<Journey, "seasonId" | "players">
 ) {
-  const session = await auth();
-
-  return client.post("/journeys", payload, {
-    headers: {
-      Authorization: `Bearer ${session?.accessToken}`
-    }
-  });
+  return journeyController.store(payload);
 }
 
 export async function revalidateListJourneys() {
