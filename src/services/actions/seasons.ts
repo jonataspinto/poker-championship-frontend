@@ -1,17 +1,31 @@
-import { HttpClient } from "../clients/httpClient";
+import { SeasonsRepository } from "@/server/repositories/SeasonsRepository";
+import { SeasonController } from "@/server/controllers/SeasonController";
+import { FirestoreAdapterDB } from "../database";
 
-const client = new HttpClient<Player, PlayerDTO>(
-  process.env.NEXT_PUBLIC_API_BASE_URL || ""
+const seasonsRepository = new SeasonsRepository(
+  new FirestoreAdapterDB("seasons")
 );
 
+const seasonController = new SeasonController(seasonsRepository);
+
 export async function listSeasons() {
-  return client.get("/seasons", {
-    next: {
-      tags: ["list-seasons"]
-    }
-  }) as unknown as Promise<PlayerDTO[]>;
+  try {
+    const data = await seasonController.index();
+
+    return data;
+  } catch (error) {
+    console.error("Error fetching seasons:", error);
+    return [];
+  }
 }
 
 export async function getSeasonById(id: string) {
-  return client.get(`/seasons/${id}`);
+  try {
+    const data = await seasonController.show(id);
+
+    return data;
+  } catch (error) {
+    console.error(`Error fetching season with id ${id}:`, error);
+    return {};
+  }
 }

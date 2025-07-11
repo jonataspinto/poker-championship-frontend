@@ -62,8 +62,8 @@ export class FirestoreAdapterDB<T, DTO> implements IDBProvider<T, DTO> {
       list.push({
         ...(snapshot.data() as DTO),
         id: snapshot.id,
-        createdAt: snapshot.data().createdAt?.toDate(),
-        updatedAt: snapshot.data().updatedAt?.toDate()
+        createdAt: snapshot.data()?.createdAt?.toDate?.(),
+        updatedAt: snapshot.data()?.updatedAt?.toDate?.()
       });
     });
 
