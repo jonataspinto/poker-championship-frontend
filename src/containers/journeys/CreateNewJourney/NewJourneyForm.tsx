@@ -1,6 +1,6 @@
 "use client";
 
-import { ComponentProps, useTransition } from "react";
+import { ComponentProps, useActionState } from "react";
 import { createJourney, revalidateListJourneys } from "@/services/actions";
 import { Avatar, Spinner, toast } from "@/components";
 import {
@@ -15,15 +15,12 @@ export function NewJourneyForm({
   players: PlayerDTO[];
   seasonId: string;
 }) {
-  const [isPending, startTransition] = useTransition();
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const players = Array.from(formData.values()) as string[];
-
-    startTransition(async () => {
+  const [, dispatchAction, isPending] = useActionState(
+    async (previousValue: Record<string, string>, formData: FormData) => {
       try {
-        await createJourney({ seasonId, players });
+        const formDataValues = Array.from(formData.values()) as string[];
+
+        await createJourney({ seasonId, players: formDataValues });
 
         toast({
           type: "success",
@@ -44,12 +41,14 @@ export function NewJourneyForm({
         });
         console.error(error);
       }
-    });
-  };
+      return previousValue;
+    },
+    {}
+  );
 
   return (
     <form
-      onSubmit={handleSubmit}
+      action={dispatchAction}
       className="flex flex-col gap-4 w-full relative max-h-[70vh]"
     >
       <h2 className="font-bold text-2xl sticky top-0 bg-zinc-800 z-10 pb-2">
@@ -62,7 +61,7 @@ export function NewJourneyForm({
               type="checkbox"
               id={player.id}
               name={`players-${player.id}`}
-              value={player.id}
+              defaultValue={player.id}
               className="hidden peer"
               defaultChecked
             />
