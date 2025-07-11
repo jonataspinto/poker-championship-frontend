@@ -11,17 +11,26 @@ const playersRepository = new PlayersRepository(
 const playerController = new PlayerController(playersRepository);
 
 export async function listPlayers(): Promise<PlayerDTO[]> {
-  const players = await playerController.index();
-
-  return players;
+  try {
+    const players = await playerController.index();
+    return players;
+  } catch (error) {
+    console.error("listPlayers ~ error:", error);
+    return [];
+  }
 }
 
 export async function getPlayerById(id: string) {
-  const player = await playerController.show(id);
+  try {
+    const player = await playerController.show(id);
 
-  if (!player) {
-    throw new Error(`Player with id ${id} not found`);
+    if (!player) {
+      throw new Error(`Player with id ${id} not found`);
+    }
+
+    return player;
+  } catch (error) {
+    console.error("getPlayerById ~ error:", error);
+    return {};
   }
-
-  return player;
 }
