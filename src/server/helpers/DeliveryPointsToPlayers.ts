@@ -1,4 +1,4 @@
-import { JourneyPoints } from "@/utils/constants";
+import { JourneyPoints, PlayerMapper } from "@/utils";
 
 export class DeliveryPointsToPlayers {
   private podium: Podium;
@@ -22,33 +22,41 @@ export class DeliveryPointsToPlayers {
       string
     ][];
 
-    podium.forEach(async (podiumPosition) => {
-      const key = podiumPosition[0];
-      const value = podiumPosition[1];
-      if (key && value) {
-        const player = await this.playersRepository.findById(value);
+    await Promise.all(
+      podium.map(async (podiumData) => {
+        const podiumPosition = podiumData[0];
+        const podiumUserId = podiumData[1];
 
-        const {
-          id,
-          points = 0,
-          podiums = {
-            first: 0,
-            second: 0,
-            third: 0,
-            fourth: 0,
-            fifth: 0
-          },
-          ...rest
-        } = player;
+        if (podiumPosition && podiumUserId) {
+          const player = await this.playersRepository.findById(podiumUserId);
 
-        await this.playersRepository.update(id, {
-          ...rest,
-          points: points + JourneyPoints[key],
-          podiums: {
-            ...player.podiums,
-            [key]: (podiums?.[key] || 0) + 1
-          }
-        });
+          const payload = this.deliveryPodiumPoints(podiumPosition, player);
+
+          return this.playersRepository.update(podiumUserId, payload);
+        }
+      })
+    );
+  }
+
+  deliveryPodiumPoints(podiumPosition: keyof PlayerPodium, player: PlayerDTO) {
+    const {
+      points = 0,
+      podiums = {
+        first: 0,
+        second: 0,
+        third: 0,
+        fourth: 0,
+        fifth: 0
+      },
+      ...rest
+    } = player;
+
+    return PlayerMapper.toPersistence({
+      ...rest,
+      points: points + JourneyPoints[podiumPosition],
+      podiums: {
+        ...player.podiums,
+        [podiumPosition]: (podiums?.[podiumPosition] || 0) + 1
       }
     });
   }

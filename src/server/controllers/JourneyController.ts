@@ -1,4 +1,4 @@
-import { sanitizeObject } from "@/utils/sanitizeObject";
+import { sanitizeObject } from "@/utils";
 import { DeliveryPointsToPlayers } from "../helpers/";
 
 export class JourneyController implements Controller<JourneyDTO> {
@@ -93,24 +93,22 @@ export class JourneyController implements Controller<JourneyDTO> {
       throw new Error("this journey is already closed");
     }
 
+    const payload = {
+      ...sanitizeObject<Journey>(journey),
+      hasClosed: true,
+      closedBy: userId
+    } as Journey;
+
     const deliveryPointsToPlayers = new DeliveryPointsToPlayers(
-      journey,
+      payload,
       this.playersRepository
     );
 
-    journey.hasClosed = true;
-    journey.closedBy = userId;
+    const updatedData = await this.journeysRepository.update(id, payload);
 
-    const updatedData = await this.journeysRepository.update(
-      id,
-      sanitizeObject<Journey>(journey) as Journey
-    );
-
-    await Promise.all([
-      deliveryPointsToPlayers.deliveryPodium(),
-      deliveryPointsToPlayers.deliveryBestHandPoints(),
-      deliveryPointsToPlayers.deliveryBiggestEliminator()
-    ]);
+    await deliveryPointsToPlayers.deliveryPodium();
+    await deliveryPointsToPlayers.deliveryBiggestEliminator();
+    await deliveryPointsToPlayers.deliveryBestHandPoints();
 
     return updatedData;
   };
