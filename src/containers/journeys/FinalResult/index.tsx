@@ -42,7 +42,7 @@ async function Container({ journeyId }: { journeyId: string }) {
 }
 
 function ContainerSkeleton() {
-  return Array.from("skele").map((key) => (
+  return Array.from("skltn").map((key) => (
     <FinalResultCard.Skeleton
       key={key}
       iconClassName="rounded-full w-[56px] h-[56px]"
