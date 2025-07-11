@@ -68,7 +68,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       const profile = await getPlayerById(token.email as string);
 
-      const user = PlayerMapper.toDomain({ ...session.user, ...profile });
+      const user = PlayerMapper.toDomain({
+        ...session.user,
+        ...profile
+      } as PlayerDTO);
 
       return { ...session, accessToken, refreshToken, user };
     }
