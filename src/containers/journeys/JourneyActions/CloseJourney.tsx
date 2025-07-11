@@ -21,7 +21,7 @@ export function CloseJourney({
   action
 }: {
   journey: JourneyDTO;
-  action: (id: string) => Promise<JourneyDTO>;
+  action: (id: string) => Promise<JourneyDTO | null>;
 }) {
   const isValid = isValidToClose(journey);
   const router = useRouter();

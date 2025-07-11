@@ -37,7 +37,7 @@ function Title({ className, ...restProps }: ComponentProps<"h3">) {
   return (
     <h3
       className={twMerge([
-        "text-base font-semibold text-white font-sans",
+        "text-base font-semibold text-white font-sans capitalize",
         className
       ])}
       {...restProps}

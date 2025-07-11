@@ -11,15 +11,21 @@ export async function JourneyActions({ journey }: { journey: JourneyDTO }) {
   );
 
   return (
-    <div className="px-4">
+    <div>
       <div className="flex flex-col gap-2">
         <ConditionalRender
           condition={!journey.hasClosed}
           fallback={
-            <p className="truncate text-nowrap">
-              <span className="font-bold">Encerrada por: </span>
-              {journey?.closedBy && players?.get(journey?.closedBy)?.name}
-            </p>
+            <>
+              <p className="truncate text-nowrap">
+                <span className="font-bold">Status: </span>
+                {journey?.hasClosed ? "Encerrada" : "Em andamento"}
+              </p>
+              <p className="truncate text-nowrap">
+                <span className="font-bold">Encerrada por: </span>
+                {journey?.closedBy && players?.get(journey?.closedBy)?.name}
+              </p>
+            </>
           }
         >
           <CloseJourney action={closeJourney} journey={journey} />
