@@ -1,7 +1,6 @@
 "use server";
 
 import { revalidateTag } from "next/cache";
-import { HttpClient } from "@/services/clients/httpClient";
 import { auth } from "@/auth";
 import { JourneysRepository } from "@/server/repositories/JourneysRepository";
 import { FirestoreAdapterDB } from "../database";
@@ -9,10 +8,6 @@ import { PlayersRepository } from "@/server/repositories/PlayersRepository";
 import { JourneyTagsRepository } from "@/server/repositories/JourneyTagsRepository";
 import { SeasonsRepository } from "@/server/repositories/SeasonsRepository";
 import { JourneyController } from "@/server/controllers/JourneyController";
-
-const client = new HttpClient<Journey, JourneyDTO>(
-  process.env.NEXT_PUBLIC_API_BASE_URL || ""
-);
 
 const journeysRepository = new JourneysRepository(
   new FirestoreAdapterDB("journeys")
@@ -65,13 +60,20 @@ export async function updateJourney(id: string, payload: Partial<Journey>) {
 }
 
 export async function closeJourney(id: string) {
-  const session = await auth();
+  try {
+    const session = await auth();
 
-  return client.put(`/journeys/${id}/close`, {} as Journey, {
-    headers: {
-      Authorization: `Bearer ${session?.accessToken}`
+    if (!session?.user?.id) {
+      throw new Error("User not authenticated");
     }
-  });
+
+    const data = await journeyController.closeJourney(id, session?.user?.id);
+
+    return data;
+  } catch (error) {
+    console.error("Error closing journey:", error);
+    return {};
+  }
 }
 
 export async function createJourney(

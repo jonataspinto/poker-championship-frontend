@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-// import { DeliveryPointsToPlayers } from "../helpers/";
+import { sanitizeObject } from "@/utils/sanitizeObject";
+import { DeliveryPointsToPlayers } from "../helpers/";
 
 export class JourneyController implements Controller<JourneyDTO> {
   private journeysRepository: Repository<Journey, JourneyDTO>;
@@ -80,48 +80,38 @@ export class JourneyController implements Controller<JourneyDTO> {
     return updatedData;
   };
 
-  delete = async (request: Request, response: Response) => {
-    const { id } = request.params;
-
+  delete = async (id: string) => {
     await this.journeysRepository.delete(id);
 
-    response.sendStatus(204);
+    return id;
   };
 
-  // closeJourney = async (request: Request, response: Response) => {
-  //   const { id } = request.params;
-  //   const { authorization = "" } = request.headers;
+  closeJourney = async (id: string, userId: string) => {
+    const journey = await this.journeysRepository.findById(id);
 
-  //   const journey = await this.journeysRepository.findById(id);
+    if (journey.hasClosed) {
+      throw new Error("this journey is already closed");
+    }
 
-  //   if (journey.hasClosed) {
-  //     response.status(400).json({ error: "this journey is closed" });
-  //     return;
-  //   }
-  //   const deliveryPointsToPlayers = new DeliveryPointsToPlayers(journey);
+    const deliveryPointsToPlayers = new DeliveryPointsToPlayers(
+      journey,
+      this.playersRepository
+    );
 
-  //   const useEmail = await this.auth.getEmailByToken(
-  //     authorization.split("Bearer ")[1]
-  //   );
+    journey.hasClosed = true;
+    journey.closedBy = userId;
 
-  //   const player = await this.playersRepository?.findByEmail?.(useEmail);
+    const updatedData = await this.journeysRepository.update(
+      id,
+      sanitizeObject<Journey>(journey) as Journey
+    );
 
-  //   if (!player) {
-  //     response.status(404).json({ error: "player not found" });
-  //     return;
-  //   }
+    await Promise.all([
+      deliveryPointsToPlayers.deliveryPodium(),
+      deliveryPointsToPlayers.deliveryBestHandPoints(),
+      deliveryPointsToPlayers.deliveryBiggestEliminator()
+    ]);
 
-  //   journey.hasClosed = true;
-  //   journey.closedBy = player.id;
-
-  //   const updatedData = await this.journeysRepository.update(id, journey);
-
-  //   await Promise.all([
-  //     deliveryPointsToPlayers.deliveryPodium(),
-  //     deliveryPointsToPlayers.deliveryBestHandPoints(),
-  //     deliveryPointsToPlayers.deliveryBiggestEliminator()
-  //   ]);
-
-  //   response.json(updatedData);
-  // };
+    return updatedData;
+  };
 }
