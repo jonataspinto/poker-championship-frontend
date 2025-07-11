@@ -1,9 +1,9 @@
 "use client";
 
 import { useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { Spinner, toast } from "@/components";
-import { revalidateListJourneys } from "@/services/actions";
 
 function isValidToClose(journey: JourneyDTO) {
   const assertions = [
@@ -24,6 +24,7 @@ export function CloseJourney({
   action: (id: string) => Promise<JourneyDTO>;
 }) {
   const isValid = isValidToClose(journey);
+  const router = useRouter();
   const { status } = useSession();
   const [isPending, startTransition] = useTransition();
 
@@ -36,7 +37,8 @@ export function CloseJourney({
           type: "success",
           text: "Rodada encerrada!"
         });
-        revalidateListJourneys();
+
+        router.push("/rodadas");
       } catch (error) {
         toast({
           type: "danger",
