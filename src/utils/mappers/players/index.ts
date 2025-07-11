@@ -1,6 +1,7 @@
-export class PlayerMapper {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  static toDomain(player: any): PlayerDTO {
+export abstract class PlayerMapper {
+  static toDomain(
+    player: (Player & { id: string }) | (PlayerDTO & { id: string })
+  ): PlayerDTO {
     return {
       id: player?.id,
       name: player?.name,
