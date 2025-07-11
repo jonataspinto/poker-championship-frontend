@@ -39,9 +39,9 @@ export async function lastJourneyPresentation() {
   let winner = lastJourney?.closedBy ? "" : "Sem vencedor";
 
   if (lastJourney?.podium?.first) {
-    const { name } = await getPlayerById(lastJourney?.podium?.first);
+    const player = await getPlayerById(lastJourney?.podium?.first);
 
-    winner = name || "";
+    winner = player?.name || "";
   }
 
   const duration = calcDuration(lastJourney.createdAt, lastJourney.updatedAt);
