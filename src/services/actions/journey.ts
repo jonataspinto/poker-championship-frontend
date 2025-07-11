@@ -72,7 +72,7 @@ export async function closeJourney(id: string) {
     return data;
   } catch (error) {
     console.error("Error closing journey:", error);
-    return {};
+    return null;
   }
 }
 

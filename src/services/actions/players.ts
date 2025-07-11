@@ -31,6 +31,6 @@ export async function getPlayerById(id: string) {
     return player;
   } catch (error) {
     console.error("getPlayerById ~ error:", error);
-    return {};
+    return null;
   }
 }
