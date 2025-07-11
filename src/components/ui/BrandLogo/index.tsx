@@ -28,6 +28,7 @@ export function BrandLogo({
         fill
         className="object-cover"
         priority
+        sizes="(max-width: 768px) 33vw, (max-width: 1200px) 70vw, 100vw"
       />
     </Link>
   );
