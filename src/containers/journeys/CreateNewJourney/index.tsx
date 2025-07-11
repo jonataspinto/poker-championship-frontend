@@ -10,7 +10,7 @@ export async function CreateNewJourney() {
   const players = await listPlayers();
   const seasons = await listSeasons();
 
-  const seasonId = seasons[0]?.id;
+  const seasonId = seasons?.[0]?.id;
 
   return (
     <NewJourneyDialog
