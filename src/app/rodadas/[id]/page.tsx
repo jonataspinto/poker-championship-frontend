@@ -7,12 +7,13 @@ import { getJourneyById } from "@/services/actions";
 export default async function Page(pageProps: PageProps) {
   const { id } = await pageProps.params;
   const journey = await getJourneyById(id);
+
   return (
     <>
       <FinalResult journeyId={id} />
       <Divider className="my-4" />
-      <JourneyActions journey={journey} />
       <BestHandAndEliminator journey={journey} />
+      <JourneyActions journey={journey} />
     </>
   );
 }
