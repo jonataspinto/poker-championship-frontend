@@ -8,7 +8,8 @@ import {
   where,
   query,
   getFirestore,
-  deleteDoc
+  deleteDoc,
+  serverTimestamp
 } from "firebase/firestore/lite";
 import { firebaseClient } from "../clients/firebaseClient";
 
@@ -26,7 +27,11 @@ export class FirestoreAdapterDB<T, DTO> implements IDBProvider<T, DTO> {
   async save(data: T): Promise<DTO> {
     const newData = await addDoc(
       collection(DATABASE, `${basePath}/${this.path}`),
-      data as Record<string, unknown>
+      {
+        ...(data as Record<string, unknown>),
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp()
+      }
     );
 
     const response = await getDoc(newData).then((snapshot) => ({
@@ -59,11 +64,13 @@ export class FirestoreAdapterDB<T, DTO> implements IDBProvider<T, DTO> {
     const collectionSnapshot = await getDocs(collectionQuery);
 
     collectionSnapshot.forEach((snapshot) => {
+      const data = snapshot.data();
+
       list.push({
-        ...(snapshot.data() as DTO),
+        ...(data as DTO),
         id: snapshot.id,
-        createdAt: snapshot.data()?.createdAt?.toDate?.(),
-        updatedAt: snapshot.data()?.updatedAt?.toDate?.()
+        createdAt: data?.createAt?.toDate?.(),
+        updatedAt: data?.updatedAt?.toDate?.()
       });
     });
 
@@ -74,11 +81,13 @@ export class FirestoreAdapterDB<T, DTO> implements IDBProvider<T, DTO> {
     const docRef = doc(DATABASE, `${basePath}/${this.path}`, id);
 
     const docSnap = await getDoc(docRef).then((snapshot) => {
+      const data = snapshot.data();
+
       return {
-        ...(snapshot.data() as DTO),
+        ...(data as DTO),
         id: snapshot.id,
-        createdAt: snapshot.data()?.createdAt?.toDate?.(),
-        updatedAt: snapshot.data()?.updatedAt?.toDate?.()
+        createdAt: data?.createdAt?.toDate?.(),
+        updatedAt: data?.updatedAt?.toDate?.()
       };
     });
 
@@ -96,11 +105,13 @@ export class FirestoreAdapterDB<T, DTO> implements IDBProvider<T, DTO> {
     const collectionSnapshot = await getDocs(collectionQuery);
 
     collectionSnapshot.forEach((snapshot) => {
+      const data = snapshot.data();
+
       list.push({
-        ...(snapshot.data() as DTO),
+        ...(data as DTO),
         id: snapshot.id,
-        createdAt: snapshot.data().createdAt?.toDate(),
-        updatedAt: snapshot.data().updatedAt?.toDate()
+        createdAt: data?.createdAt?.toDate?.(),
+        updatedAt: data?.updatedAt?.toDate?.()
       });
     });
 
@@ -110,17 +121,20 @@ export class FirestoreAdapterDB<T, DTO> implements IDBProvider<T, DTO> {
   async update(id: string, newData: T) {
     const docRef = doc(DATABASE, `${basePath}/${this.path}`, id);
 
-    const docSnap = await updateDoc(
-      docRef,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      newData as Record<string, any>
-    ).then(() =>
-      getDoc(docRef).then((snapshot) => ({
-        ...(snapshot.data() as DTO),
-        id: snapshot.id,
-        createdAt: snapshot.data()?.createdAt?.toDate(),
-        updatedAt: snapshot.data()?.updatedAt?.toDate()
-      }))
+    const docSnap = await updateDoc(docRef, {
+      ...newData,
+      updatedAt: serverTimestamp()
+    }).then(() =>
+      getDoc(docRef).then((snapshot) => {
+        const data = snapshot.data();
+
+        return {
+          ...(data as DTO),
+          id: snapshot.id,
+          createdAt: data?.createdAt?.toDate?.(),
+          updatedAt: data?.updatedAt?.toDate?.()
+        };
+      })
     );
 
     return docSnap;
