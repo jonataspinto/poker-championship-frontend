@@ -5,21 +5,17 @@ import { HighlightNumberCard } from "./HighlightNumberCard";
 export async function UserData() {
   const session = await auth();
   const playerId = session?.user?.id;
-  let journeys: JourneyDTO[] = [];
+  const searchParams = new URLSearchParams();
 
-  try {
-    if (playerId) {
-      const searchParams = new URLSearchParams({ playerId });
-      const { listJourneys } = await import("@/services/actions");
-      journeys = await listJourneys(searchParams);
-    }
-  } catch (error) {
-    console.error("Error fetching journeys:", error);
+  if (playerId) {
+    searchParams.set("playerId", playerId);
   }
 
-  const victories = journeys.reduce((count, journey) => {
-    return count + (journey?.podium?.first === playerId ? 1 : 0);
-  }, 0);
+  const { listJourneys } = await import("@/services/actions");
+
+  const journeys = await listJourneys(searchParams);
+
+  const victories = session?.user?.podiums?.first || 0;
 
   const playedJourneys = journeys.length;
 
