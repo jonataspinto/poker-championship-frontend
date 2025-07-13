@@ -25,12 +25,14 @@ export class FirestoreAdapterDB<T, DTO> implements IDBProvider<T, DTO> {
   }
 
   async save(data: T): Promise<DTO> {
+    const createdAt = serverTimestamp();
+
     const newData = await addDoc(
       collection(DATABASE, `${basePath}/${this.path}`),
       {
-        ...(data as Record<string, unknown>),
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp()
+        ...data,
+        createdAt,
+        updatedAt: createdAt
       }
     );
 
@@ -69,7 +71,7 @@ export class FirestoreAdapterDB<T, DTO> implements IDBProvider<T, DTO> {
       list.push({
         ...(data as DTO),
         id: snapshot.id,
-        createdAt: data?.createAt?.toDate?.(),
+        createdAt: data?.createdAt?.toDate?.(),
         updatedAt: data?.updatedAt?.toDate?.()
       });
     });
