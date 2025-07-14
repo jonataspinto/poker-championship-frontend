@@ -1,62 +1,25 @@
 import { Suspense } from "react";
-import Link from "next/link";
-import { CreateNewJourney } from "@/containers/journeys/CreateNewJourney";
-import { JourneyCard } from "@/containers/journeys/JourneyCard";
+import {
+  CreateNewJourney,
+  JourneyList,
+  JourneyListSkeleton
+} from "@/containers/journeys";
 
 export default function Page() {
   return (
     <>
-      <Suspense fallback={<>...</>}>
+      <Suspense
+        fallback={
+          <div className="animate-pulse bg-gray-600 w-48 h-11 rounded" />
+        }
+      >
         <CreateNewJourney />
       </Suspense>
       <div className="flex flex-col gap-4">
-        <Suspense fallback={<>Carregando...</>}>
+        <Suspense fallback={<JourneyListSkeleton />}>
           <JourneyList />
         </Suspense>
       </div>
     </>
   );
-}
-
-async function JourneyList() {
-  const title = (_journey: JourneyDTO) => `Rodada #${_journey?.tag}`;
-
-  const journeyDate = (_journey: JourneyDTO) => {
-    if (!_journey?.updatedAt) {
-      return "---";
-    }
-
-    return new Intl.DateTimeFormat("pt-BR", {
-      month: "long",
-      day: "numeric",
-      year: "numeric"
-    }).format(new Date(_journey?.updatedAt));
-  };
-
-  const { listJourneys } = await import("@/services/actions");
-
-  const journeys = await listJourneys();
-
-  return journeys?.map((journey) => (
-    <Link
-      key={journey.id}
-      href={`rodadas/${journey.id}`}
-      className="flex max-w-96"
-    >
-      <JourneyCard.Container className="justify-between items-center w-full">
-        <JourneyCard.Details>
-          <JourneyCard.Title>{title(journey)}</JourneyCard.Title>
-          <JourneyCard.Description>
-            {journeyDate(journey)} · {journey.players.length} Jogadores
-          </JourneyCard.Description>
-        </JourneyCard.Details>
-
-        <JourneyCard.Icon
-          src="/icons/arrow-left.svg"
-          alt="arrow-left-icon"
-          className="w-4 h-4"
-        />
-      </JourneyCard.Container>
-    </Link>
-  ));
 }
