@@ -6,6 +6,7 @@ export * from "./DetailPanel";
 export * from "./Dialog";
 export * from "./Divider";
 export * from "./Footer";
+export * from "./GoBackButton";
 export * from "./Header";
 export * from "./Overlay";
 export * from "./Spinner";
