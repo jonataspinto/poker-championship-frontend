@@ -7,7 +7,6 @@ import { useSession } from "next-auth/react";
 
 import { BrandLogo, ConditionalRender, Dialog } from "@/components";
 import { useAnimatedUnmount, useClickOutside } from "@/hooks";
-import { LoginGoogleButton } from "./LoginGoogleButton";
 import { LogoutButton } from "./LogoutButton";
 
 function Container({
@@ -87,7 +86,9 @@ function Content({ toggle }: { toggle?: () => void }) {
         condition={status === "unauthenticated"}
         fallback={<LogoutButton />}
       >
-        <LoginGoogleButton />
+        <Link href="/login" className="border-b border-solid" onClick={toggle}>
+          Entrar
+        </Link>
       </ConditionalRender>
     </>
   );
