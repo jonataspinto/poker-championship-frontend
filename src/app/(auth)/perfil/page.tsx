@@ -1,6 +1,6 @@
 import { PageContainer } from "@/components";
-import { LoggedUser } from "@/containers/profile";
-import { JourneysHistory } from "@/containers/profile";
+import { LoggedUser } from "./_components/LoggedUser";
+import { JourneysHistory } from "./_components/JourneysHistory";
 
 export default function Perfil() {
   return (
