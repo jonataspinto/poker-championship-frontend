@@ -1,7 +1,9 @@
 import { Divider } from "@/components/ui";
-import { BestHandAndEliminator } from "@/containers/journeys/BestHandAndEliminator";
-import { FinalResult } from "@/containers/journeys/FinalResult";
-import { JourneyActions } from "@/containers/journeys/JourneyActions";
+import {
+  BestHandAndEliminator,
+  FinalResult,
+  JourneyActions
+} from "../_components";
 import { getJourneyById } from "@/services/actions";
 
 export default async function Page(pageProps: PageProps) {

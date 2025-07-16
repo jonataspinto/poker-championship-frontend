@@ -3,7 +3,7 @@ import {
   CreateNewJourney,
   JourneyList,
   JourneyListSkeleton
-} from "@/containers/journeys";
+} from "./_components";
 
 export default function Page() {
   return (
