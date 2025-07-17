@@ -1,9 +1,16 @@
-import { PageContainer } from "@/components";
+import { GoBackButton, PageContainer } from "@/components";
 
 export default function Layout({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <PageContainer>{children}</PageContainer>;
+  return (
+    <PageContainer>
+      <div className="flex flex-col gap-4">
+        <GoBackButton />
+        {children}
+      </div>
+    </PageContainer>
+  );
 }
