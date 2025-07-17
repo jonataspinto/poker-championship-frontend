@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { GoBackButton } from "@/components";
-import { CreateNewJourney } from "./CreateNewJourney";
+import { CreateNewJourney } from "../_components/CreateNewJourney";
 
 export default function Page() {
   return (
