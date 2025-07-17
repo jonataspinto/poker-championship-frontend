@@ -3,10 +3,7 @@
 import { useTransition } from "react";
 import { revalidateListJourneys, updateJourney } from "@/services/actions";
 import { Divider, Spinner, toast } from "@/components";
-import {
-  JOURNEY_ACTIONS_EVENT_KEY,
-  journeyActionsEventManager
-} from "../journeyActionsEventManager";
+import { JOURNEY_ACTIONS_EVENT_KEY, journeyActionsEventManager } from "@/utils";
 import { SelectPlayersField } from "./SelectPlayersField";
 
 function validateValue(value: string) {

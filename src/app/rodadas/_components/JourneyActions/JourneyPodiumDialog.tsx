@@ -5,10 +5,7 @@ import { twMerge } from "tailwind-merge";
 import { useSession } from "next-auth/react";
 import { useAnimatedUnmount, useToggle, useClickOutside } from "@/hooks";
 import { ConditionalRender, Dialog } from "@/components";
-import {
-  JOURNEY_ACTIONS_EVENT_KEY,
-  journeyActionsEventManager
-} from "../journeyActionsEventManager";
+import { JOURNEY_ACTIONS_EVENT_KEY, journeyActionsEventManager } from "@/utils";
 
 export function JourneyPodiumDialog({
   children

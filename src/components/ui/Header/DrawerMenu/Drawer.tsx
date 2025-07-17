@@ -64,10 +64,22 @@ function Container({
 }
 
 function Content({ toggle }: { toggle?: () => void }) {
-  const { status } = useSession();
+  const { status, data } = useSession();
+
+  const isAdmin =
+    !!data?.user?.isAdmin || process.env.NODE_ENV === "development";
 
   return (
     <>
+      <ConditionalRender condition={isAdmin}>
+        <Link
+          href="/dashboard"
+          className="border-b border-solid"
+          onClick={toggle}
+        >
+          Dashboard
+        </Link>
+      </ConditionalRender>
       <Link href="/" className="border-b border-solid" onClick={toggle}>
         Home
       </Link>

@@ -4,3 +4,4 @@ export * from "./mappers";
 export * from "./podiumPosition";
 export * from "./orderPlayersRanking";
 export * from "./sanitizeObject";
+export * from "./journeyActionsEventManager";

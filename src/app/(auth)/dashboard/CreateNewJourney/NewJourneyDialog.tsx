@@ -4,10 +4,7 @@ import { twMerge } from "tailwind-merge";
 import { ComponentProps, useEffect } from "react";
 import { ConditionalRender, Dialog } from "@/components";
 import { useAnimatedUnmount, useClickOutside, useToggle } from "@/hooks";
-import {
-  JOURNEY_ACTIONS_EVENT_KEY,
-  journeyActionsEventManager
-} from "../journeyActionsEventManager";
+import { JOURNEY_ACTIONS_EVENT_KEY, journeyActionsEventManager } from "@/utils";
 
 export function NewJourneyDialog({
   disabled,

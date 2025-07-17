@@ -1,5 +1,4 @@
 export * from "./BestHandAndEliminator";
-export * from "./CreateNewJourney";
 export * from "./FinalResult";
 export * from "./JourneyActions";
 export * from "./JourneyCard";

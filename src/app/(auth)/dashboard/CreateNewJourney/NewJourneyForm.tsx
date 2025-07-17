@@ -3,10 +3,7 @@
 import { ComponentProps, useActionState } from "react";
 import { createJourney, revalidateListJourneys } from "@/services/actions";
 import { Avatar, Spinner, toast } from "@/components";
-import {
-  JOURNEY_ACTIONS_EVENT_KEY,
-  journeyActionsEventManager
-} from "../journeyActionsEventManager";
+import { JOURNEY_ACTIONS_EVENT_KEY, journeyActionsEventManager } from "@/utils";
 
 export function NewJourneyForm({
   players,
