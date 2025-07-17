@@ -22,7 +22,12 @@ export class SeasonController implements Controller<SeasonDTO> {
       throw new Error("There is already an open season");
     }
 
-    const newSeason = await this.seasonsRepository.create(payload);
+    const lastSeasonTag = seasons[0]?.tag || 0;
+
+    const newSeason = await this.seasonsRepository.create({
+      ...payload,
+      tag: lastSeasonTag + 1
+    });
 
     return newSeason;
   };

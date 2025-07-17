@@ -29,3 +29,19 @@ export async function getSeasonById(id: string) {
     return {};
   }
 }
+
+export async function createSeason(data: Pick<Season, "title">) {
+  try {
+    const newSeason = await seasonController.store({
+      ...data,
+      hasClosed: false,
+      journeys: [],
+      tag: 0
+    });
+
+    return newSeason;
+  } catch (error) {
+    console.error("Error creating season:", error);
+    throw error;
+  }
+}

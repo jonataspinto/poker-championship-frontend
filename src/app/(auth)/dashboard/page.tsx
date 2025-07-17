@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { GoBackButton } from "@/components";
 import { CreateNewJourney } from "../_components/CreateNewJourney";
+import { CreateNewSeason } from "../_components/CreateNewSeason";
 
 export default function Page() {
   return (
@@ -14,6 +15,8 @@ export default function Page() {
         >
           <CreateNewJourney />
         </Suspense>
+
+        <CreateNewSeason />
       </div>
     </>
   );

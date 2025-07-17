@@ -1,5 +1,6 @@
 type Season = {
   tag: number;
+  title: string;
   hasClosed: boolean;
   journeys: string[];
   closedBy?: string;
