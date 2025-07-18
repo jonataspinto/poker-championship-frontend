@@ -1,3 +1,5 @@
+"use server";
+
 import { SeasonsRepository } from "@/server/repositories/SeasonsRepository";
 import { SeasonController } from "@/server/controllers/SeasonController";
 import { FirestoreAdapterDB } from "../database";
@@ -44,4 +46,8 @@ export async function createSeason(data: Pick<Season, "title">) {
     console.error("Error creating season:", error);
     throw error;
   }
+}
+
+export async function closeSeason(closedBy: string) {
+  return seasonController.closeSeason(closedBy);
 }

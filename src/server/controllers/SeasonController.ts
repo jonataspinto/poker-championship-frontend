@@ -68,22 +68,24 @@ export class SeasonController implements Controller<SeasonDTO> {
     return id;
   };
 
-  closeSeason = async (id: string, userId: string) => {
-    const season = await this.seasonsRepository.findById(id);
+  closeSeason = async (userId: string) => {
+    const seasons = await this.index();
+
+    const season = { ...seasons?.[0] };
 
     if (!season) {
-      throw new Error(`Season with id ${id} not found`);
+      throw new Error(`Season not found`);
     }
 
     if (season.hasClosed) {
-      throw new Error("This season is already closed");
+      throw new Error("The last season is already closed");
     }
 
-    season.hasClosed = true;
-    season.closedBy = userId;
+    const updatedSeason = await this.seasonsRepository.update(season?.id, {
+      hasClosed: true,
+      closedBy: userId
+    } as Season);
 
-    const updatedSeason = await this.seasonsRepository.update(id, season);
-
-    return updatedSeason as SeasonDTO;
+    return updatedSeason;
   };
 }
