@@ -91,7 +91,7 @@ export function NewJourneyForm({
         ))}
       </div>
 
-      <button type="submit" className="btn-primary">
+      <button type="submit" className="btn-primary" disabled={isPending}>
         {isPending ? <Spinner /> : "Iniciar nova rodada"}
       </button>
     </form>

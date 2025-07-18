@@ -55,7 +55,7 @@ export function NewSeasonForm({}: ComponentProps<"form"> & {}) {
         />
       </div>
 
-      <button type="submit" className="btn-primary">
+      <button type="submit" className="btn-primary" disabled={isPending}>
         {isPending ? <Spinner /> : "Iniciar nova temporada"}
       </button>
     </form>
