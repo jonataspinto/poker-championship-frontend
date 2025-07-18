@@ -39,11 +39,7 @@ export function NewJourneyDialog({
 
   return (
     <>
-      <button
-        className="btn-primary mr-auto"
-        disabled={disabled}
-        onClick={toggle}
-      >
+      <button className="btn-primary" disabled={disabled} onClick={toggle}>
         Iniciar nova rodada
       </button>
       <ConditionalRender condition={shouldRender}>

@@ -36,7 +36,7 @@ export function NewSeasonDialog({ children }: ComponentProps<"button">) {
 
   return (
     <>
-      <button className="btn-primary mr-auto" onClick={toggle}>
+      <button className="btn-primary" onClick={toggle}>
         Iniciar nova temporada
       </button>
       <ConditionalRender condition={shouldRender}>
