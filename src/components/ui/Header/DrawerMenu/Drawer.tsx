@@ -71,6 +71,14 @@ function Content({ toggle }: { toggle?: () => void }) {
 
   return (
     <>
+      <Link href="/" className="border-b border-solid" onClick={toggle}>
+        Home
+      </Link>
+
+      <Link href="/rodadas" className="border-b border-solid" onClick={toggle}>
+        Rodadas
+      </Link>
+
       <ConditionalRender condition={isAdmin}>
         <Link
           href="/dashboard"
@@ -80,13 +88,6 @@ function Content({ toggle }: { toggle?: () => void }) {
           Dashboard
         </Link>
       </ConditionalRender>
-      <Link href="/" className="border-b border-solid" onClick={toggle}>
-        Home
-      </Link>
-
-      <Link href="/rodadas" className="border-b border-solid" onClick={toggle}>
-        Rodadas
-      </Link>
 
       <ConditionalRender condition={status === "authenticated"}>
         <Link href="/perfil" className="border-b border-solid" onClick={toggle}>
