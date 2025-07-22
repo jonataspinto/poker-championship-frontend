@@ -45,15 +45,14 @@ export function NewSeasonForm({}: ComponentProps<"form"> & {}) {
       <h2 className="font-bold text-2xl sticky top-0 bg-zinc-800 z-10 pb-2">
         Nome da temporada
       </h2>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-1">
-        <input
-          type="text"
-          name="title"
-          placeholder="Digite o nome da temporada"
-          className="input-primary w-full"
-          required
-        />
-      </div>
+
+      <input
+        type="text"
+        name="title"
+        placeholder="Digite o nome da temporada"
+        className="outline-none w-full"
+        required
+      />
 
       <button type="submit" className="btn-primary" disabled={isPending}>
         {isPending ? <Spinner /> : "Iniciar nova temporada"}
