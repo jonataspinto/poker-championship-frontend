@@ -73,6 +73,12 @@ export async function createNewRound(
 
   const currentTag = season?.rounds?.length ?? 0;
 
+  const { MAX_ROUNDS_PER_SEASON } = await import("@/utils/constants");
+
+  if (currentTag === MAX_ROUNDS_PER_SEASON) {
+    throw new Error("Maximum number of rounds reached for this season.");
+  }
+
   const newRound = {
     ...data,
     tag: currentTag + 1,
