@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import {
   CloseSeason,
   CreateNewJourney,
+  CreateNewRound,
   CreateNewSeason,
   SeasonDetails
 } from "../_components";
@@ -16,6 +17,15 @@ export default function Page() {
             <div className="animate-pulse bg-gray-600 w-48 h-11 rounded" />
           }
         >
+          <CreateNewRound />
+        </Suspense>
+
+        <Suspense
+          fallback={
+            <div className="animate-pulse bg-gray-600 w-48 h-11 rounded" />
+          }
+        >
+          {/* TODO: remover após refactor da estrutura do firestore */}
           <CreateNewJourney />
         </Suspense>
 
