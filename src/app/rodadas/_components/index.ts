@@ -4,3 +4,4 @@ export * from "./JourneyActions";
 export * from "./JourneyCard";
 export * from "./JourneyList";
 export * from "./Podium";
+export * from "./RoundList";
